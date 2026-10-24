@@ -29,284 +29,336 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#FFF8F0;color:#111827;padding:10px;}
 h1{font-size:22px;font-weight:900;text-align:center;padding:10px 0 4px;}
-.sub{font-size:11px;text-align:center;color:#111827;margin-bottom:12px;line-height:1.4;}
-.container{max-width:1000px;margin:0 auto;display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
-.device{background:white;border:5px solid black;border-radius:28px;padding:8px;width:390px;box-shadow:0 8px 24px rgba(0,0,0,0.15);}
-.inner{background:#F9FAFB;border-radius:18px;padding:12px;min-height:680px;display:flex;flex-direction:column;}
-.label{font-size:11px;font-weight:900;margin:8px 0 6px 2px;color:black;}
-.modes{display:flex;gap:5px;margin-bottom:8px;}
-.mode-btn{flex:1;padding:9px 4px;border-radius:20px;font-size:11px;font-weight:900;border:2px solid black;cursor:pointer;background:white;color:black;}
-.mode-btn.active{background:black;color:white;}
-.lock{background:black;color:white;border-radius:20px;padding:8px;text-align:center;font-size:12px;font-weight:900;margin-bottom:10px;}
-.tabs{display:flex;gap:4px;margin-bottom:10px;}
-.tab{flex:1;padding:8px;border-radius:18px;font-size:11px;font-weight:900;border:2px solid black;cursor:pointer;text-align:center;}
-.tab.active{background:black;color:white;}
-.tab.inactive{background:white;color:black;}
-.content{flex:1;display:flex;flex-direction:column;overflow:hidden;}
-.list{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:7px;max-height:360px;}
-.msg{border:2px solid black;border-radius:14px;padding:9px;background:white;}
-.msg.auto{background:#FFFBEB;}
-.author{font-size:10px;font-weight:900;background:black;color:white;padding:2px 7px;border-radius:10px;display:inline-block;margin-bottom:4px;}
-.author.auto{background:#FCD34D;color:black;}
-.text{font-size:13px;font-weight:700;color:black;line-height:1.4;}
-.time{font-size:9px;color:black;font-weight:600;margin-top:3px;}
-.input-area{background:white;border:2px solid black;border-radius:14px;padding:8px;margin-top:8px;}
-.badge{font-size:10px;font-weight:900;background:black;color:white;padding:3px 7px;border-radius:10px;display:inline-block;margin-bottom:6px;}
+.sub{font-size:11px;text-align:center;margin-bottom:12px;}
+.device{max-width:420px;margin:0 auto;background:white;border:5px solid black;border-radius:28px;padding:8px;transition:all 0.3s;}
+.device.ipad{max-width:600px;background:#FFF0F6;}
+.inner{border-radius:18px;padding:12px;min-height:600px;display:flex;flex-direction:column;background:#F9FAFB;}
+.inner.ipad-inner{background:#FFF0F6;min-height:700px;}
+.top-badge{background:black;color:white;border-radius:14px;padding:10px;text-align:center;font-size:12px;font-weight:900;margin-bottom:10px;cursor:pointer;}
+.tabs{display:flex;gap:6px;margin-bottom:10px;}
+.tab{flex:1;padding:10px;border-radius:20px;font-size:12px;font-weight:900;border:2px solid black;text-align:center;cursor:pointer;}
+.tab.on{background:black;color:white;}
+.tab.off{background:white;color:black;}
+.box{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.list{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px;}
+.msg{border:2px solid black;border-radius:14px;padding:10px;background:white;}
+.text{font-size:13px;font-weight:700;}
+.todo{border:2px solid black;border-radius:14px;padding:10px;background:white;display:flex;gap:8px;align-items:center;}
+.todo span{flex:1;font-size:12px;font-weight:700;cursor:pointer;}
+.input-area{border:2px solid black;border-radius:14px;padding:8px;background:white;margin-top:8px;}
 .row{display:flex;gap:6px;}
-.row input{flex:1;background:#F3F4F6;border:1.5px solid black;border-radius:20px;padding:9px 12px;font-size:12px;font-weight:700;color:black;}
-.row button{background:black;color:white;border-radius:20px;padding:9px 14px;font-size:12px;font-weight:900;border:none;cursor:pointer;}
-.todo-item{border:2px solid black;border-radius:14px;padding:10px;background:white;display:flex;align-items:center;gap:8px;}
-.todo-item input{width:18px;height:18px;}
-.todo-item span{flex:1;font-size:12px;font-weight:700;color:black;}
-.small{font-size:9px;background:#E5E7EB;padding:2px 5px;border-radius:6px;font-weight:700;color:black;}
-.settings{display:flex;flex-direction:column;gap:8px;}
-.set-btn{border:2px solid black;border-radius:20px;padding:12px;font-size:12px;font-weight:900;cursor:pointer;text-align:left;}
-.set-btn.yellow{background:#FFD93D;color:black;}
-.set-btn.white{background:white;color:black;}
-.set-box{background:white;border:2px solid black;border-radius:14px;padding:10px;font-size:11px;color:black;line-height:1.5;}
-.feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
-.feature-card{border:2px solid black;border-radius:12px;padding:8px;background:white;text-align:center;}
-.feature-card b{font-size:11px;display:block;color:black;}
-.feature-card span{font-size:9px;color:black;}
-.kid{width:440px;background:white;border:5px solid black;border-radius:28px;padding:8px;}
-.kid-inner{background:#FFF0F6;border-radius:18px;padding:14px;min-height:680px;display:flex;flex-direction:column;border:2px solid black;}
-.kid-title{font-size:20px;font-weight:900;text-align:center;color:black;}
-.kid-badge{text-align:center;margin:8px auto;background:black;color:white;border-radius:18px;padding:5px 12px;font-size:11px;font-weight:900;display:table;}
-.kid-todos{flex:1;display:flex;flex-direction:column;gap:10px;overflow-y:auto;}
-.kid-todo{background:white;border:2px solid black;border-radius:18px;padding:12px;display:flex;align-items:center;gap:12px;}
-.kid-todo button{width:48px;height:48px;border-radius:50%;font-size:20px;border:2px solid black;cursor:pointer;background:white;}
+.row input{flex:1;border:1.5px solid black;border-radius:20px;padding:10px 12px;font-size:12px;font-weight:700;}
+.row button{border:none;background:black;color:white;border-radius:20px;padding:10px 16px;font-weight:900;cursor:pointer;}
+
+/* iPad Kid Mode Styles */
+.kid-header{text-align:center;margin-bottom:12px;}
+.kid-title{font-size:26px;font-weight:900;color:black;}
+.kid-badge{display:inline-block;background:black;color:white;border-radius:18px;padding:6px 14px;font-size:12px;font-weight:900;margin-top:8px;}
+.kid-todos{flex:1;display:flex;flex-direction:column;gap:14px;overflow-y:auto;}
+.kid-todo{background:white;border:3px solid black;border-radius:22px;padding:18px;display:flex;align-items:center;gap:16px;box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+.kid-todo button{width:64px;height:64px;border-radius:50%;font-size:28px;border:3px solid black;cursor:pointer;background:white;flex-shrink:0;}
 .kid-todo button.done{background:#4ADE80;}
-.kid-todo span{font-size:16px;font-weight:900;color:black;}
-.timer{background:white;border:2px solid black;border-radius:18px;padding:12px;margin-top:10px;text-align:center;}
-.timer-disp{font-size:32px;font-weight:900;margin:8px 0;color:black;}
-.timer-btn{width:100%;background:black;color:white;border-radius:20px;padding:10px;font-size:13px;font-weight:900;border:none;cursor:pointer;}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:black;color:white;padding:10px 18px;border-radius:20px;font-size:12px;font-weight:900;display:none;z-index:99;border:2px solid white;}
-.add-form{border:2px dashed black;border-radius:14px;padding:10px;margin-top:8px;background:#FFF9E6;}
-.add-form input,.add-form select{width:100%;border:1.5px solid black;border-radius:10px;padding:8px;margin:4px 0;font-size:12px;font-weight:700;}
-@media(max-width:800px){.container{flex-direction:column;align-items:center;}.device,.kid{width:100%;max-width:400px;}}
+.kid-todo span{font-size:20px;font-weight:900;color:black;flex:1;line-height:1.3;}
+.kid-todo.done{opacity:0.5;}
+.timer-big{background:white;border:3px solid black;border-radius:22px;padding:18px;margin-top:14px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+.timer-disp{font-size:48px;font-weight:900;margin:12px 0;color:black;}
+.timer-btn-big{width:100%;background:black;color:white;border-radius:24px;padding:16px;font-size:18px;font-weight:900;border:none;cursor:pointer;}
+
+.set-wrap{display:flex;flex-direction:column;gap:10px;overflow-y:auto;max-height:520px;padding-bottom:20px;}
+.card{border:2px solid black;border-radius:14px;padding:12px;background:white;}
+.card h3{font-size:13px;font-weight:900;margin-bottom:6px;}
+.card p{font-size:11px;line-height:1.4;margin-bottom:6px;}
+.modes{display:flex;gap:6px;margin-top:8px;}
+.modes button{flex:1;padding:12px 4px;border-radius:18px;border:2px solid black;font-size:11px;font-weight:900;cursor:pointer;background:white;color:black;}
+.modes button.on{background:black;color:white;}
+.btn{width:100%;border:2px solid black;border-radius:18px;padding:12px;font-size:11px;font-weight:900;cursor:pointer;margin-top:6px;}
+.btn.yellow{background:#FFD93D;color:black;}
+.btn.white{background:white;color:black;}
+.btn.black{background:black;color:white;}
+.toggle{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #eee;}
+.switch{width:44px;height:24px;background:#ddd;border-radius:12px;position:relative;border:1.5px solid black;cursor:pointer;}
+.switch.on{background:#4ADE80;}
+.switch:after{content:'';position:absolute;width:18px;height:18px;background:white;border-radius:50%;top:2px;left:2px;border:1px solid black;transition:0.2s;}
+.switch.on:after{left:22px;}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:black;color:white;padding:12px 20px;border-radius:20px;font-size:12px;font-weight:900;display:none;z-index:99;border:2px solid white;}
 </style>
 </head>
 <body>
 <h1>전씨네 Family Chat v1.0</h1>
-<p class="sub">v1.0 - 저장: 아빠 구글 드라이브 / 소스: 엄마 하이클래스</p>
+<p class="sub">v1.0 - 아빠/엄마는 폰, 해준이는 아이패드 큰 화면</p>
+<div class="device" id="deviceFrame">
+<div class="inner" id="innerFrame">
+<div class="top-badge" id="topBadge" onclick="goTab('set')">👨 아빠 모드 사용중 - 터치하면 설정</div>
 
-<div class="container">
-<div class="device">
-<div class="inner">
-<div class="label">🔒 누가 쓰고 있나요?</div>
-<div class="modes" id="modes"></div>
-<div class="lock" id="lock">👨 아빠 모드로 전송 🔒</div>
-<div class="tabs">
-<div class="tab active" id="t-chat" onclick="switchTab('chat')">채팅</div>
-<div class="tab inactive" id="t-todo" onclick="switchTab('todo')">할일</div>
-<div class="tab inactive" id="t-set" onclick="switchTab('set')">설정/전체</div>
+<!-- Normal Tabs (for parents) -->
+<div class="tabs" id="tabs">
+<div class="tab on" id="tab-chat" onclick="goTab('chat')">채팅</div>
+<div class="tab off" id="tab-todo" onclick="goTab('todo')">할일</div>
+<div class="tab off" id="tab-set" onclick="goTab('set')">설정</div>
 </div>
 
-<div id="v-chat" class="content">
+<!-- Chat View -->
+<div id="view-chat" class="box">
 <div class="list" id="chatList"></div>
 <div class="input-area">
-<div class="badge" id="inputBadge">👨 아빠로 전송</div>
+<div style="font-size:10px;font-weight:900;background:black;color:white;display:inline-block;padding:3px 8px;border-radius:10px;margin-bottom:6px;" id="sendBadge">👨 아빠로 전송</div>
 <div class="row">
-<input id="chatInput" placeholder="아빠로 메시지 보내기..." onkeypress="if(event.key==='Enter')sendMsg()">
+<input id="chatInput" placeholder="메시지..." onkeypress="if(event.key==='Enter')sendMsg()">
 <button onclick="sendMsg()">전송</button>
 </div>
 </div>
 </div>
 
-<div id="v-todo" style="display:none;" class="content">
+<!-- Todo View (parent) -->
+<div id="view-todo" class="box" style="display:none;">
 <div class="list" id="todoList"></div>
-<div class="add-form">
-<div class="label">+ 할일 추가 (해준이 전용)</div>
-<input id="todoTitle" placeholder="예: 실내화 챙기기">
-<div style="display:flex;gap:6px;">
-<select id="todoOwner" style="flex:1;">
-<option value="해준">해준</option>
-<option value="해온">해온 (보기만)</option>
-<option value="가족">가족 공용</option>
-</select>
-<select id="todoSource" style="flex:1;">
-<option value="family">가족이 직접</option>
-<option value="hiclass_auto">하이클래스 자동</option>
-</select>
-</div>
-<div class="row" style="margin-top:6px;">
-<button onclick="addTodo()" style="flex:1;">추가하기</button>
-</div>
-<p style="font-size:9px;margin-top:6px;color:black;">* 할일은 해준 아이패드에 크게 뜸. 체크하면 부모 폰에서도 완료 표시</p>
+<div class="row" style="margin-top:8px;">
+<input id="todoInput" placeholder="할일 추가">
+<button onclick="addTodo()">추가</button>
 </div>
 </div>
 
-<div id="v-set" style="display:none;" class="content settings">
-<div class="label">📚 원래 구현하려던 기능들 - 지금 상태</div>
-<div class="feature-grid">
-<div class="feature-card"><b>💬 가족 채팅</b><span>✅ 구현됨<br>모드 고정</span></div>
-<div class="feature-card"><b>✅ 할일</b><span>✅ 구현됨<br>아래서 세팅</span></div>
-<div class="feature-card"><b>🏫 하이클래스</b><span>✅ 시뮬레이션<br>엄마 계정 연동 예정</span></div>
-<div class="feature-card"><b>👶 키즈노트</b><span>⏳ 해온 5살<br>부모만 보기</span></div>
-<div class="feature-card"><b>📸 앨범</b><span>⏳ 구글 드라이브<br>사진 백업 예정</span></div>
-<div class="feature-card"><b>⏱️ 타이머</b><span>✅ 구현됨<br>양치 3분</span></div>
+<!-- Settings View -->
+<div id="view-set" class="box" style="display:none;">
+<div class="set-wrap" id="setWrap"></div>
 </div>
 
-<button class="set-btn yellow" onclick="simulateHiclass()">🏫 하이클래스 소식 가져오기 (엄마 카카오 계정 시뮬레이션)</button>
-<button class="set-btn white" onclick="simulateKidsnote()">👶 키즈노트 소식 가져오기 (해온이 어린이집)</button>
-<button class="set-btn white" onclick="addSampleTodos()">📝 샘플 할일 세팅 (아침 루틴)</button>
-
-<div class="set-box">
-<b>할일 세팅 방법:</b><br>
-1. 할일 탭 → 아래 노란 박스에서 제목 입력<br>
-2. 소유자 선택: 해준 / 해온 / 가족 공용<br>
-3. 출처 선택: 가족이 직접 / 하이클래스 자동<br>
-4. 추가하기 → 해준 아이패드에 바로 뜸<br><br>
-<b>하이클래스 연동 (예정):</b><br>
-- 엄마 아이폰에서 하이클래스 카카오 로그인<br>
-- 알림장 긁어서 → 아빠 구글 드라이브에 저장<br>
-- 준비물이면 자동으로 할일로 변환<br><br>
-<b>저장소:</b> 아빠 구글 드라이브 appDataFolder (지금은 브라우저 저장)
-</div>
-</div>
-
-</div>
-</div>
-
-<div class="kid">
-<div class="kid-inner">
+<!-- iPad Kid View - Hidden by default, shown when Haejun mode -->
+<div id="view-kid" class="box" style="display:none;">
+<div class="kid-header">
 <div class="kid-title">해준아, 오늘 할일! 👦</div>
-<div class="kid-badge">해준이 모드 고정 🔒 - 터치하면 체크</div>
+<div class="kid-badge" id="kidBadge">해준이 전용 아이패드 - 터치하면 체크</div>
+</div>
 <div class="kid-todos" id="kidTodos"></div>
-<div class="timer">
-<div style="font-weight:900;color:black;font-size:13px;">🪥 양치하기 3분 타이머</div>
+<div class="timer-big">
+<div style="font-weight:900;font-size:16px;">🪥 양치하기 3분 타이머</div>
 <div class="timer-disp" id="timerDisp">03:00</div>
-<button class="timer-btn" id="timerBtn" onclick="toggleTimer()">시작!</button>
-</div>
+<button class="timer-btn-big" id="timerBtn" onclick="toggleTimer()">시작!</button>
 </div>
 </div>
 
 </div>
-
+</div>
 <div class="toast" id="toast"></div>
 
 <script>
 let cur='아빠';
-const modes=[{id:'아빠',e:'👨'},{id:'엄마',e:'👩'},{id:'해준',e:'👦'}];
-let data=JSON.parse(localStorage.getItem('family_full_v1')||'{"messages":[{"id":"1","author":"엄마","content":"해준아 내일 실내화 챙겨!","source":"family","created_at":"2025-10-24T19:00:00Z"}],"todos":[{"id":"101","owner":"해준","title":"실내화 챙기기","done":false,"source":"hiclass_auto","created_at":"2025-10-24"},{"id":"102","owner":"해준","title":"받아쓰기 연습","done":false,"source":"family","created_at":"2025-10-24"}]}');
-function save(){localStorage.setItem('family_full_v1',JSON.stringify(data));}
-function renderModes(){
- document.getElementById('modes').innerHTML=modes.map(m=>`<button class="mode-btn ${cur===m.id?'active':''}" onclick="setMode('${m.id}')">${m.e} ${m.id}용 ${cur===m.id?'✓':''}</button>`).join('');
- const c=modes.find(x=>x.id===cur);
- document.getElementById('lock').textContent=`${c.e} ${c.id} 모드로 전송 🔒`;
- document.getElementById('inputBadge').textContent=`${c.e} ${c.id}로 전송`;
- document.getElementById('chatInput').placeholder=`${c.id}로 메시지 보내기...`;
+const modes=[
+ {id:'아빠',icon:'👨',desc:'폰 - 저장소 관리'},
+ {id:'엄마',icon:'👩',desc:'폰 - 학교소식'},
+ {id:'해준',icon:'👦',desc:'아이패드 - 큰 화면'}
+];
+let data=null;
+try{ data=JSON.parse(localStorage.getItem('fam_v10_ipad')||'null'); }catch(e){ data=null; }
+if(!data){
+ data={
+  messages:[{id:'1',author:'엄마',content:'해준아 내일 실내화 챙겨!',source:'family',created_at:new Date().toISOString()}],
+  todos:[{id:'101',owner:'해준',title:'실내화 챙기기',done:false,source:'hiclass_auto'},{id:'102',owner:'해준',title:'받아쓰기 연습',done:false,source:'family'},{id:'103',owner:'해준',title:'가방 싸기',done:false,source:'family'}],
+  settings:{
+   '아빠':{familyName:'전씨네',autoBackup:true},
+   '엄마':{hiclassAuto:true,kidsnoteAuto:false,autoTodo:true,notifTime:'19:00'},
+   '해준':{timerSound:true,showCompleted:false,bigText:true}
+  }
+ };
 }
-window.setMode=(id)=>{cur=id;renderModes();toast(`${id} 모드로 전환!`);}
-function renderMsgs(){
+function save(){ localStorage.setItem('fam_v10_ipad', JSON.stringify(data)); }
+
+function goTab(name){
+ // Hide all
+ document.getElementById('view-chat').style.display='none';
+ document.getElementById('view-todo').style.display='none';
+ document.getElementById('view-set').style.display='none';
+ document.getElementById('view-kid').style.display='none';
+ document.getElementById('tab-chat').className='tab off';
+ document.getElementById('tab-todo').className='tab off';
+ document.getElementById('tab-set').className='tab off';
+ document.getElementById('tabs').style.display='flex';
+
+ if(cur==='해준' && name!=='set'){
+   // In Haejun mode, chat/todo go to kid view, but set goes to settings
+   if(name==='set'){
+     document.getElementById('view-set').style.display='flex';
+     document.getElementById('tab-set').className='tab on';
+     renderSettings();
+   } else {
+     // Kid iPad mode
+     document.getElementById('view-kid').style.display='flex';
+     document.getElementById('tabs').style.display='flex';
+     // Keep tabs but highlight todo as kid view
+     if(name==='todo' || name==='chat'){
+       document.getElementById('tab-todo').className='tab on';
+     }
+     renderKid();
+   }
+ } else {
+   document.getElementById('view-'+name).style.display='flex';
+   document.getElementById('tab-'+name).className='tab on';
+   if(name==='set') renderSettings();
+   if(name==='todo') renderTodos();
+   if(name==='chat') renderChat();
+ }
+}
+
+function renderTop(){
+ const m=modes.find(x=>x.id===cur);
+ const device=document.getElementById('deviceFrame');
+ const inner=document.getElementById('innerFrame');
+ if(cur==='해준'){
+   device.className='device ipad';
+   inner.className='inner ipad-inner';
+   document.getElementById('topBadge').textContent='👦 해준이 아이패드 모드 🔒 - 설정에서 아빠/엄마로 변경';
+   document.getElementById('tab-chat').textContent='할일';
+   document.getElementById('tab-todo').textContent='큰 할일';
+   document.getElementById('tab-set').textContent='설정';
+ } else {
+   device.className='device';
+   inner.className='inner';
+   document.getElementById('topBadge').textContent=m.icon+' '+m.id+' 모드 사용중 🔒 - 설정에서 변경';
+   document.getElementById('tab-chat').textContent='채팅';
+   document.getElementById('tab-todo').textContent='할일';
+   document.getElementById('tab-set').textContent='설정';
+ }
+ document.getElementById('sendBadge').textContent=m.icon+' '+m.id+'로 전송';
+ document.getElementById('chatInput').placeholder=m.id+'로 메시지 보내기...';
+}
+
+function renderChat(){
  const el=document.getElementById('chatList');
- el.innerHTML=data.messages.map(m=>{
-  const auto=m.source!=='family';
-  return `<div class="msg ${auto?'auto':''}"><div class="author ${auto?'auto':''}">${auto?(m.source==='kidsnote_auto'?'👶 키즈노트 자동':'🏫 하이클래스 자동'):m.author}</div><div class="text">${m.content}</div><div class="time">${new Date(m.created_at).toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})}</div></div>`;
+ el.innerHTML=data.messages.map(msg=>{
+   const isAuto=msg.source!=='family';
+   const label=isAuto?(msg.source==='kidsnote_auto'?'👶 키즈노트':'🏫 하이클래스'):msg.author;
+   return '<div class="msg '+(isAuto?'auto':'')+'" style="position:relative;"><button onclick="deleteMsg(\''+msg.id+'\')" style="position:absolute;top:6px;right:6px;background:#FF4444;color:white;border:none;border-radius:50%;width:22px;height:22px;font-size:12px;font-weight:900;cursor:pointer;">×</button><div class="author">'+label+'</div><div class="text" onclick="editMsg(\''+msg.id+'\')" style="cursor:pointer;padding-right:20px;">'+msg.content+'</div><div class="time">'+new Date(msg.created_at).toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})+' • 터치하면 수정</div></div>';
  }).join('');
  el.scrollTop=el.scrollHeight;
 }
-function renderTodos(){
- document.getElementById('todoList').innerHTML=data.todos.map(t=>`<div class="todo-item">
-<input type="checkbox" ${t.done?'checked':''} onchange="toggleTodo('${t.id}')">
-<span style="${t.done?'text-decoration:line-through;opacity:0.5':''};flex:1;cursor:pointer;" onclick="editTodo('${t.id}')">${t.title} (${t.owner})</span>
-<span class="small">${t.source==='hiclass_auto'?'하이클래스':t.source==='kidsnote_auto'?'키즈노트':'가족'}</span>
-<button onclick="deleteTodo('${t.id}')" style="background:#FF4444;color:white;border:none;border-radius:8px;padding:4px 8px;font-size:10px;font-weight:900;cursor:pointer;">삭제</button>
-</div>`).join('');
- const filtered=data.todos.filter(t=>t.owner==='해준');
- const kidEl=document.getElementById('kidTodos');
- if(filtered.length===0) kidEl.innerHTML='<div style="text-align:center;padding:20px;font-weight:800;">할일이 없어요! 🎉</div>';
- else kidEl.innerHTML=filtered.map(t=>`<div class="kid-todo" style="${t.done?'opacity:0.5':''}">
-<button class="${t.done?'done':''}" onclick="toggleTodo('${t.id}')">${t.done?'✅':'⭕'}</button>
-<span style="${t.done?'text-decoration:line-through':''};flex:1;cursor:pointer;" onclick="editTodo('${t.id}')">${t.title}</span>
-<button onclick="deleteTodo('${t.id}')" style="background:#FF4444;color:white;border:none;border-radius:50%;width:28px;height:28px;font-size:12px;font-weight:900;cursor:pointer;">×</button>
-</div>`).join('');
+function deleteMsg(id){
+ if(!confirm('이 메시지를 삭제할까요?')) return;
+ data.messages=data.messages.filter(m=>m.id!==id);
+ save(); renderChat(); toast('메시지 삭제됨');
 }
-window.editTodo=(id)=>{
- const t=data.todos.find(x=>x.id===id);
- if(!t) return;
- const newTitle=prompt('할일 수정:', t.title);
- if(newTitle===null) return;
- if(newTitle.trim()===''){ toast('제목을 입력하세요'); return; }
- t.title=newTitle.trim();
- save(); renderTodos();
-}
-window.deleteTodo=(id)=>{
- if(!confirm('이 할일을 삭제할까요?')) return;
- data.todos=data.todos.filter(x=>x.id!==id);
- save(); renderTodos(); toast('삭제됨');
+function editMsg(id){
+ const m=data.messages.find(x=>x.id===id);
+ if(!m) return;
+ if(m.source!=='family'){ alert('자동 메시지는 수정 불가, 삭제만 가능'); return; }
+ const nt=prompt('메시지 수정:', m.content);
+ if(nt===null) return;
+ if(nt.trim()==='') return;
+ m.content=nt.trim();
+ save(); renderChat(); toast('메시지 수정됨');
 }
 
-window.switchTab=(tab)=>{
- ['chat','todo','set'].forEach(t=>{
-  document.getElementById('v-'+t).style.display='none';
-  document.getElementById('t-'+t).className='tab inactive';
+function renderTodos(){
+ const el=document.getElementById('todoList');
+ const list=data.todos;
+ el.innerHTML=list.map(t=>{
+   return '<div class="todo"><input type="checkbox" '+(t.done?'checked':'')+' onchange="toggleTodo(\''+t.id+'\')"><span onclick="editTodo(\''+t.id+'\')" style="'+(t.done?'text-decoration:line-through;opacity:0.5':'')+'">'+t.title+' ('+t.owner+')</span><button onclick="deleteTodo(\''+t.id+'\')" style="background:#FF4444;color:white;border:none;border-radius:8px;padding:4px 8px;font-size:10px;font-weight:900;">삭제</button></div>';
+ }).join('');
+}
+function renderKid(){
+ const showCompleted=data.settings['해준']?.showCompleted;
+ let filtered=data.todos.filter(t=>t.owner==='해준');
+ if(showCompleted===false) filtered=filtered.filter(t=>!t.done);
+ const el=document.getElementById('kidTodos');
+ if(filtered.length===0) el.innerHTML='<div style="text-align:center;padding:30px;font-weight:900;font-size:18px;">할일이 없어요! 🎉<br><span style="font-size:13px;">다 했어! 잘했어!</span></div>';
+ else el.innerHTML=filtered.map(t=>{
+   return '<div class="kid-todo '+(t.done?'done':'')+'"><button class="'+(t.done?'done':'')+'" onclick="toggleTodo(\''+t.id+'\')">'+(t.done?'✅':'⭕')+'</button><span style="'+(t.done?'text-decoration:line-through':'')+'">'+t.title+'</span><button onclick="deleteTodo(\''+t.id+'\')" style="background:#FF4444;color:white;border:none;border-radius:50%;width:36px;height:36px;font-size:16px;font-weight:900;">×</button></div>';
+ }).join('');
+}
+function renderSettings(){
+ const s=data.settings[cur]||{};
+ const wrap=document.getElementById('setWrap');
+ let html='';
+ html+='<div class="card" style="background:#FFF9E6;border:2px dashed black;"><h3>🔄 사용자 전환</h3><p>여기서만 아빠/엄마/해준을 바꿉니다. 해준이 선택하면 아이패드 큰 화면으로 바뀜</p><div class="modes">';
+ modes.forEach(m=>{
+   const on=cur===m.id?'on':'';
+   html+='<button class="'+on+'" onclick="changeMode(\''+m.id+'\')">'+m.icon+' '+m.id+'용<br>'+(cur===m.id?'✓ 현재':m.desc)+'</button>';
  });
- document.getElementById('v-'+tab).style.display='flex';
- document.getElementById('t-'+tab).className='tab active';
+ html+='</div></div>';
+
+ if(cur==='아빠'){
+   html+='<div class="card"><h3>👨 아빠용 설정 - 폰</h3><p>가족 이름</p><input value="'+(s.familyName||'')+'" onchange="setVal(\'familyName\',this.value)"><div class="toggle"><span>자동 백업</span><div class="switch '+(s.autoBackup?'on':'')+'" onclick="toggleVal(\'autoBackup\')"></div></div></div>';
+   html+='<div class="card"><h3>📝 루틴 관리</h3><button class="btn yellow" onclick="addSample()">📝 샘플 루틴 추가</button><button class="btn white" onclick="clearTodos()">🗑️ 해준 할일 전체 삭제</button></div>';
+ } else if(cur==='엄마'){
+   html+='<div class="card"><h3>👩 엄마용 설정 - 폰</h3><div class="toggle"><span>🏫 하이클래스 자동</span><div class="switch '+(s.hiclassAuto?'on':'')+'" onclick="toggleVal(\'hiclassAuto\')"></div></div><div class="toggle"><span>👶 키즈노트 자동</span><div class="switch '+(s.kidsnoteAuto?'on':'')+'" onclick="toggleVal(\'kidsnoteAuto\')"></div></div><div class="toggle"><span>📝 준비물 자동 할일</span><div class="switch '+(s.autoTodo?'on':'')+'" onclick="toggleVal(\'autoTodo\')"></div></div></div>';
+   html+='<div class="card"><h3>🔗 테스트</h3><button class="btn yellow" onclick="simHiclass()">🏫 하이클래스 가져오기</button><button class="btn white" onclick="simKidsnote()">👶 키즈노트 가져오기</button></div>';
+ } else {
+   html+='<div class="card" style="background:#FFF0F6;"><h3>👦 해준용 설정 - 아이패드</h3><p>지금 아이패드 큰 화면 모드입니다. 폰으로 돌아가려면 위에서 아빠/엄마로 변경</p><div class="toggle"><span>🔊 타이머 소리</span><div class="switch '+(s.timerSound?'on':'')+'" onclick="toggleVal(\'timerSound\')"></div></div><div class="toggle"><span>✅ 완료된 할일 숨기기</span><div class="switch '+(s.showCompleted===false?'on':'')+'" onclick="toggleVal(\'showCompleted\')"></div></div></div>';
+   html+='<div class="card"><h3>🎨 아이패드 화면 설명</h3><p>- 할일이 20px 큰 글씨, 64px 큰 버튼으로 표시<br>- 터치하면 체크<br>- 양치 타이머 48px 큰 숫자<br>- 부모 설정은 설정 탭에서만</p><button class="btn black" onclick="goTab(\'todo\')">📋 큰 할일 화면으로</button></div>';
+ }
+ wrap.innerHTML=html;
 }
-window.sendMsg=()=>{
- const inp=document.getElementById('chatInput'); const c=inp.value.trim(); if(!c) return;
- data.messages.push({id:Date.now().toString(),author:cur,content:c,source:'family',created_at:new Date().toISOString()});
- inp.value=''; save(); renderMsgs();
+
+function changeMode(id){
+ cur=id;
+ save();
+ renderTop();
+ if(id==='해준'){
+   goTab('todo'); // go to kid view
+ } else {
+   goTab('chat');
+ }
+ toast(id+' 모드로 변경 - '+(id==='해준'?'아이패드 큰 화면':'폰 화면'));
 }
-window.addTodo=()=>{
- const title=document.getElementById('todoTitle').value.trim();
- const owner=document.getElementById('todoOwner').value;
- const source=document.getElementById('todoSource').value;
- if(!title) {toast('할일 제목 입력!'); return;}
- data.todos.push({id:Date.now().toString(),owner,title,done:false,source,created_at:new Date().toISOString()});
- document.getElementById('todoTitle').value=''; save(); renderTodos(); toast(`${owner} 할일 추가됨!`);
+
+function sendMsg(){
+ const inp=document.getElementById('chatInput');
+ const txt=inp.value.trim(); if(!txt) return;
+ data.messages.push({id:Date.now().toString(),author:cur,content:txt,source:'family',created_at:new Date().toISOString()});
+ inp.value=''; save(); renderChat();
 }
-window.toggleTodo=(id)=>{ const t=data.todos.find(x=>x.id===id); if(t) t.done=!t.done; save(); renderTodos(); }
-window.simulateHiclass=()=>{
+function addTodo(){
+ const inp=document.getElementById('todoInput');
+ const title=inp.value.trim(); if(!title) return;
+ data.todos.push({id:Date.now().toString(),owner:'해준',title:title,done:false,source:'family',created_at:new Date().toISOString()});
+ inp.value=''; save(); renderTodos(); renderKid();
+}
+function toggleTodo(id){ const t=data.todos.find(x=>x.id===id); if(t) t.done=!t.done; save(); renderTodos(); renderKid(); }
+function editTodo(id){
+ const t=data.todos.find(x=>x.id===id); if(!t) return;
+ const nt=prompt('수정:',t.title); if(nt===null) return; if(nt.trim()==='') return;
+ t.title=nt.trim(); save(); renderTodos(); renderKid();
+}
+function deleteTodo(id){ if(!confirm('삭제?')) return; data.todos=data.todos.filter(x=>x.id!==id); save(); renderTodos(); renderKid(); }
+function simHiclass(){
  const now=new Date().toISOString();
- data.messages.push({id:Date.now().toString(),author:'자동',content:'[하이클래스] 내일 준비물: 실내화, 받아쓰기 노트, 물병 / 받아쓰기 시험 있음 - 담임선생님 (엄마 계정에서 자동 수집)',source:'hiclass_auto',created_at:now});
- data.todos.push({id:(Date.now()+1).toString(),owner:'해준',title:'실내화 챙기기',done:false,source:'hiclass_auto',created_at:now});
- data.todos.push({id:(Date.now()+2).toString(),owner:'해준',title:'받아쓰기 노트 준비',done:false,source:'hiclass_auto',created_at:now});
- save(); renderMsgs(); renderTodos(); toast('하이클래스 소식 가져옴!');
+ data.messages.push({id:Date.now().toString(),author:'자동',content:'[하이클래스] 내일 준비물: 실내화, 받아쓰기 노트',source:'hiclass_auto',created_at:now});
+ if(data.settings['엄마'].autoTodo) data.todos.push({id:(Date.now()+1).toString(),owner:'해준',title:'실내화 챙기기',done:false,source:'hiclass_auto',created_at:now});
+ save(); renderChat(); renderTodos(); renderKid(); toast('하이클래스 가져옴');
 }
-window.simulateKidsnote=()=>{
+function simKidsnote(){
  const now=new Date().toISOString();
- data.messages.push({id:Date.now().toString(),author:'자동',content:'[키즈노트] 해온이 오늘 낮잠 2시간, 점심 잘 먹음. 내일 준비물: 여벌옷 - 어린이집 (해온이는 아직 앱 사용 안함, 부모만 보기)',source:'kidsnote_auto',created_at:now});
- data.todos.push({id:(Date.now()+3).toString(),owner:'해온',title:'여벌옷 챙기기 (해온)',done:false,source:'kidsnote_auto',created_at:now});
- save(); renderMsgs(); renderTodos(); toast('키즈노트 소식 가져옴! (해온이)');
+ data.messages.push({id:Date.now().toString(),author:'자동',content:'[키즈노트] 해온이 낮잠 2시간',source:'kidsnote_auto',created_at:now});
+ save(); renderChat(); toast('키즈노트 가져옴');
 }
-window.addSampleTodos=()=>{
+function addSample(){
  const now=new Date().toISOString();
- const samples=[
-  {owner:'해준',title:'아침에 이불 개기'},
-  {owner:'해준',title:'양치하기 3분'},
-  {owner:'해준',title:'가방 싸기'},
-  {owner:'가족',title:'저녁 7시 가족회의'},
- ];
- // Check if sample already exists to avoid duplicates
- const existingTitles = data.todos.map(t=>t.title);
+ const samples=[{owner:'해준',title:'아침에 이불 개기'},{owner:'해준',title:'양치하기 3분'},{owner:'해준',title:'가방 싸기'},{owner:'가족',title:'저녁 7시 가족회의'}];
+ const existing=data.todos.map(t=>t.title);
  let added=0;
- samples.forEach((s,i)=>{
-  if(!existingTitles.includes(s.title)){
-   data.todos.push({id:(Date.now()+i+Math.random()).toString(),owner:s.owner,title:s.title,done:false,source:'family',created_at:now});
-   added++;
-  }
- });
- save(); renderTodos(); 
- if(added===0) toast('이미 샘플 루틴이 있어요! 제목 눌러서 수정하거나 삭제 가능');
- else toast(`샘플 루틴 ${added}개 추가됨! 제목 클릭하면 수정 가능`);
+ samples.forEach((s,i)=>{ if(!existing.includes(s.title)){ data.todos.push({id:(Date.now()+i+Math.random()).toString(),owner:s.owner,title:s.title,done:false,source:'family',created_at:now}); added++; } });
+ save(); renderTodos(); renderKid(); toast(added?added+'개 추가':'이미 있음');
 }
-function toast(msg){ const el=document.getElementById('toast'); el.textContent=msg; el.style.display='block'; setTimeout(()=>el.style.display='none',2500); }
+function clearTodos(){ if(!confirm('해준 할일 삭제?')) return; data.todos=data.todos.filter(t=>t.owner!=='해준'); save(); renderTodos(); renderKid(); }
+function setVal(k,v){ data.settings[cur][k]=v; save(); }
+function toggleVal(k){ 
+ if(k==='showCompleted'){
+   // special: false means hide completed
+   data.settings[cur][k]=data.settings[cur][k]===false?true:false;
+ } else {
+   data.settings[cur][k]=!data.settings[cur][k];
+ }
+ save(); renderSettings(); renderKid();
+}
+function toast(m){ const el=document.getElementById('toast'); el.textContent=m; el.style.display='block'; setTimeout(()=>el.style.display='none',2000); }
 let timerInt=null, timerSec=180, timerRun=false;
-window.toggleTimer=()=>{
+function toggleTimer(){
  const btn=document.getElementById('timerBtn'); const disp=document.getElementById('timerDisp');
  if(timerRun){ clearInterval(timerInt); timerRun=false; btn.textContent='시작!'; }
- else { timerRun=true; btn.textContent='정지';
-  timerInt=setInterval(()=>{
-   timerSec--; const m=String(Math.floor(timerSec/60)).padStart(2,'0'); const s=String(timerSec%60).padStart(2,'0');
-   disp.textContent=`${m}:${s}`;
-   if(timerSec<=0){ clearInterval(timerInt); timerRun=false; disp.textContent='완료! 🎉'; btn.textContent='다시 시작'; timerSec=180; toast('양치 완료! 잘했어 해준아 🎉'); }
-  },1000);
- }
+ else { timerRun=true; btn.textContent='정지'; timerInt=setInterval(()=>{ timerSec--; const mm=String(Math.floor(timerSec/60)).padStart(2,'0'); const ss=String(timerSec%60).padStart(2,'0'); disp.textContent=mm+':'+ss; if(timerSec<=0){ clearInterval(timerInt); timerRun=false; disp.textContent='완료! 🎉'; btn.textContent='다시 시작'; timerSec=180; toast('양치 완료! 잘했어 해준아 🎉'); } },1000); }
 }
-renderModes(); renderMsgs(); renderTodos();
+
+renderTop(); renderChat(); renderTodos(); renderKid(); renderSettings();
+goTab('chat');
 </script>
 <script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
 </html>
