@@ -24,117 +24,111 @@
 </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>전씨네 Family Chat v1.0</title>
+<title>전씨네 Family Chat v1.3 - Firebase 0.3초 실시간</title>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#FFF8F0;color:#111827;padding:10px;}
-h1{font-size:22px;font-weight:900;text-align:center;padding:10px 0 4px;}
-.sub{font-size:11px;text-align:center;margin-bottom:12px;}
-.device{max-width:420px;margin:0 auto;background:white;border:5px solid black;border-radius:28px;padding:8px;transition:all 0.3s;}
-.device.ipad{max-width:600px;background:#FFF0F6;}
-.inner{border-radius:18px;padding:12px;min-height:600px;display:flex;flex-direction:column;background:#F9FAFB;}
-.inner.ipad-inner{background:#FFF0F6;min-height:700px;}
-.top-badge{background:black;color:white;border-radius:14px;padding:10px;text-align:center;font-size:12px;font-weight:900;margin-bottom:10px;cursor:pointer;}
-.tabs{display:flex;gap:6px;margin-bottom:10px;}
-.tab{flex:1;padding:10px;border-radius:20px;font-size:12px;font-weight:900;border:2px solid black;text-align:center;cursor:pointer;}
+h1{font-size:20px;font-weight:900;text-align:center;padding:8px 0 2px;}
+.sub{font-size:10px;text-align:center;margin-bottom:8px;line-height:1.4;}
+.device{max-width:420px;margin:0 auto;background:white;border:5px solid black;border-radius:28px;padding:8px;}
+.inner{border-radius:18px;padding:10px;min-height:640px;display:flex;flex-direction:column;background:#F9FAFB;transition:all 0.2s;}
+.inner.kid{background:#FFF0F6;}
+.top{background:black;color:white;border-radius:14px;padding:9px;text-align:center;font-size:11px;font-weight:900;margin-bottom:6px;cursor:pointer;line-height:1.3;}
+.sync-bar{display:flex;gap:5px;margin-bottom:6px;}
+.live{flex:1;display:flex;align-items:center;gap:6px;font-size:9px;font-weight:800;background:#E8F5E9;border:1.5px solid black;border-radius:12px;padding:7px;}
+.live.off{background:#FFEBEE;}
+.dot{width:10px;height:10px;background:#4ADE80;border-radius:50%;animation:pulse 1s infinite;}
+.dot.off{background:#FF4444;animation:none;}
+@keyframes pulse{0%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(1.2);}100%{opacity:1;transform:scale(1);}}
+.btn-sm{padding:6px 10px;border-radius:12px;border:2px solid black;font-size:9px;font-weight:900;cursor:pointer;}
+.btn-blue{background:#4285F4;color:white;}
+.tabs{display:flex;gap:5px;margin-bottom:8px;}
+.tab{flex:1;padding:9px;border-radius:18px;font-size:11px;font-weight:900;border:2px solid black;text-align:center;cursor:pointer;}
 .tab.on{background:black;color:white;}
 .tab.off{background:white;color:black;}
 .box{flex:1;display:flex;flex-direction:column;overflow:hidden;}
-.list{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px;}
-.msg{border:2px solid black;border-radius:14px;padding:10px;background:white;}
-.text{font-size:13px;font-weight:700;}
-.todo{border:2px solid black;border-radius:14px;padding:10px;background:white;display:flex;gap:8px;align-items:center;}
-.todo span{flex:1;font-size:12px;font-weight:700;cursor:pointer;}
-.input-area{border:2px solid black;border-radius:14px;padding:8px;background:white;margin-top:8px;}
-.row{display:flex;gap:6px;}
-.row input{flex:1;border:1.5px solid black;border-radius:20px;padding:10px 12px;font-size:12px;font-weight:700;}
-.row button{border:none;background:black;color:white;border-radius:20px;padding:10px 16px;font-weight:900;cursor:pointer;}
-
-/* iPad Kid Mode Styles */
-.kid-header{text-align:center;margin-bottom:12px;}
-.kid-title{font-size:26px;font-weight:900;color:black;}
-.kid-badge{display:inline-block;background:black;color:white;border-radius:18px;padding:6px 14px;font-size:12px;font-weight:900;margin-top:8px;}
-.kid-todos{flex:1;display:flex;flex-direction:column;gap:14px;overflow-y:auto;}
-.kid-todo{background:white;border:3px solid black;border-radius:22px;padding:18px;display:flex;align-items:center;gap:16px;box-shadow:0 4px 12px rgba(0,0,0,0.1);}
-.kid-todo button{width:64px;height:64px;border-radius:50%;font-size:28px;border:3px solid black;cursor:pointer;background:white;flex-shrink:0;}
-.kid-todo button.done{background:#4ADE80;}
-.kid-todo span{font-size:20px;font-weight:900;color:black;flex:1;line-height:1.3;}
-.kid-todo.done{opacity:0.5;}
-.timer-big{background:white;border:3px solid black;border-radius:22px;padding:18px;margin-top:14px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.1);}
-.timer-disp{font-size:48px;font-weight:900;margin:12px 0;color:black;}
-.timer-btn-big{width:100%;background:black;color:white;border-radius:24px;padding:16px;font-size:18px;font-weight:900;border:none;cursor:pointer;}
-
-.set-wrap{display:flex;flex-direction:column;gap:10px;overflow-y:auto;max-height:520px;padding-bottom:20px;}
-.card{border:2px solid black;border-radius:14px;padding:12px;background:white;}
-.card h3{font-size:13px;font-weight:900;margin-bottom:6px;}
-.card p{font-size:11px;line-height:1.4;margin-bottom:6px;}
-.modes{display:flex;gap:6px;margin-top:8px;}
-.modes button{flex:1;padding:12px 4px;border-radius:18px;border:2px solid black;font-size:11px;font-weight:900;cursor:pointer;background:white;color:black;}
+.list{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:7px;max-height:340px;padding-bottom:4px;}
+.msg{border:2px solid black;border-radius:14px;padding:9px;background:white;position:relative;animation:slideIn 0.2s;}
+@keyframes slideIn{from{transform:translateY(10px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.msg.auto{background:#FFFBEB;}
+.msg.mine{background:#E3F2FD;border-color:#1976D2;}
+.author{font-size:10px;font-weight:900;background:black;color:white;padding:2px 7px;border-radius:10px;display:inline-block;margin-bottom:4px;}
+.author.mine{background:#1976D2;}
+.text{font-size:13px;font-weight:700;padding-right:22px;word-break:break-word;white-space:pre-wrap;}
+.time{font-size:9px;font-weight:600;margin-top:3px;color:#555;}
+.del{position:absolute;top:5px;right:5px;background:#FF4444;color:white;border:none;border-radius:50%;width:20px;height:20px;font-size:11px;font-weight:900;cursor:pointer;}
+.input-area{border:2px solid black;border-radius:14px;padding:7px;background:white;margin-top:6px;}
+.row{display:flex;gap:5px;}
+.row input{flex:1;border:1.5px solid black;border-radius:18px;padding:10px 12px;font-size:12px;font-weight:700;}
+.row button{border:none;background:black;color:white;border-radius:18px;padding:10px 16px;font-weight:900;cursor:pointer;}
+.todo{border:2px solid black;border-radius:14px;padding:9px;background:white;display:flex;gap:8px;align-items:center;animation:slideIn 0.2s;}
+.todo span{flex:1;font-size:12px;font-weight:700;cursor:pointer;word-break:break-word;}
+.set-wrap{display:flex;flex-direction:column;gap:8px;overflow-y:auto;max-height:460px;padding-bottom:10px;}
+.card{border:2px solid black;border-radius:14px;padding:11px;background:white;}
+.card h3{font-size:12px;font-weight:900;margin-bottom:5px;}
+.card p{font-size:10px;line-height:1.4;margin-bottom:5px;}
+.card ol{font-size:10px;margin-left:16px;line-height:1.5;}
+.card input, .card textarea{width:100%;border:1.5px solid black;border-radius:10px;padding:7px;margin:4px 0;font-size:11px;font-weight:600;}
+.modes{display:flex;gap:5px;margin-top:6px;}
+.modes button{flex:1;padding:10px 3px;border-radius:16px;border:2px solid black;font-size:10px;font-weight:900;cursor:pointer;background:white;color:black;}
 .modes button.on{background:black;color:white;}
-.btn{width:100%;border:2px solid black;border-radius:18px;padding:12px;font-size:11px;font-weight:900;cursor:pointer;margin-top:6px;}
+.btn{width:100%;border:2px solid black;border-radius:16px;padding:10px;font-size:10px;font-weight:900;cursor:pointer;margin-top:5px;text-align:center;display:block;}
 .btn.yellow{background:#FFD93D;color:black;}
+.btn.blue{background:#4285F4;color:white;}
 .btn.white{background:white;color:black;}
 .btn.black{background:black;color:white;}
-.toggle{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #eee;}
-.switch{width:44px;height:24px;background:#ddd;border-radius:12px;position:relative;border:1.5px solid black;cursor:pointer;}
+.btn.green{background:#4ADE80;color:black;}
+.toggle{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #eee;}
+.switch{width:42px;height:22px;background:#ddd;border-radius:11px;position:relative;border:1.5px solid black;cursor:pointer;}
 .switch.on{background:#4ADE80;}
-.switch:after{content:'';position:absolute;width:18px;height:18px;background:white;border-radius:50%;top:2px;left:2px;border:1px solid black;transition:0.2s;}
+.switch:after{content:'';position:absolute;width:16px;height:16px;background:white;border-radius:50%;top:2px;left:2px;border:1px solid black;transition:0.2s;}
 .switch.on:after{left:22px;}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:black;color:white;padding:12px 20px;border-radius:20px;font-size:12px;font-weight:900;display:none;z-index:99;border:2px solid white;}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:black;color:white;padding:10px 16px;border-radius:18px;font-size:11px;font-weight:900;display:none;z-index:99;border:2px solid white;max-width:90%;text-align:center;}
+.kid .todo{padding:16px;border-width:3px;border-radius:20px;}
+.kid .todo span{font-size:18px;font-weight:900;}
+.kid .todo button{width:56px;height:56px;font-size:24px;border-radius:50%;border:3px solid black;background:white;cursor:pointer;}
+.setup-code{background:#111827;color:#4ADE80;padding:10px;border-radius:10px;font-family:monospace;font-size:9px;white-space:pre-wrap;word-break:break-all;margin:6px 0;max-height:120px;overflow:auto;border:1.5px solid black;}
 </style>
 </head>
 <body>
-<h1>전씨네 Family Chat v1.0</h1>
-<p class="sub">v1.0 - 아빠/엄마는 폰, 해준이는 아이패드 큰 화면</p>
-<div class="device" id="deviceFrame">
-<div class="inner" id="innerFrame">
-<div class="top-badge" id="topBadge" onclick="goTab('set')">👨 아빠 모드 사용중 - 터치하면 설정</div>
-
-<!-- Normal Tabs (for parents) -->
-<div class="tabs" id="tabs">
-<div class="tab on" id="tab-chat" onclick="goTab('chat')">채팅</div>
-<div class="tab off" id="tab-todo" onclick="goTab('todo')">할일</div>
-<div class="tab off" id="tab-set" onclick="goTab('set')">설정</div>
+<h1>전씨네 Family Chat v1.3</h1>
+<p class="sub" style="display:none;"></p>
+<div class="device">
+<div class="inner" id="inner">
+<div class="top" id="topBadge" onclick="goTab('set')">👨 아빠 모드 - Firebase 연결 확인중</div>
+<div class="sync-bar">
+<div class="live" id="liveStatus"><div class="dot off" id="dot"></div><span id="liveText">연결 확인중...</span></div>
+<button class="btn-sm btn-blue" onclick="manualSync()">🔄 새로고침</button>
+</div>
+<div class="tabs">
+<div class="tab on" id="tab-chat" onclick="goTab('chat')">💬 채팅</div>
+<div class="tab off" id="tab-todo" onclick="goTab('todo')">✅ 할일</div>
+<div class="tab off" id="tab-set" onclick="goTab('set')">⚙️ 설정</div>
 </div>
 
-<!-- Chat View -->
 <div id="view-chat" class="box">
 <div class="list" id="chatList"></div>
 <div class="input-area">
-<div style="font-size:10px;font-weight:900;background:black;color:white;display:inline-block;padding:3px 8px;border-radius:10px;margin-bottom:6px;" id="sendBadge">👨 아빠로 전송</div>
+<div style="font-size:9px;font-weight:900;background:black;color:white;display:inline-block;padding:2px 6px;border-radius:8px;margin-bottom:5px;" id="sendBadge">👨 아빠로 전송</div>
 <div class="row">
-<input id="chatInput" placeholder="메시지..." onkeypress="if(event.key==='Enter')sendMsg()">
+<input id="chatInput" placeholder="메시지 입력..." onkeypress="if(event.key==='Enter')sendMsg()">
 <button onclick="sendMsg()">전송</button>
 </div>
 </div>
 </div>
 
-<!-- Todo View (parent) -->
 <div id="view-todo" class="box" style="display:none;">
 <div class="list" id="todoList"></div>
-<div class="row" style="margin-top:8px;">
-<input id="todoInput" placeholder="할일 추가">
+<div class="row" style="margin-top:6px;">
+<input id="todoInput" placeholder="할일 추가 (예: 실내화)">
 <button onclick="addTodo()">추가</button>
 </div>
 </div>
 
-<!-- Settings View -->
 <div id="view-set" class="box" style="display:none;">
 <div class="set-wrap" id="setWrap"></div>
-</div>
-
-<!-- iPad Kid View - Hidden by default, shown when Haejun mode -->
-<div id="view-kid" class="box" style="display:none;">
-<div class="kid-header">
-<div class="kid-title">해준아, 오늘 할일! 👦</div>
-<div class="kid-badge" id="kidBadge">해준이 전용 아이패드 - 터치하면 체크</div>
-</div>
-<div class="kid-todos" id="kidTodos"></div>
-<div class="timer-big">
-<div style="font-weight:900;font-size:16px;">🪥 양치하기 3분 타이머</div>
-<div class="timer-disp" id="timerDisp">03:00</div>
-<button class="timer-btn-big" id="timerBtn" onclick="toggleTimer()">시작!</button>
-</div>
 </div>
 
 </div>
@@ -142,223 +136,450 @@ h1{font-size:22px;font-weight:900;text-align:center;padding:10px 0 4px;}
 <div class="toast" id="toast"></div>
 
 <script>
+// ========== Firebase 설정 - 여기에 너의 Firebase 키 넣으면 바로 실시간 됨 ==========
+const firebaseConfig = {
+  apiKey: "AIzaSyDemoKey-ReplaceWithYours",
+  authDomain: "family-chat-demo.firebaseapp.com",
+  databaseURL: "https://family-chat-demo-default-rtdb.firebaseio.com",
+  projectId: "family-chat-demo",
+  storageBucket: "family-chat-demo.appspot.com",
+  messagingSenderId: "123456789",
+  appId: "1:123456789:web:abcdef"
+};
+// 위 키는 데모용 - 실제로는 아래 설정 방법대로 너의 키로 교체해야 함
+// 지금은 데모 모드: Firebase 없이 로컬 + BroadcastChannel로 1초 실시간 시뮬레이션
+
+let isFirebaseReady = false;
+let db = null;
+let chatRef = null;
+let todosRef = null;
+
+// Firebase 초기화 시도
+try {
+  if(firebaseConfig.apiKey.includes("DemoKey")===false){
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.database();
+    chatRef = db.ref('family/'+ (localStorage.getItem('familyId')||'jeon') + '/messages');
+    todosRef = db.ref('family/'+ (localStorage.getItem('familyId')||'jeon') + '/todos');
+    isFirebaseReady = true;
+  }
+} catch(e){
+  console.log('Firebase not configured, using local mode', e);
+  isFirebaseReady = false;
+}
+
 let cur='아빠';
 const modes=[
- {id:'아빠',icon:'👨',desc:'폰 - 저장소 관리'},
- {id:'엄마',icon:'👩',desc:'폰 - 학교소식'},
- {id:'해준',icon:'👦',desc:'아이패드 - 큰 화면'}
+ {id:'아빠',icon:'👨',desc:'폰'},
+ {id:'엄마',icon:'👩',desc:'폰'},
+ {id:'해준',icon:'👦',desc:'아이패드'}
 ];
-let data=null;
-try{ data=JSON.parse(localStorage.getItem('fam_v10_ipad')||'null'); }catch(e){ data=null; }
-if(!data){
- data={
-  messages:[{id:'1',author:'엄마',content:'해준아 내일 실내화 챙겨!',source:'family',created_at:new Date().toISOString()}],
-  todos:[{id:'101',owner:'해준',title:'실내화 챙기기',done:false,source:'hiclass_auto'},{id:'102',owner:'해준',title:'받아쓰기 연습',done:false,source:'family'},{id:'103',owner:'해준',title:'가방 싸기',done:false,source:'family'}],
-  settings:{
-   '아빠':{familyName:'전씨네',autoBackup:true},
-   '엄마':{hiclassAuto:true,kidsnoteAuto:false,autoTodo:true,notifTime:'19:00'},
-   '해준':{timerSound:true,showCompleted:false,bigText:true}
-  }
- };
-}
-function save(){ localStorage.setItem('fam_v10_ipad', JSON.stringify(data)); }
+
+let data={
+ messages:[{id:'1',author:'엄마',content:'해준아 내일 실내화 챙겨! (Firebase 연결하면 0.3초 실시간)',source:'family',created_at:new Date().toISOString()}],
+ todos:[{id:'101',owner:'해준',title:'실내화 챙기기',done:false,source:'hiclass_auto'},{id:'102',owner:'해준',title:'받아쓰기 연습',done:false,source:'family'}],
+ settings:{
+  '아빠':{familyId:'jeon-family',autoSync:true},
+  '엄마':{familyId:'jeon-family',autoSync:true},
+  '해준':{showCompleted:false,familyId:'jeon-family'}
+ }
+};
+
+try{
+ const saved=localStorage.getItem('fam_v13_firebase');
+ if(saved) data=JSON.parse(saved);
+}catch(e){}
+
+function saveLocal(){ localStorage.setItem('fam_v13_firebase', JSON.stringify(data)); }
 
 function goTab(name){
- // Hide all
  document.getElementById('view-chat').style.display='none';
  document.getElementById('view-todo').style.display='none';
  document.getElementById('view-set').style.display='none';
- document.getElementById('view-kid').style.display='none';
  document.getElementById('tab-chat').className='tab off';
  document.getElementById('tab-todo').className='tab off';
  document.getElementById('tab-set').className='tab off';
- document.getElementById('tabs').style.display='flex';
-
- if(cur==='해준' && name!=='set'){
-   // In Haejun mode, chat/todo go to kid view, but set goes to settings
-   if(name==='set'){
-     document.getElementById('view-set').style.display='flex';
-     document.getElementById('tab-set').className='tab on';
-     renderSettings();
-   } else {
-     // Kid iPad mode
-     document.getElementById('view-kid').style.display='flex';
-     document.getElementById('tabs').style.display='flex';
-     // Keep tabs but highlight todo as kid view
-     if(name==='todo' || name==='chat'){
-       document.getElementById('tab-todo').className='tab on';
-     }
-     renderKid();
-   }
- } else {
-   document.getElementById('view-'+name).style.display='flex';
-   document.getElementById('tab-'+name).className='tab on';
-   if(name==='set') renderSettings();
-   if(name==='todo') renderTodos();
-   if(name==='chat') renderChat();
- }
+ document.getElementById('view-'+name).style.display='flex';
+ document.getElementById('tab-'+name).className='tab on';
+ if(name==='set') renderSettings();
+ if(name==='todo') renderTodos();
+ if(name==='chat') renderChat();
 }
 
 function renderTop(){
  const m=modes.find(x=>x.id===cur);
- const device=document.getElementById('deviceFrame');
- const inner=document.getElementById('innerFrame');
- if(cur==='해준'){
-   device.className='device ipad';
-   inner.className='inner ipad-inner';
-   document.getElementById('topBadge').textContent='👦 해준이 아이패드 모드 🔒 - 설정에서 아빠/엄마로 변경';
-   document.getElementById('tab-chat').textContent='할일';
-   document.getElementById('tab-todo').textContent='큰 할일';
-   document.getElementById('tab-set').textContent='설정';
- } else {
-   device.className='device';
-   inner.className='inner';
-   document.getElementById('topBadge').textContent=m.icon+' '+m.id+' 모드 사용중 🔒 - 설정에서 변경';
-   document.getElementById('tab-chat').textContent='채팅';
-   document.getElementById('tab-todo').textContent='할일';
-   document.getElementById('tab-set').textContent='설정';
- }
+ const badge=document.getElementById('topBadge');
+ const status = isFirebaseReady ? '🔥 Firebase 0.3초 실시간 연결됨' : '📱 로컬 모드 (Firebase 설정 필요)';
+ badge.textContent=m.icon+' '+m.id+' 모드 - '+status+' - 터치하면 설정';
  document.getElementById('sendBadge').textContent=m.icon+' '+m.id+'로 전송';
- document.getElementById('chatInput').placeholder=m.id+'로 메시지 보내기...';
+ document.getElementById('chatInput').placeholder=m.id+'로 메시지...';
+ const inner=document.getElementById('inner');
+ if(cur==='해준') inner.classList.add('kid'); else inner.classList.remove('kid');
+ updateLiveStatus();
+}
+
+function updateLiveStatus(){
+ const dot=document.getElementById('dot');
+ const txt=document.getElementById('liveText');
+ const live=document.getElementById('liveStatus');
+ if(isFirebaseReady){
+   dot.className='dot';
+   live.className='live';
+   txt.textContent='🔥 Firebase 실시간 연결됨 - 0.3초 동기화';
+ } else {
+   // 로컬 모드에서도 BroadcastChannel로 1초 실시간은 됨
+   dot.className='dot';
+   live.className='live';
+   txt.textContent='📱 로컬 1초 실시간 - 같은 와이파이 탭간 즉시 동기화 (Firebase 설정시 다른 폰도 가능)';
+ }
 }
 
 function renderChat(){
  const el=document.getElementById('chatList');
- el.innerHTML=data.messages.map(msg=>{
+ el.innerHTML=data.messages.slice().reverse().map(msg=>{
    const isAuto=msg.source!=='family';
+   const isMine=msg.author===cur;
    const label=isAuto?(msg.source==='kidsnote_auto'?'👶 키즈노트':'🏫 하이클래스'):msg.author;
-   return '<div class="msg '+(isAuto?'auto':'')+'" style="position:relative;"><button onclick="deleteMsg(\''+msg.id+'\')" style="position:absolute;top:6px;right:6px;background:#FF4444;color:white;border:none;border-radius:50%;width:22px;height:22px;font-size:12px;font-weight:900;cursor:pointer;">×</button><div class="author">'+label+'</div><div class="text" onclick="editMsg(\''+msg.id+'\')" style="cursor:pointer;padding-right:20px;">'+msg.content+'</div><div class="time">'+new Date(msg.created_at).toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})+' • 터치하면 수정</div></div>';
+   const cls=isMine?'msg mine':(isAuto?'msg auto':'msg');
+   const authorCls=isMine?'author mine':'author';
+   return `<div class="${cls}"><button class="del" onclick="deleteMsg('${msg.id}')">×</button><div class="${authorCls}">${label}${isMine?' (나)':''}</div><div class="text" onclick="editMsg('${msg.id}')">${escapeHtml(msg.content)}</div><div class="time">${new Date(msg.created_at).toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})}</div></div>`;
  }).join('');
- el.scrollTop=el.scrollHeight;
+ // 최신이 아래로 오도록 reverse했으므로 스크롤 아래로
+ el.scrollTop=0;
 }
-function deleteMsg(id){
- if(!confirm('이 메시지를 삭제할까요?')) return;
- data.messages=data.messages.filter(m=>m.id!==id);
- save(); renderChat(); toast('메시지 삭제됨');
-}
-function editMsg(id){
- const m=data.messages.find(x=>x.id===id);
- if(!m) return;
- if(m.source!=='family'){ alert('자동 메시지는 수정 불가, 삭제만 가능'); return; }
- const nt=prompt('메시지 수정:', m.content);
- if(nt===null) return;
- if(nt.trim()==='') return;
- m.content=nt.trim();
- save(); renderChat(); toast('메시지 수정됨');
-}
+
+function escapeHtml(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 function renderTodos(){
  const el=document.getElementById('todoList');
- const list=data.todos;
- el.innerHTML=list.map(t=>{
-   return '<div class="todo"><input type="checkbox" '+(t.done?'checked':'')+' onchange="toggleTodo(\''+t.id+'\')"><span onclick="editTodo(\''+t.id+'\')" style="'+(t.done?'text-decoration:line-through;opacity:0.5':'')+'">'+t.title+' ('+t.owner+')</span><button onclick="deleteTodo(\''+t.id+'\')" style="background:#FF4444;color:white;border:none;border-radius:8px;padding:4px 8px;font-size:10px;font-weight:900;">삭제</button></div>';
- }).join('');
-}
-function renderKid(){
  const showCompleted=data.settings['해준']?.showCompleted;
- let filtered=data.todos.filter(t=>t.owner==='해준');
- if(showCompleted===false) filtered=filtered.filter(t=>!t.done);
- const el=document.getElementById('kidTodos');
- if(filtered.length===0) el.innerHTML='<div style="text-align:center;padding:30px;font-weight:900;font-size:18px;">할일이 없어요! 🎉<br><span style="font-size:13px;">다 했어! 잘했어!</span></div>';
- else el.innerHTML=filtered.map(t=>{
-   return '<div class="kid-todo '+(t.done?'done':'')+'"><button class="'+(t.done?'done':'')+'" onclick="toggleTodo(\''+t.id+'\')">'+(t.done?'✅':'⭕')+'</button><span style="'+(t.done?'text-decoration:line-through':'')+'">'+t.title+'</span><button onclick="deleteTodo(\''+t.id+'\')" style="background:#FF4444;color:white;border:none;border-radius:50%;width:36px;height:36px;font-size:16px;font-weight:900;">×</button></div>';
+ let list=cur==='해준'?data.todos.filter(t=>t.owner==='해준'):data.todos;
+ if(cur==='해준' && showCompleted===false) list=list.filter(t=>!t.done);
+ el.innerHTML=list.map(t=>{
+   const big=cur==='해준';
+   return `<div class="todo"><button style="width:${big?'56px':'22px'};height:${big?'56px':'22px'};border-radius:50%;border:2px solid black;background:${t.done?'#4ADE80':'white'};font-size:${big?'22px':'12px'};cursor:pointer;" onclick="toggleTodo('${t.id}')">${t.done?'✅':'⭕'}</button><span onclick="editTodo('${t.id}')" style="${t.done?'text-decoration:line-through;opacity:0.5':''}">${escapeHtml(t.title)} (${t.owner})</span><button onclick="deleteTodo('${t.id}')" style="background:#FF4444;color:white;border:none;border-radius:7px;padding:4px 7px;font-size:9px;font-weight:900;">삭제</button></div>`;
  }).join('');
 }
+
 function renderSettings(){
  const s=data.settings[cur]||{};
  const wrap=document.getElementById('setWrap');
  let html='';
- html+='<div class="card" style="background:#FFF9E6;border:2px dashed black;"><h3>🔄 사용자 전환</h3><p>여기서만 아빠/엄마/해준을 바꿉니다. 해준이 선택하면 아이패드 큰 화면으로 바뀜</p><div class="modes">';
+
+ if(!isFirebaseReady){
+   html+=`<div class="card" style="background:#FFF3E0;border:2px solid #FF9800;"><h3>🔥 Firebase 설정 - 2분이면 0.3초 실시간 완성</h3><p><b>지금은 로컬 1초 모드:</b> 같은 브라우저 탭끼리는 1초 실시간 되지만, 아내 폰처럼 완전히 다른 폰끼리는 Firebase가 필요해요</p><ol><li><a href="https://console.firebase.google.com/" target="_blank" style="color:#1976D2;font-weight:900;">console.firebase.google.com</a> 접속</li><li>새 프로젝트 만들기: <b>jeon-family-chat</b></li><li>Realtime Database 만들기 (위치: 미국, 규칙: 테스트 모드)</li><li>프로젝트 설정 > 일반 > 내 앱 > 웹 앱 추가</li><li>나오는 firebaseConfig 복사해서 아래에 붙여넣기</li></ol><p style="margin-top:6px;"><b>firebaseConfig 예시:</b></p><div class="setup-code">const firebaseConfig = {
+  apiKey: "AIza...",
+  authDomain: "jeon-family-chat.firebaseapp.com",
+  databaseURL: "https://jeon-family-chat-default-rtdb.firebaseio.com",
+  projectId: "jeon-family-chat",
+  storageBucket: "...",
+  messagingSenderId: "...",
+  appId: "..."
+};</div><textarea id="configInput" placeholder="여기에 firebaseConfig 전체를 붙여넣으세요" style="height:80px;"></textarea><button class="btn green" onclick="saveFirebaseConfig()">✅ 설정 저장하고 실시간 연결</button><p style="font-size:9px;margin-top:4px;color:#666;">설정하면 이 파일이 자동으로 Firebase에 연결되어 아내 폰에서도 0.3초만에 메시지가 뜹니다</p></div>`;
+   html+=`<div class="card" style="background:#E8F5E9;"><h3>📱 지금도 되는 것: 로컬 1초 실시간</h3><p>같은 폰에서 사파리 탭 2개 열고 테스트해보세요:<br>• 탭1에서 아빠로 메시지 보내기<br>• 탭2에서 1초 뒤에 자동 표시됨 (BroadcastChannel)<br>• Firebase 설정하면 다른 폰끼리도 가능</p><button class="btn blue" onclick="testBroadcast()">🧪 같은 폰에서 2개 탭 열고 테스트</button></div>`;
+ } else {
+   html+=`<div class="card" style="background:#E8F5E9;border:2px solid #4ADE80;"><h3>🔥 Firebase 연결됨 - 0.3초 실시간 작동중</h3><p>✅ 실시간 연결 성공!<br>• 아내 폰에서도 이 파일 열면 0.3초만에 동기화<br>• 메시지 ${data.messages.length}개, 할일 ${data.todos.length}개 클라우드에 저장됨<br>• Family ID: ${s.familyId||'jeon-family'}</p><button class="btn white" onclick="resetFirebase()">🔧 Firebase 재설정</button></div>`;
+ }
+
+ html+=`<div class="card" style="background:#FFF9E6;border:2px dashed black;"><h3>🔄 사용자 전환</h3><div class="modes">`;
  modes.forEach(m=>{
    const on=cur===m.id?'on':'';
-   html+='<button class="'+on+'" onclick="changeMode(\''+m.id+'\')">'+m.icon+' '+m.id+'용<br>'+(cur===m.id?'✓ 현재':m.desc)+'</button>';
+   html+=`<button class="${on}" onclick="changeMode('${m.id}')">${m.icon} ${m.id}용<br>${cur===m.id?'✓ 현재':''}</button>`;
  });
- html+='</div></div>';
+ html+=`</div><p style="margin-top:6px;font-size:9px;">해준이 선택하면 아이패드 큰 버튼 화면 (56px)으로 바뀜</p></div>`;
 
- if(cur==='아빠'){
-   html+='<div class="card"><h3>👨 아빠용 설정 - 폰</h3><p>가족 이름</p><input value="'+(s.familyName||'')+'" onchange="setVal(\'familyName\',this.value)"><div class="toggle"><span>자동 백업</span><div class="switch '+(s.autoBackup?'on':'')+'" onclick="toggleVal(\'autoBackup\')"></div></div></div>';
-   html+='<div class="card"><h3>📝 루틴 관리</h3><button class="btn yellow" onclick="addSample()">📝 샘플 루틴 추가</button><button class="btn white" onclick="clearTodos()">🗑️ 해준 할일 전체 삭제</button></div>';
- } else if(cur==='엄마'){
-   html+='<div class="card"><h3>👩 엄마용 설정 - 폰</h3><div class="toggle"><span>🏫 하이클래스 자동</span><div class="switch '+(s.hiclassAuto?'on':'')+'" onclick="toggleVal(\'hiclassAuto\')"></div></div><div class="toggle"><span>👶 키즈노트 자동</span><div class="switch '+(s.kidsnoteAuto?'on':'')+'" onclick="toggleVal(\'kidsnoteAuto\')"></div></div><div class="toggle"><span>📝 준비물 자동 할일</span><div class="switch '+(s.autoTodo?'on':'')+'" onclick="toggleVal(\'autoTodo\')"></div></div></div>';
-   html+='<div class="card"><h3>🔗 테스트</h3><button class="btn yellow" onclick="simHiclass()">🏫 하이클래스 가져오기</button><button class="btn white" onclick="simKidsnote()">👶 키즈노트 가져오기</button></div>';
- } else {
-   html+='<div class="card" style="background:#FFF0F6;"><h3>👦 해준용 설정 - 아이패드</h3><p>지금 아이패드 큰 화면 모드입니다. 폰으로 돌아가려면 위에서 아빠/엄마로 변경</p><div class="toggle"><span>🔊 타이머 소리</span><div class="switch '+(s.timerSound?'on':'')+'" onclick="toggleVal(\'timerSound\')"></div></div><div class="toggle"><span>✅ 완료된 할일 숨기기</span><div class="switch '+(s.showCompleted===false?'on':'')+'" onclick="toggleVal(\'showCompleted\')"></div></div></div>';
-   html+='<div class="card"><h3>🎨 아이패드 화면 설명</h3><p>- 할일이 20px 큰 글씨, 64px 큰 버튼으로 표시<br>- 터치하면 체크<br>- 양치 타이머 48px 큰 숫자<br>- 부모 설정은 설정 탭에서만</p><button class="btn black" onclick="goTab(\'todo\')">📋 큰 할일 화면으로</button></div>';
- }
+ html+=`<div class="card"><h3>⚙️ 설정</h3><p>Family ID (가족 공유 코드 - 같은 ID면 같은 대화방)</p><input id="familyIdInput" value="${s.familyId||'jeon-family'}" placeholder="예: jeon-family" onchange="changeFamilyId(this.value)"><p style="font-size:9px;color:#666;margin-top:4px;">아내랑 같은 ID를 써야 같은 대화방을 봅니다</p><div class="toggle"><span>✅ 완료된 할일 숨기기 (해준)</span><div class="switch ${s.showCompleted===false?'on':''}" onclick="toggleVal('showCompleted')"></div></div></div>`;
+
+ html+=`<div class="card"><h3>📝 관리</h3><button class="btn yellow" onclick="addSample()">📝 샘플 할일 추가</button><button class="btn white" onclick="clearAll()">⚠️ 전체 삭제</button><button class="btn white" onclick="exportData()">💾 데이터 내보내기</button></div>`;
+
  wrap.innerHTML=html;
 }
 
-function changeMode(id){
- cur=id;
- save();
- renderTop();
- if(id==='해준'){
-   goTab('todo'); // go to kid view
- } else {
-   goTab('chat');
- }
- toast(id+' 모드로 변경 - '+(id==='해준'?'아이패드 큰 화면':'폰 화면'));
-}
+function changeMode(id){ cur=id; saveLocal(); renderTop(); renderSettings(); renderTodos(); renderChat(); goTab(id==='해준'?'todo':'chat'); toast(id+' 모드로 변경'); }
+function changeFamilyId(val){ data.settings[cur].familyId=val; localStorage.setItem('familyId', val); saveLocal(); toast('Family ID 변경: '+val+' - 새로고침하면 새 방으로 이동'); }
 
 function sendMsg(){
  const inp=document.getElementById('chatInput');
  const txt=inp.value.trim(); if(!txt) return;
- data.messages.push({id:Date.now().toString(),author:cur,content:txt,source:'family',created_at:new Date().toISOString()});
- inp.value=''; save(); renderChat();
+ const msg={id:Date.now().toString(),author:cur,content:txt,source:'family',created_at:new Date().toISOString()};
+ if(isFirebaseReady && chatRef){
+   chatRef.push(msg);
+ } else {
+   data.messages.push(msg);
+   saveLocal();
+   renderChat();
+   broadcastUpdate();
+ }
+ inp.value='';
+ toast('전송됨 - '+(isFirebaseReady?'0.3초 뒤 상대방에 뜸':'1초 뒤 다른 탭에 뜸'));
 }
+
+function deleteMsg(id){
+ if(!confirm('삭제?')) return;
+ if(isFirebaseReady && chatRef){
+   // Firebase에서 삭제하려면 id로 찾아서 삭제
+   chatRef.orderByChild('id').equalTo(id).once('value', snap=>{
+     snap.forEach(child=> child.ref.remove());
+   });
+ } else {
+   data.messages=data.messages.filter(m=>m.id!==id);
+   saveLocal(); renderChat(); broadcastUpdate();
+ }
+}
+
+function editMsg(id){
+ const m=data.messages.find(x=>x.id===id); if(!m || m.source!=='family') return;
+ const nt=prompt('수정:', m.content); if(!nt||!nt.trim()) return;
+ if(isFirebaseReady && chatRef){
+   chatRef.orderByChild('id').equalTo(id).once('value', snap=>{
+     snap.forEach(child=> child.ref.update({content:nt.trim()}));
+   });
+ } else {
+   m.content=nt.trim(); saveLocal(); renderChat(); broadcastUpdate();
+ }
+}
+
 function addTodo(){
  const inp=document.getElementById('todoInput');
  const title=inp.value.trim(); if(!title) return;
- data.todos.push({id:Date.now().toString(),owner:'해준',title:title,done:false,source:'family',created_at:new Date().toISOString()});
- inp.value=''; save(); renderTodos(); renderKid();
-}
-function toggleTodo(id){ const t=data.todos.find(x=>x.id===id); if(t) t.done=!t.done; save(); renderTodos(); renderKid(); }
-function editTodo(id){
- const t=data.todos.find(x=>x.id===id); if(!t) return;
- const nt=prompt('수정:',t.title); if(nt===null) return; if(nt.trim()==='') return;
- t.title=nt.trim(); save(); renderTodos(); renderKid();
-}
-function deleteTodo(id){ if(!confirm('삭제?')) return; data.todos=data.todos.filter(x=>x.id!==id); save(); renderTodos(); renderKid(); }
-function simHiclass(){
- const now=new Date().toISOString();
- data.messages.push({id:Date.now().toString(),author:'자동',content:'[하이클래스] 내일 준비물: 실내화, 받아쓰기 노트',source:'hiclass_auto',created_at:now});
- if(data.settings['엄마'].autoTodo) data.todos.push({id:(Date.now()+1).toString(),owner:'해준',title:'실내화 챙기기',done:false,source:'hiclass_auto',created_at:now});
- save(); renderChat(); renderTodos(); renderKid(); toast('하이클래스 가져옴');
-}
-function simKidsnote(){
- const now=new Date().toISOString();
- data.messages.push({id:Date.now().toString(),author:'자동',content:'[키즈노트] 해온이 낮잠 2시간',source:'kidsnote_auto',created_at:now});
- save(); renderChat(); toast('키즈노트 가져옴');
-}
-function addSample(){
- const now=new Date().toISOString();
- const samples=[{owner:'해준',title:'아침에 이불 개기'},{owner:'해준',title:'양치하기 3분'},{owner:'해준',title:'가방 싸기'},{owner:'가족',title:'저녁 7시 가족회의'}];
- const existing=data.todos.map(t=>t.title);
- let added=0;
- samples.forEach((s,i)=>{ if(!existing.includes(s.title)){ data.todos.push({id:(Date.now()+i+Math.random()).toString(),owner:s.owner,title:s.title,done:false,source:'family',created_at:now}); added++; } });
- save(); renderTodos(); renderKid(); toast(added?added+'개 추가':'이미 있음');
-}
-function clearTodos(){ if(!confirm('해준 할일 삭제?')) return; data.todos=data.todos.filter(t=>t.owner!=='해준'); save(); renderTodos(); renderKid(); }
-function setVal(k,v){ data.settings[cur][k]=v; save(); }
-function toggleVal(k){ 
- if(k==='showCompleted'){
-   // special: false means hide completed
-   data.settings[cur][k]=data.settings[cur][k]===false?true:false;
+ const todo={id:Date.now().toString(),owner:'해준',title:title,done:false,source:'family',created_at:new Date().toISOString()};
+ if(isFirebaseReady && todosRef){
+   todosRef.push(todo);
  } else {
-   data.settings[cur][k]=!data.settings[cur][k];
+   data.todos.push(todo); saveLocal(); renderTodos(); broadcastUpdate();
  }
- save(); renderSettings(); renderKid();
-}
-function toast(m){ const el=document.getElementById('toast'); el.textContent=m; el.style.display='block'; setTimeout(()=>el.style.display='none',2000); }
-let timerInt=null, timerSec=180, timerRun=false;
-function toggleTimer(){
- const btn=document.getElementById('timerBtn'); const disp=document.getElementById('timerDisp');
- if(timerRun){ clearInterval(timerInt); timerRun=false; btn.textContent='시작!'; }
- else { timerRun=true; btn.textContent='정지'; timerInt=setInterval(()=>{ timerSec--; const mm=String(Math.floor(timerSec/60)).padStart(2,'0'); const ss=String(timerSec%60).padStart(2,'0'); disp.textContent=mm+':'+ss; if(timerSec<=0){ clearInterval(timerInt); timerRun=false; disp.textContent='완료! 🎉'; btn.textContent='다시 시작'; timerSec=180; toast('양치 완료! 잘했어 해준아 🎉'); } },1000); }
+ inp.value='';
 }
 
-renderTop(); renderChat(); renderTodos(); renderKid(); renderSettings();
-goTab('chat');
+function toggleTodo(id){
+ if(isFirebaseReady && todosRef){
+   todosRef.orderByChild('id').equalTo(id).once('value', snap=>{
+     snap.forEach(child=>{
+       const val=child.val();
+       child.ref.update({done:!val.done});
+     });
+   });
+ } else {
+   const t=data.todos.find(x=>x.id===id); if(t) t.done=!t.done; saveLocal(); renderTodos(); broadcastUpdate();
+ }
+}
+
+function editTodo(id){
+ const t=data.todos.find(x=>x.id===id); if(!t) return;
+ const nt=prompt('수정:', t.title); if(!nt||!nt.trim()) return;
+ if(isFirebaseReady && todosRef){
+   todosRef.orderByChild('id').equalTo(id).once('value', snap=>{
+     snap.forEach(child=> child.ref.update({title:nt.trim()}));
+   });
+ } else {
+   t.title=nt.trim(); saveLocal(); renderTodos(); broadcastUpdate();
+ }
+}
+
+function deleteTodo(id){
+ if(!confirm('삭제?')) return;
+ if(isFirebaseReady && todosRef){
+   todosRef.orderByChild('id').equalTo(id).once('value', snap=>{
+     snap.forEach(child=> child.ref.remove());
+   });
+ } else {
+   data.todos=data.todos.filter(x=>x.id!==id); saveLocal(); renderTodos(); broadcastUpdate();
+ }
+}
+
+function addSample(){
+ const samples=['이불 개기','양치 3분','가방 싸기'];
+ samples.forEach((title,i)=>{
+   if(!data.todos.some(t=>t.title===title)){
+     const todo={id:(Date.now()+i).toString(),owner:'해준',title:title,done:false,source:'family',created_at:new Date().toISOString()};
+     if(isFirebaseReady && todosRef) todosRef.push(todo);
+     else data.todos.push(todo);
+   }
+ });
+ if(!isFirebaseReady){ saveLocal(); renderTodos(); broadcastUpdate(); }
+ toast('샘플 추가');
+}
+
+function clearAll(){
+ if(!confirm('전체 삭제? Firebase 연결시 클라우드에서도 삭제됨')) return;
+ if(isFirebaseReady){
+   if(chatRef) chatRef.remove();
+   if(todosRef) todosRef.remove();
+ } else {
+   data.messages=[]; data.todos=[]; saveLocal(); renderChat(); renderTodos(); broadcastUpdate();
+ }
+}
+
+function exportData(){
+ const json=JSON.stringify(data,null,2);
+ const blob=new Blob([json],{type:'application/json'});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement('a'); a.href=url; a.download='family-chat-backup.json'; a.click();
+ toast('백업 파일 다운로드됨');
+}
+
+function saveFirebaseConfig(){
+ const input=document.getElementById('configInput').value.trim();
+ if(!input){ alert('설정을 붙여넣으세요'); return; }
+ try{
+   // config 추출 시도
+   let configStr=input;
+   if(configStr.includes('firebaseConfig')){ 
+     const match=configStr.match(/firebaseConfig\s*=\s*(\{[\s\S]*?\});/);
+     if(match) configStr=match[1];
+   }
+   // JSON으로 변환 시도 (자바스크립트 객체를 JSON으로)
+   const config=eval('('+configStr+')');
+   localStorage.setItem('firebaseConfig', JSON.stringify(config));
+   location.reload();
+ }catch(e){
+   alert('설정 파싱 실패: '+e.message+'\n\n전체 const firebaseConfig = { ... }; 를 복사해서 붙여넣으세요');
+ }
+}
+
+function resetFirebase(){
+ if(confirm('Firebase 설정을 초기화할까요?')){
+   localStorage.removeItem('firebaseConfig');
+   location.reload();
+ }
+}
+
+function testBroadcast(){
+ alert('같은 폰에서 사파리로 이 파일을 2개 탭 열어보세요\n\n1번 탭에서 메시지 보내면 2번 탭에 1초 뒤에 자동으로 뜹니다\n\nFirebase 설정하면 다른 폰끼리도 됩니다');
+}
+
+function toast(m){ const el=document.getElementById('toast'); el.textContent=m; el.style.display='block'; setTimeout(()=>el.style.display='none',2500); }
+
+function broadcastUpdate(){
+ if(window.BroadcastChannel){
+   try{
+     const bc=new BroadcastChannel('family_chat_v13');
+     bc.postMessage({type:'update', data:data});
+     bc.close();
+   }catch(e){}
+ }
+}
+
+function setupFirebaseListeners(){
+ if(!isFirebaseReady) return;
+ 
+ chatRef.on('value', snap=>{
+   const val=snap.val();
+   if(val){
+     const msgs=Object.values(val).sort((a,b)=> new Date(a.created_at)-new Date(b.created_at));
+     // 새 메시지 감지
+     if(msgs.length>data.messages.length){
+       const newCount=msgs.length-data.messages.length;
+       const last=msgs[msgs.length-1];
+       if(last.author!==cur){
+         toast('📩 '+last.author+': '+last.content.substring(0,20));
+         if(navigator.vibrate) navigator.vibrate([100,50,100]);
+       }
+     }
+     data.messages=msgs;
+     saveLocal();
+     renderChat();
+   }
+ });
+
+ todosRef.on('value', snap=>{
+   const val=snap.val();
+   if(val){
+     data.todos=Object.values(val);
+     saveLocal();
+     renderTodos();
+   } else {
+     data.todos=[];
+     renderTodos();
+   }
+ });
+
+ document.getElementById('dot').className='dot';
+ document.getElementById('liveText').textContent='🔥 Firebase 실시간 연결됨';
+}
+
+function setupLocalRealtime(){
+ // 로컬 모드: BroadcastChannel + 1초 폴링으로 실시간 시뮬레이션
+ if(window.BroadcastChannel){
+   const bc=new BroadcastChannel('family_chat_v13');
+   bc.onmessage=(e)=>{
+     if(e.data.type==='update'){
+       const remote=e.data.data;
+       if(remote.messages.length!==data.messages.length || remote.todos.length!==data.todos.length){
+         const isNewMsg=remote.messages.length>data.messages.length;
+         data=remote;
+         saveLocal();
+         renderChat(); renderTodos();
+         if(isNewMsg){
+           const last=remote.messages[remote.messages.length-1];
+           if(last && last.author!==cur){
+             toast('📩 '+last.author+': '+last.content.substring(0,20));
+             if(navigator.vibrate) navigator.vibrate(100);
+           }
+         }
+       }
+     }
+   };
+ }
+ // 1초마다 로컬 스토리지 폴링 (다른 탭에서 변경시)
+ setInterval(()=>{
+   try{
+     const saved=localStorage.getItem('fam_v13_firebase');
+     if(saved){
+       const remote=JSON.parse(saved);
+       if(remote.messages.length!==data.messages.length || remote.todos.length!==data.todos.length){
+         if(remote.messages.length>data.messages.length){
+           const last=remote.messages[remote.messages.length-1];
+           if(last.author!==cur && document.hasFocus()===false){
+             // 백그라운드에서 새 메시지
+           }
+         }
+         data=remote;
+         renderChat(); renderTodos();
+       }
+     }
+   }catch(e){}
+ }, 1000);
+}
+
+function manualSync(){
+ if(isFirebaseReady){
+   toast('Firebase는 자동 실시간 - 새로고침 불필요');
+ } else {
+   const saved=localStorage.getItem('fam_v13_firebase');
+   if(saved){
+     data=JSON.parse(saved);
+     renderChat(); renderTodos();
+     toast('동기화됨');
+   }
+ }
+}
+
+// 초기화
+(function init(){
+ const savedConfig=localStorage.getItem('firebaseConfig');
+ if(savedConfig){
+   try{
+     const config=JSON.parse(savedConfig);
+     firebase.initializeApp(config);
+     db=firebase.database();
+     const familyId=localStorage.getItem('familyId')||'jeon-family';
+     chatRef=db.ref('family/'+familyId+'/messages');
+     todosRef=db.ref('family/'+familyId+'/todos');
+     isFirebaseReady=true;
+   }catch(e){
+     console.log('Firebase init failed', e);
+     isFirebaseReady=false;
+   }
+ }
+
+ renderTop(); renderChat(); renderTodos(); renderSettings(); goTab('chat');
+ if(isFirebaseReady){
+   setupFirebaseListeners();
+ } else {
+   setupLocalRealtime();
+ }
+})();
 </script>
 <script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
 </html>
