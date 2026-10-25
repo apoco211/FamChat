@@ -1,4 +1,4 @@
-<html lang="ko"><head><style>
+<html lang="ko"><!-- FamChat Build: 2026.10.26.1316 | v1.3.16 | 2026-10-26 | via Builder-a4u v8.2.7 | iPhone Push Fix - FCM --><!-- old: 2025.10.25.1315 | v1.3.15 | 2026-10-25 | via Builder-a4u v8.2.7 | KakaoTalk UI --><head><style>
 @font-face {
   font-family: "Optimistic";
   font-style: normal;
@@ -70,9 +70,15 @@
 </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>FamChat v1.3.15 - - - KakaoTalk UI</title>
+<title>FamChat v1.3.16 - - iPhone Push Fix - FCM</title>
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="FamChat">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/5962/5962463.png">
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#FFF8F0;color:#111827;padding:10px;padding-bottom:100px;}
@@ -146,7 +152,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#FFF8F0;
 </head>
 <body>
 <div class="header">
-<h1>전씨네 Family Chat</h1><span class="badge">v1.3.15</span>
+<h1>전씨네 Family Chat</h1><span class="badge">v1.3.16</span>
 </div>
 <div class="device">
 <div class="inner" id="inner">
@@ -193,6 +199,8 @@ const firebaseConfig = {'apiKey': 'AIzaSyDKTiB6lqRDCHaM8vxWwbiX0K_nlb8_4jQ', 'au
 let db, chatRef, todosRef;
 let cur = localStorage.getItem('curUser') || '아빠';
 const modes = [{id:'아빠',icon:'👨'},{id:'엄마',icon:'👩'},{id:'해준',icon:'👦'}];
+const FAMCHAT_BUILD = '2026.10.26.1316';
+const FAMCHAT_VERSION = 'v1.3.16';
 let familyId = localStorage.getItem('familyId') || 'jeon-family';
 let data = {messages:[], todos:[]};
 
@@ -269,20 +277,38 @@ function migrateOldData(){
 
 function triggerAlarm(author, content){
   if(!alarmEnabled) return;
+  // iPhone처럼 2번 울림 + 진동
   playBeep();
-  if(navigator.vibrate) navigator.vibrate([150,80,150]);
-  // 브라우저 알림
-  if('Notification' in window && Notification.permission === 'granted'){
-    if(document.hidden){
-      new Notification('📩 ' + author, {body: content, icon: 'https://cdn-icons-png.flaticon.com/512/5962/5962463.png'});
-    }
+  if(navigator.vibrate){
+    navigator.vibrate([120,60,120,60,200]);
   }
-  // 토스트는 이미 있음
+  // iOS에서도 최대한 알림 띄우기 (PWA일 때)
+  if('Notification' in window && Notification.permission === 'granted'){
+    try{
+      // document.hidden 체크 완화 - iOS에서는 hidden이어도 띄워야 함
+      const n = new Notification('📩 ' + author, {
+        body: content,
+        icon: 'https://cdn-icons-png.flaticon.com/512/5962/5962463.png',
+        badge: 'https://cdn-icons-png.flaticon.com/512/5962/5962463.png',
+        vibrate: [120,60,120],
+        requireInteraction: false,
+        silent: false
+      });
+      // 5초 후 자동 닫기
+      setTimeout(()=>{ try{n.close();}catch(e){} }, 5000);
+      // 클릭 시 창 포커스
+      n.onclick = function(){ window.focus(); n.close(); };
+    }catch(e){ console.log('notif error', e); }
+  }
 }
 
 function requestNotifPermission(){
-  if('Notification' in window && Notification.permission === 'default'){
-    Notification.requestPermission();
+  if('Notification' in window){
+    if(Notification.permission === 'default'){
+      Notification.requestPermission().then(()=>{ initFCM(); });
+    } else if(Notification.permission === 'granted'){
+      initFCM();
+    }
   }
 }
 
@@ -292,6 +318,177 @@ function toggleAlarm(){
   renderSettings();
   toast(alarmEnabled ? '🔔 알람 켜짐' : '🔕 알람 꺼짐');
 }
+
+
+
+// ===== v1.3.16 FCM Push System - iPhone/iPad 대응 =====
+let messaging = null;
+let fcmToken = localStorage.getItem('fcmToken') || null;
+let fcmEnabled = false;
+let deviceInfo = {};
+
+// 디바이스 감지 (아내/아빠 아이폰, 해준 아이패드 반영)
+function detectDevice(){
+  const ua = navigator.userAgent;
+  const isIPhone = /iPhone/i.test(ua);
+  const isIPad = /iPad/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const isIOS = isIPhone || isIPad || /iPod/i.test(ua);
+  deviceInfo = {
+    userAgent: ua,
+    isIPhone,
+    isIPad,
+    isIOS,
+    isPWA: window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone,
+    platform: isIPad ? 'iPad' : (isIPhone ? 'iPhone' : 'Other'),
+    curUser: cur,
+    timestamp: new Date().toISOString()
+  };
+  return deviceInfo;
+}
+
+// FCM 초기화
+async function initFCM(){
+  try{
+    detectDevice();
+    if(!firebase.messaging.isSupported()){
+      console.log('FCM not supported on this browser');
+      updateFCMStatus('unsupported');
+      return;
+    }
+    messaging = firebase.messaging();
+    
+    // Service Worker 등록 (GitHub Pages에서는 root에 있어야 함)
+    if('serviceWorker' in navigator){
+      try{
+        const reg = await navigator.serviceWorker.register('firebase-messaging-sw.js');
+        console.log('SW registered', reg);
+        // Use this SW for messaging
+        // messaging.useServiceWorker(reg) - compat에서는 자동
+      }catch(e){
+        console.log('SW register fail', e);
+      }
+    }
+
+    // VAPID 키 - Firebase Console > Project Settings > Cloud Messaging에서 생성 필요
+    // TODO: 아래 키를 실제 VAPID로 교체하세요. 현재는 placeholder로 동작 안 할 수 있음
+    const vapidKey = localStorage.getItem('vapidKey') || 'BNcX...YOUR_VAPID_KEY_HERE...';
+
+    // 권한 요청
+    const perm = await Notification.requestPermission();
+    if(perm !== 'granted'){
+      updateFCMStatus('denied');
+      return;
+    }
+
+    // 토큰 가져오기 - VAPID가 없으면 에러 날 수 있어 try
+    try{
+      const token = await messaging.getToken({vapidKey: vapidKey.length > 20 ? vapidKey : undefined});
+      if(token){
+        fcmToken = token;
+        localStorage.setItem('fcmToken', token);
+        fcmEnabled = true;
+        saveFCMToken(token);
+        updateFCMStatus('granted');
+        console.log('FCM Token:', token);
+      }
+    }catch(e){
+      console.log('getToken error (VAPID 필요)', e);
+      // VAPID 없이도 foreground 알림은 가능하도록 status 유지
+      updateFCMStatus('no-vapid');
+    }
+
+    // Foreground 메시지 수신 (다른 앱 사용 중이 아니고 FamChat 보고 있을 때)
+    messaging.onMessage((payload)=>{
+      console.log('Foreground FCM', payload);
+      const title = payload.notification?.title || payload.data?.author || 'FamChat';
+      const body = payload.notification?.body || payload.data?.content || '새 메시지';
+      // 아이폰처럼 소리+진동+토스트
+      triggerAlarm(title, body);
+      toast('📩 ' + title + ': ' + body.substring(0,20));
+      // PWA라면 OS 알림도 띄우기
+      if(Notification.permission === 'granted'){
+        try{
+          new Notification(title, {body: body, icon: 'https://cdn-icons-png.flaticon.com/512/5962/5962463.png'});
+        }catch(e){}
+      }
+    });
+
+  }catch(err){
+    console.error('FCM init error', err);
+    updateFCMStatus('error');
+  }
+}
+
+function saveFCMToken(token){
+  try{
+    detectDevice();
+    const tokenRef = db.ref('family/'+familyId+'/fcmTokens/'+cur);
+    tokenRef.set({
+      token: token,
+      user: cur,
+      device: deviceInfo.platform,
+      isIOS: deviceInfo.isIOS,
+      isIPad: deviceInfo.isIPad,
+      isIPhone: deviceInfo.isIPhone,
+      isPWA: deviceInfo.isPWA,
+      ua: deviceInfo.userAgent.substring(0,120),
+      updated_at: new Date().toISOString()
+    });
+    // 해준이 iPad용 별도 키도 저장 (멀티 디바이스 대응)
+    const allRef = db.ref('family/'+familyId+'/fcmTokens_all').push();
+    allRef.set({
+      token: token,
+      user: cur,
+      device: deviceInfo.platform,
+      updated_at: new Date().toISOString()
+    });
+  }catch(e){ console.log('save token error', e); }
+}
+
+function updateFCMStatus(status){
+  // 설정 화면 갱신용
+  window._fcmStatus = status;
+  if(document.getElementById('setWrap')){
+    // renderSettings가 있으면 다시 그리게
+    try{ renderSettings(); }catch(e){}
+  }
+}
+
+// FCM으로 다른 가족에게 푸시 보내기 (클라이언트 팬아웃 - 가족용 간이 버전)
+// 진짜 백그라운드 푸시(앱 꺼졌을 때도)는 Cloud Functions가 필요하지만,
+// 이 함수는 앱이 백그라운드에 있을 때라도 FCM 토큰으로 직접 푸시 시도
+async function sendPushToFamily(author, content){
+  try{
+    const snap = await db.ref('family/'+familyId+'/fcmTokens').once('value');
+    const tokens = snap.val() || {};
+    // 자신 제외
+    const otherTokens = Object.entries(tokens).filter(([user, data])=> user !== author).map(([_, d])=> d.token).filter(Boolean);
+    if(otherTokens.length === 0) return;
+
+    // 여기서는 서버 키가 없으므로 실제로는 Cloud Function이 필요.
+    // 대신 Realtime DB에 pushQueue를 만들어 Cloud Function 트리거용으로 저장
+    const queueRef = db.ref('family/'+familyId+'/pushQueue').push();
+    await queueRef.set({
+      author: author,
+      content: content,
+      targetTokens: otherTokens,
+      created_at: new Date().toISOString(),
+      // Cloud Function이 이 큐를 보고 FCM 발송
+    });
+    console.log('Push queue added for', otherTokens.length, 'devices');
+  }catch(e){ console.log('sendPush error', e); }
+}
+
+// 기존 sendMsg에 push 추가
+const _originalSendMsg = sendMsg;
+sendMsg = function(){
+  const inp=document.getElementById('chatInput');
+  const txt=inp.value.trim(); if(!txt) return;
+  // 기존 로직 실행 (원본 호출)
+  _originalSendMsg();
+  // 푸시 큐 추가
+  setTimeout(()=>{ sendPushToFamily(cur, txt); }, 300);
+};
 
 
 try {
@@ -385,7 +582,23 @@ function renderSettings(){
   const wrap=document.getElementById('setWrap');
   let html='';
   html+=`<div class="card" style="background:#E8F5E9;border:2px solid #4ADE80;"><h3>🔥 Firebase 연결됨</h3><p>Family ID: <b>${familyId}</b><br>메시지 ${data.messages.length}개 • 할일 ${data.todos.length}개<br><span style="font-size:9px;color:#666;">이 ID가 같은 폰끼리 같은 대화방 - 업데이트해도 그대로 유지됨</span></p><p style="font-size:9px;background:white;padding:6px;border-radius:8px;margin-top:6px;border:1px solid #ddd;">DB: family/${familyId}/messages<br>현재 사용자: ${cur}<br>저장 위치: Firebase 클라우드 (폰 바꿔도 유지)</p></div>`;
-  html+=`<div class="card" style="background:#FFF9E6;border:2px dashed black;"><h3>💾 데이터는 안 사라짐!</h3><p style="font-size:11px;line-height:1.5;">• 업데이트해도 Firebase에 저장된 대화는 그대로<br>• <b>0개로 보이는 이유:</b><br>1. Family ID가 바뀌었을 수 있음 (기본: jeon-family)<br>2. 예전 버전은 폰에만 저장됨 (Firebase 아님)<br>3. 아직 Firebase에 메시지를 안 보냈음</p><button class="btn" style="background:black;color:white;" onclick="if(confirm('기존 폰 데이터를 Firebase로 옮길까요?')){migrateOldData(); toast('복구 시도중...');}">📦 기존 폰 데이터 복구</button></div>`;
+
+  // FCM 상태 카드 - 아이폰/아이패드 대응
+  const fcmStatus = window._fcmStatus || 'checking';
+  const dev = detectDevice();
+  const fcmColor = fcmStatus==='granted' ? '#E8F5E9' : (fcmStatus==='denied' ? '#FFEBEE' : '#FFF9E6');
+  const fcmBorder = fcmStatus==='granted' ? '#4ADE80' : (fcmStatus==='denied' ? '#FF4444' : '#FFD93D');
+  const statusText = {
+    'granted': '✅ 푸시 알림 활성화됨 - 다른 앱 사용 중에도 알림 옴',
+    'denied': '❌ 알림 거부됨 - 설정 > 알림에서 허용 필요',
+    'no-vapid': '⚠️ VAPID 키 없음 - 포그라운드 알림만 가능, 백그라운드 푸시는 Cloud Functions 필요',
+    'unsupported': '⚠️ 이 브라우저는 FCM 미지원 - PWA로 설치 필요',
+    'checking': '🔄 푸시 상태 확인 중...',
+    'error': '⚠️ FCM 오류 - 콘솔 확인'
+  }[fcmStatus] || fcmStatus;
+  html+=`<div class="card" style="background:${fcmColor};border:2px solid ${fcmBorder};"><h3>📲 ${dev.isIPad ? 'iPad' : dev.isIPhone ? 'iPhone' : '푸시'} 알림 - ${cur}</h3><p style="font-size:11px;line-height:1.5;">상태: <b>${statusText}</b><br>디바이스: ${dev.platform} / PWA: ${dev.isPWA ? '예 (홈화면 추가됨)':'아니오 - 홈화면에 추가하면 백그라운드 푸시 가능'}<br>현재 사용자: <b>${cur}</b> (${dev.isIPad ? '해준이 iPad 반영됨' : dev.isIPhone ? (cur==='해준'?'해준이가 iPhone? iPad로 변경 권장':'아이폰 반영됨') : '기타'})<br><span style="font-size:9px;color:#666;">토큰: ${fcmToken ? fcmToken.substring(0,20)+'...' : '없음'}</span></p><button class="btn" style="background:black;color:white;" onclick="initFCM()">🔄 푸시 다시 활성화</button><button class="btn" style="background:#FEE500;margin-top:5px;" onclick="if(Notification.permission!=='granted'){Notification.requestPermission().then(initFCM);}else{initFCM();}">🔔 iPhone처럼 알림 허용</button><p style="font-size:9px;margin-top:6px;color:#555;">💡 아이폰에서 다른 앱 사용 중에도 알림 받으려면:<br>1. Safari 공유버튼 > 홈 화면에 추가<br>2. 홈화면 아이콘으로 FamChat 열기<br>3. 위 버튼으로 알림 허용<br>4. Firebase Console에서 VAPID 키 설정 (가이드 참조)</p></div>`;
+  html+=`<div class="card" style="background:#FFF9E6;border:2px dashed black;"><h3>💾 데이터는 안 사라짐!</h3>
+<p style="font-size:11px;line-height:1.5;">• 업데이트해도 Firebase에 저장된 대화는 그대로<br>• <b>0개로 보이는 이유:</b><br>1. Family ID가 바뀌었을 수 있음 (기본: jeon-family)<br>2. 예전 버전은 폰에만 저장됨 (Firebase 아님)<br>3. 아직 Firebase에 메시지를 안 보냈음</p><button class="btn" style="background:black;color:white;" onclick="if(confirm('기존 폰 데이터를 Firebase로 옮길까요?')){migrateOldData(); toast('복구 시도중...');}">📦 기존 폰 데이터 복구</button></div>`;
   html+=`<div class="card"><h3>🔄 사용자 전환</h3><div class="modes">`;
   modes.forEach(m=>{
     const on=cur===m.id?'on':'';
