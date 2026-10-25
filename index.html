@@ -71,7 +71,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#FFF8F0;
 </head>
 <body>
 <div class="header">
-<h1>전씨네 Family Chat</h1><span class="badge">v1.3.11</span>
+<h1>전씨네 Family Chat</h1><span class="badge">v1.3.13</span>
 </div>
 <div class="device">
 <div class="inner" id="inner">
@@ -83,7 +83,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#FFF8F0;
 <div class="tab off" id="tab-set" onclick="goTab('set')">⚙️ 설정</div>
 </div>
 
-<div id="view-chat" class="box" style="display: flex;">
+<div id="view-chat" class="box">
 <div class="list" id="chatList"></div>
 <div class="input-wrap">
 <div class="send-label" id="sendBadge">아빠로 전송</div>
@@ -94,7 +94,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#FFF8F0;
 </div>
 </div>
 
-<div id="view-todo" class="box" style="display: none;">
+<div id="view-todo" class="box" style="display:none;">
 <div class="list" id="todoList"></div>
 <div class="input-wrap">
 <div class="input-row">
@@ -104,8 +104,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#FFF8F0;
 </div>
 </div>
 
-<div id="view-set" class="box" style="display: none;">
-<div class="set-wrap" id="setWrap"><div class="card" style="background:#E8F5E9;border:2px solid #4ADE80;"><h3>🔥 Firebase 연결됨</h3><p>Family ID: jeon-family<br>메시지 0개 • 할일 0개</p></div><div class="card"><h3>🔄 사용자 전환</h3><div class="modes"><button class="on" onclick="changeMode('아빠')">👨 아빠<br>✓ 현재</button><button class="" onclick="changeMode('엄마')">👩 엄마<br></button><button class="" onclick="changeMode('해준')">👦 해준<br></button></div></div><div class="card"><h3>📝 관리</h3><button class="btn" style="background:#FFD93D;" onclick="addSample()">샘플 할일</button><button class="btn" style="background:white;" onclick="clearAll()">전체 삭제</button></div></div>
+<div id="view-set" class="box" style="display:none;">
+<div class="set-wrap" id="setWrap"></div>
 </div>
 
 </div>
@@ -120,6 +120,65 @@ let cur = localStorage.getItem('curUser') || '아빠';
 const modes = [{id:'아빠',icon:'👨'},{id:'엄마',icon:'👩'},{id:'해준',icon:'👦'}];
 let familyId = localStorage.getItem('familyId') || 'jeon-family';
 let data = {messages:[], todos:[]};
+
+let alarmEnabled = localStorage.getItem('alarmEnabled') !== 'false';
+let lastMsgCount = 0;
+
+function playBeep(){
+  try{
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = 880;
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    gain.gain.setValueAtTime(0, ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.5, ctx.currentTime + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.5);
+    setTimeout(()=>{
+      const osc2 = ctx.createOscillator();
+      const gain2 = ctx.createGain();
+      osc2.frequency.value = 1046;
+      osc2.connect(gain2);
+      gain2.connect(ctx.destination);
+      gain2.gain.setValueAtTime(0, ctx.currentTime);
+      gain2.gain.linearRampToValueAtTime(0.4, ctx.currentTime + 0.02);
+      gain2.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+      osc2.start();
+      osc2.stop(ctx.currentTime + 0.4);
+    }, 200);
+  }catch(e){ console.log('audio error', e); }
+}
+
+function triggerAlarm(author, content){
+  if(!alarmEnabled) return;
+  playBeep();
+  if(navigator.vibrate) navigator.vibrate([150,80,150]);
+  // 브라우저 알림
+  if('Notification' in window && Notification.permission === 'granted'){
+    if(document.hidden){
+      new Notification('📩 ' + author, {body: content, icon: 'https://cdn-icons-png.flaticon.com/512/5962/5962463.png'});
+    }
+  }
+  // 토스트는 이미 있음
+}
+
+function requestNotifPermission(){
+  if('Notification' in window && Notification.permission === 'default'){
+    Notification.requestPermission();
+  }
+}
+
+function toggleAlarm(){
+  alarmEnabled = !alarmEnabled;
+  localStorage.setItem('alarmEnabled', alarmEnabled);
+  renderSettings();
+  toast(alarmEnabled ? '🔔 알람 켜짐' : '🔕 알람 꺼짐');
+}
+
 
 try {
   firebase.initializeApp(firebaseConfig);
@@ -180,6 +239,7 @@ function renderSettings(){
     html+=`<button class="${on}" onclick="changeMode('${m.id}')">${m.icon} ${m.id}<br>${cur===m.id?'✓ 현재':''}</button>`;
   });
   html+=`</div></div>`;
+  html+=`<div class="card" style="background:${alarmEnabled?'#E8F5E9':'#FFEBEE'};border:2px solid ${alarmEnabled?'#4ADE80':'#FF4444'};"><h3>${alarmEnabled?'🔔':'🔕'} 새 메시지 알람</h3><p>${alarmEnabled?'켜짐 - 다른 사람이 메시지 보내면 소리+진동+알림':'꺼짐 - 조용히'}</p><button class="btn ${alarmEnabled?'':'black'}" style="background:${alarmEnabled?'#FF4444':'#4ADE80'};color:${alarmEnabled?'white':'black'};margin-top:8px;" onclick="toggleAlarm()">${alarmEnabled?'🔕 알람 끄기':'🔔 알람 켜기'}</button><button class="btn white" style="margin-top:6px;" onclick="requestNotifPermission();playBeep();toast('🔔 테스트 알림');">🔊 테스트 알림 울리기</button><p style="font-size:9px;color:#666;margin-top:6px;">* 아이폰은 사파리에서 알림 허용해야 백그라운드에서도 울림<br>* 소리는 앱이 열려있을 때만 재생</p></div>`;
   html+=`<div class="card"><h3>📝 관리</h3><button class="btn" style="background:#FFD93D;" onclick="addSample()">샘플 할일</button><button class="btn" style="background:white;" onclick="clearAll()">전체 삭제</button></div>`;
   wrap.innerHTML=html;
 }
@@ -233,12 +293,14 @@ chatRef.on('value', snap=>{
   const msgs=Object.entries(val).map(([k,v])=>({_key:k, ...v})).sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
   const wasLonger = msgs.length > data.messages.length;
   const last = msgs[msgs.length-1];
+  const isNew = msgs.length > lastMsgCount && lastMsgCount !== 0;
   data.messages=msgs;
   renderChat();
-  if(wasLonger && last && last.author!==cur){
+  if(isNew && last && last.author!==cur){
     toast('📩 ' + last.author + ': ' + last.content.substring(0,20));
-    if(navigator.vibrate) navigator.vibrate([100,50,100]);
+    triggerAlarm(last.author, last.content);
   }
+  lastMsgCount = msgs.length;
   document.getElementById('dot').className='dot';
   document.getElementById('liveText').textContent='🔥 실시간 연결됨 - 메시지 '+msgs.length+'개';
 });
@@ -251,6 +313,9 @@ todosRef.on('value', snap=>{
 
 function renderTopWrapper(){ renderTop(); }
 renderTopWrapper(); goTab('chat');
+lastMsgCount = 0;
+// 첫 터치시 오디오 활성화 + 알림 권한 요청
+document.addEventListener('click', function initAudio(){ requestNotifPermission(); document.removeEventListener('click', initAudio); }, {once:true});
 </script>
 <script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script>
 
