@@ -1,4 +1,4 @@
-<html lang="ko"><!-- FamChat Build: 2026.10.26.1320 | v1.3.20 | 2026-10-26 | via Builder-a4u v8.2.7 | iPad Extra Large - 눈 보호 --><!-- old: 2025.10.25.1315 | v1.3.15 | 2026-10-25 | via Builder-a4u v8.2.7 | KakaoTalk UI --><head><style>
+<html lang="ko"><!-- FamChat Build: 2026.10.26.1321 | v1.3.21 | 2026-10-26 | via Builder-a4u v8.2.7 | iPhone 화면 위로 올라감 Fix --><!-- old: 2025.10.25.1315 | v1.3.15 | 2026-10-25 | via Builder-a4u v8.2.7 | KakaoTalk UI --><head><style>
 @font-face {
   font-family: "Optimistic";
   font-style: normal;
@@ -146,27 +146,36 @@ body.ipad-mode .todo span{font-size:17px;font-weight:700;}
 body.ipad-mode #vapidInput{font-size:14px;padding:10px 12px;}
 
 
-/* ===== v1.3.19 KakaoTalk Scroll Fix - 대화가 길어져도 화면 안에서만 스크롤 ===== */
-html, body{height:100%;overflow:hidden;overscroll-behavior:none;}
+/* ===== v1.3.19-21 KakaoTalk Scroll Fix + iPhone 화면 위로 올라감 수정 ===== */
+html{height:100%;}
 body{
-  height:100dvh;
-  height:100vh; /* fallback */
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  padding:0;
-  padding-bottom: env(safe-area-inset-bottom);
+  min-height:100dvh;
+  min-height:100vh;
   background:#FFF8F0;
+  padding:10px;
+  padding-top:max(10px, env(safe-area-inset-top));
+  padding-bottom:max(10px, env(safe-area-inset-bottom));
+  overflow-x:hidden;
+  overflow-y:auto;
+  -webkit-text-size-adjust:100%;
+  display:block;
 }
-.header{flex-shrink:0;padding:8px 10px 6px;z-index:10;background:#FFF8F0;}
+.header{
+  text-align:center;
+  padding:8px 0 10px;
+  flex-shrink:0;
+  background:transparent;
+  position:relative;
+  z-index:10;
+}
 .device{
-  flex:1;
+  height:calc(100dvh - 70px);
+  height:calc(100vh - 70px);
+  max-height:calc(100dvh - 70px);
+  min-height:400px;
   display:flex;
   flex-direction:column;
   overflow:hidden;
-  min-height:0;
-  max-height:100%;
-  height:100%;
   margin:0 auto;
 }
 .inner{
@@ -206,6 +215,7 @@ body{
   position:sticky;
   bottom:0;
   z-index:20;
+  background:#fff;
 }
 #view-todo, #view-set{
   flex:1;
@@ -218,6 +228,21 @@ body{
   flex:1;
   overflow-y:auto;
   -webkit-overflow-scrolling:touch;
+  min-height:0;
+}
+/* iPhone에서도 고정 높이 유지 - 위로 올라감 방지 */
+body.iphone-mode{
+  min-height:100dvh;
+  padding-top:max(8px, env(safe-area-inset-top));
+}
+body.iphone-mode .device{
+  height:calc(100dvh - 60px);
+  max-height:calc(100dvh - 60px);
+  min-height:420px;
+}
+body.ipad-mode .device{
+  height:calc(100dvh - 80px);
+  max-height:calc(100dvh - 80px);
 }
 
 /* iPhone 모드에서도 동일하게 고정 */
@@ -232,7 +257,7 @@ body.ipad-mode .device{flex:1;min-height:0;height:100%;}
 </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>FamChat v1.3.20 - - iPad Extra Large - 눈 보호</title>
+<title>FamChat v1.3.21 - - iPhone 화면 위로 올라감 Fix</title>
 <link rel="manifest" href="manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="FamChat">
@@ -389,27 +414,36 @@ body.ipad-mode .todo span{font-size:17px;font-weight:700;}
 body.ipad-mode #vapidInput{font-size:14px;padding:10px 12px;}
 
 
-/* ===== v1.3.19 KakaoTalk Scroll Fix - 대화가 길어져도 화면 안에서만 스크롤 ===== */
-html, body{height:100%;overflow:hidden;overscroll-behavior:none;}
+/* ===== v1.3.19-21 KakaoTalk Scroll Fix + iPhone 화면 위로 올라감 수정 ===== */
+html{height:100%;}
 body{
-  height:100dvh;
-  height:100vh; /* fallback */
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  padding:0;
-  padding-bottom: env(safe-area-inset-bottom);
+  min-height:100dvh;
+  min-height:100vh;
   background:#FFF8F0;
+  padding:10px;
+  padding-top:max(10px, env(safe-area-inset-top));
+  padding-bottom:max(10px, env(safe-area-inset-bottom));
+  overflow-x:hidden;
+  overflow-y:auto;
+  -webkit-text-size-adjust:100%;
+  display:block;
 }
-.header{flex-shrink:0;padding:8px 10px 6px;z-index:10;background:#FFF8F0;}
+.header{
+  text-align:center;
+  padding:8px 0 10px;
+  flex-shrink:0;
+  background:transparent;
+  position:relative;
+  z-index:10;
+}
 .device{
-  flex:1;
+  height:calc(100dvh - 70px);
+  height:calc(100vh - 70px);
+  max-height:calc(100dvh - 70px);
+  min-height:400px;
   display:flex;
   flex-direction:column;
   overflow:hidden;
-  min-height:0;
-  max-height:100%;
-  height:100%;
   margin:0 auto;
 }
 .inner{
@@ -449,6 +483,7 @@ body{
   position:sticky;
   bottom:0;
   z-index:20;
+  background:#fff;
 }
 #view-todo, #view-set{
   flex:1;
@@ -461,6 +496,21 @@ body{
   flex:1;
   overflow-y:auto;
   -webkit-overflow-scrolling:touch;
+  min-height:0;
+}
+/* iPhone에서도 고정 높이 유지 - 위로 올라감 방지 */
+body.iphone-mode{
+  min-height:100dvh;
+  padding-top:max(8px, env(safe-area-inset-top));
+}
+body.iphone-mode .device{
+  height:calc(100dvh - 60px);
+  max-height:calc(100dvh - 60px);
+  min-height:420px;
+}
+body.ipad-mode .device{
+  height:calc(100dvh - 80px);
+  max-height:calc(100dvh - 80px);
 }
 
 /* iPhone 모드에서도 동일하게 고정 */
@@ -476,7 +526,7 @@ body.ipad-mode .device{flex:1;min-height:0;height:100%;}
 </head>
 <body>
 <div class="header">
-<h1>전씨네 Family Chat</h1><span class="badge">v1.3.20</span>
+<h1>전씨네 Family Chat</h1><span class="badge">v1.3.21</span>
 </div>
 <div class="device">
 <div class="inner" id="inner">
@@ -523,8 +573,8 @@ const firebaseConfig = {'apiKey': 'AIzaSyDKTiB6lqRDCHaM8vxWwbiX0K_nlb8_4jQ', 'au
 let db, chatRef, todosRef;
 let cur = localStorage.getItem('curUser') || '아빠';
 const modes = [{id:'아빠',icon:'👨'},{id:'엄마',icon:'👩'},{id:'해준',icon:'👦'}];
-const FAMCHAT_BUILD = '2026.10.26.1320';
-const FAMCHAT_VERSION = 'v1.3.20';
+const FAMCHAT_BUILD = '2026.10.26.1321';
+const FAMCHAT_VERSION = 'v1.3.21';
 let familyId = localStorage.getItem('familyId') || 'jeon-family';
 let data = {messages:[], todos:[]};
 
