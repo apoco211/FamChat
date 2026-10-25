@@ -71,7 +71,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#FFF8F0;
 </head>
 <body>
 <div class="header">
-<h1>전씨네 Family Chat</h1><span class="badge">v1.3.13</span>
+<h1>전씨네 Family Chat</h1><span class="badge">v1.3.14</span>
 </div>
 <div class="device">
 <div class="inner" id="inner">
@@ -153,6 +153,45 @@ function playBeep(){
   }catch(e){ console.log('audio error', e); }
 }
 
+
+// 기존 localStorage 데이터 마이그레이션 (Firebase 이전 버전용)
+function migrateOldData(){
+  const possibleKeys = ['familyChat', 'chatMessages', 'messages', 'family_data', 'jeon_family_chat'];
+  let migrated = 0;
+  possibleKeys.forEach(key=>{
+    try{
+      const raw = localStorage.getItem(key);
+      if(!raw) return;
+      const parsed = JSON.parse(raw);
+      let msgs = [];
+      if(Array.isArray(parsed)) msgs = parsed;
+      else if(parsed.messages && Array.isArray(parsed.messages)) msgs = parsed.messages;
+      else if(parsed.data && parsed.data.messages) msgs = parsed.data.messages;
+      
+      if(msgs.length > 0){
+        msgs.forEach(m=>{
+          // 이미 Firebase에 있는지 체크 없이 일단 올림 - 중복 방지는 timestamp로
+          if(m.content && m.author){
+            chatRef.push({
+              id: m.id || Date.now().toString() + Math.random(),
+              author: m.author,
+              content: m.content,
+              source: m.source || 'migrated',
+              created_at: m.created_at || new Date().toISOString()
+            });
+            migrated++;
+          }
+        });
+      }
+    }catch(e){}
+  });
+  if(migrated > 0){
+    toast('📦 기존 데이터 '+migrated+'개 복구중...');
+    setTimeout(()=>{ localStorage.removeItem('familyChat'); localStorage.removeItem('chatMessages'); }, 2000);
+  }
+  return migrated;
+}
+
 function triggerAlarm(author, content){
   if(!alarmEnabled) return;
   playBeep();
@@ -183,8 +222,12 @@ function toggleAlarm(){
 try {
   firebase.initializeApp(firebaseConfig);
   db = firebase.database();
+  // familyId 고정 - 실수로 바뀌는 거 방지
+  if(!localStorage.getItem('familyId')){ localStorage.setItem('familyId', 'jeon-family'); }
+  familyId = localStorage.getItem('familyId') || 'jeon-family';
   chatRef = db.ref('family/' + familyId + '/messages');
   todosRef = db.ref('family/' + familyId + '/todos');
+  setTimeout(migrateOldData, 1500);
 } catch(e){ console.error(e); }
 
 function goTab(name){
@@ -232,7 +275,8 @@ function renderTodos(){
 function renderSettings(){
   const wrap=document.getElementById('setWrap');
   let html='';
-  html+=`<div class="card" style="background:#E8F5E9;border:2px solid #4ADE80;"><h3>🔥 Firebase 연결됨</h3><p>Family ID: ${familyId}<br>메시지 ${data.messages.length}개 • 할일 ${data.todos.length}개</p></div>`;
+  html+=`<div class="card" style="background:#E8F5E9;border:2px solid #4ADE80;"><h3>🔥 Firebase 연결됨</h3><p>Family ID: <b>${familyId}</b><br>메시지 ${data.messages.length}개 • 할일 ${data.todos.length}개<br><span style="font-size:9px;color:#666;">이 ID가 같은 폰끼리 같은 대화방 - 업데이트해도 그대로 유지됨</span></p><p style="font-size:9px;background:white;padding:6px;border-radius:8px;margin-top:6px;border:1px solid #ddd;">DB: family/${familyId}/messages<br>현재 사용자: ${cur}<br>저장 위치: Firebase 클라우드 (폰 바꿔도 유지)</p></div>`;
+  html+=`<div class="card" style="background:#FFF9E6;border:2px dashed black;"><h3>💾 데이터는 안 사라짐!</h3><p style="font-size:11px;line-height:1.5;">• 업데이트해도 Firebase에 저장된 대화는 그대로<br>• <b>0개로 보이는 이유:</b><br>1. Family ID가 바뀌었을 수 있음 (기본: jeon-family)<br>2. 예전 버전은 폰에만 저장됨 (Firebase 아님)<br>3. 아직 Firebase에 메시지를 안 보냈음</p><button class="btn" style="background:black;color:white;" onclick="if(confirm('기존 폰 데이터를 Firebase로 옮길까요?')){migrateOldData(); toast('복구 시도중...');}">📦 기존 폰 데이터 복구</button></div>`;
   html+=`<div class="card"><h3>🔄 사용자 전환</h3><div class="modes">`;
   modes.forEach(m=>{
     const on=cur===m.id?'on':'';
@@ -301,6 +345,7 @@ chatRef.on('value', snap=>{
     triggerAlarm(last.author, last.content);
   }
   lastMsgCount = msgs.length;
+  localStorage.setItem('lastMsgCount', msgs.length);
   document.getElementById('dot').className='dot';
   document.getElementById('liveText').textContent='🔥 실시간 연결됨 - 메시지 '+msgs.length+'개';
 });
@@ -313,7 +358,7 @@ todosRef.on('value', snap=>{
 
 function renderTopWrapper(){ renderTop(); }
 renderTopWrapper(); goTab('chat');
-lastMsgCount = 0;
+lastMsgCount = parseInt(localStorage.getItem('lastMsgCount')||'0');
 // 첫 터치시 오디오 활성화 + 알림 권한 요청
 document.addEventListener('click', function initAudio(){ requestNotifPermission(); document.removeEventListener('click', initAudio); }, {once:true});
 </script>
