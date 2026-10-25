@@ -1,4 +1,4 @@
-<html lang="ko"><!-- FamChat Build: 2026.10.26.1317 | v1.3.17 | 2026-10-26 | via Builder-a4u v8.2.7 | iPhone Compact UI --><!-- old: 2025.10.25.1315 | v1.3.15 | 2026-10-25 | via Builder-a4u v8.2.7 | KakaoTalk UI --><head><style>
+<html lang="ko"><!-- FamChat Build: 2026.10.26.1320 | v1.3.20 | 2026-10-26 | via Builder-a4u v8.2.7 | iPad Extra Large - 눈 보호 --><!-- old: 2025.10.25.1315 | v1.3.15 | 2026-10-25 | via Builder-a4u v8.2.7 | KakaoTalk UI --><head><style>
 @font-face {
   font-family: "Optimistic";
   font-style: normal;
@@ -108,23 +108,131 @@ body.iphone-mode .card p{font-size:9.5px;}
 body.iphone-mode .todo{padding:7px;border-radius:10px;border-width:1.5px;}
 body.iphone-mode .todo span{font-size:11px;}
 
-/* iPad 모드 (해준) - 기존 크기 유지 + 약간 더 큼 */
-.inner.kid #chatList{padding:12px 10px;gap:12px;}
-.inner.kid .kakao-row{gap:10px;max-width:88%;}
-.inner.kid .kakao-profile{width:44px;height:44px;border-radius:16px;font-size:22px;border-width:2px;}
-.inner.kid .kakao-author{font-size:12px;}
-.inner.kid .kakao-bubble{padding:11px 15px;font-size:16px;line-height:1.5;max-width:300px;border-radius:18px;font-weight:600;}
-.inner.kid .kakao-time{font-size:11px;}
-.inner.kid .date-sep{font-size:11px;padding:6px 12px;margin:8px 0;}
-body.ipad-mode .device{max-width:480px;}
-body.ipad-mode .header h1{font-size:24px;}
-body.ipad-mode .tab{padding:12px;font-size:12px;}
+/* iPad 모드 (해준) - 눈 보호 위해 특대 사이즈 v1.3.20 */
+.inner.kid #chatList{padding:16px 14px;gap:16px;}
+.inner.kid .kakao-row{gap:14px;max-width:92%;}
+.inner.kid .kakao-profile{width:56px;height:56px;border-radius:20px;font-size:28px;border-width:2.5px;box-shadow:0 2px 4px rgba(0,0,0,0.1);}
+.inner.kid .kakao-content{gap:6px;}
+.inner.kid .kakao-author{font-size:15px;font-weight:900;}
+.inner.kid .kakao-bubble{padding:14px 20px;font-size:20px;line-height:1.6;max-width:380px;border-radius:22px;font-weight:700;letter-spacing:-0.3px;box-shadow:0 2px 3px rgba(0,0,0,0.12);}
+.inner.kid .kakao-row.other .kakao-bubble{border-top-left-radius:6px;}
+.inner.kid .kakao-row.mine .kakao-bubble{border-top-right-radius:6px;}
+.inner.kid .kakao-bubble-line{gap:8px;}
+.inner.kid .kakao-time{font-size:13px;font-weight:700;}
+.inner.kid .kakao-del{font-size:11px;padding:3px 8px;}
+.inner.kid .date-sep{font-size:13px;padding:8px 16px;margin:12px 0;letter-spacing:-0.2px;}
+
+body.ipad-mode .device{max-width:680px;border-width:6px;border-radius:32px;padding:14px;min-height:0;}
+body.ipad-mode .inner{padding:14px;border-radius:22px;min-height:0;}
+body.ipad-mode .header{padding:10px 0 12px;}
+body.ipad-mode .header h1{font-size:30px;letter-spacing:-0.5px;}
+body.ipad-mode .badge{font-size:12px;padding:4px 10px;}
+body.ipad-mode .top{padding:12px;font-size:14px;border-radius:14px;margin-bottom:8px;}
+body.ipad-mode .live{padding:10px 12px;font-size:13px;border-radius:12px;margin-bottom:8px;gap:8px;}
+body.ipad-mode .dot{width:14px;height:14px;}
+body.ipad-mode .tabs{gap:8px;margin-bottom:10px;}
+body.ipad-mode .tab{padding:16px 12px;font-size:15px;font-weight:900;border-radius:20px;border-width:2.5px;}
+body.ipad-mode .input-wrap{padding:14px;border-radius:20px;border-width:2.5px;}
+body.ipad-mode .send-label{font-size:12px;padding:5px 12px;margin-bottom:8px;border-radius:10px;}
+body.ipad-mode .input-row{gap:10px;}
+body.ipad-mode .input-row input{padding:14px 18px;font-size:18px;min-height:52px;border-radius:18px;border-width:2.5px;font-weight:700;}
+body.ipad-mode .input-row button{padding:14px 18px;font-size:16px;min-height:52px;min-width:80px;border-radius:18px;font-weight:900;}
+body.ipad-mode .set-wrap{gap:12px;max-height:none;}
+body.ipad-mode .card{padding:16px;border-radius:16px;border-width:2.5px;}
+body.ipad-mode .card h3{font-size:16px;margin-bottom:8px;}
+body.ipad-mode .card p{font-size:14px;line-height:1.6;}
+body.ipad-mode .todo{padding:14px 16px;border-radius:16px;border-width:2.5px;gap:12px;}
+body.ipad-mode .todo span{font-size:17px;font-weight:700;}
+body.ipad-mode #vapidInput{font-size:14px;padding:10px 12px;}
+
+
+/* ===== v1.3.19 KakaoTalk Scroll Fix - 대화가 길어져도 화면 안에서만 스크롤 ===== */
+html, body{height:100%;overflow:hidden;overscroll-behavior:none;}
+body{
+  height:100dvh;
+  height:100vh; /* fallback */
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  padding:0;
+  padding-bottom: env(safe-area-inset-bottom);
+  background:#FFF8F0;
+}
+.header{flex-shrink:0;padding:8px 10px 6px;z-index:10;background:#FFF8F0;}
+.device{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  min-height:0;
+  max-height:100%;
+  height:100%;
+  margin:0 auto;
+}
+.inner{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  min-height:0;
+}
+.box{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  min-height:0;
+}
+#view-chat{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  min-height:0;
+  background:#B2C7DA;
+  border-radius:14px;
+}
+#chatList{
+  flex:1;
+  overflow-y:auto;
+  overflow-x:hidden;
+  min-height:0;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+}
+#view-chat .input-wrap{
+  flex-shrink:0;
+  position:sticky;
+  bottom:0;
+  z-index:20;
+}
+#view-todo, #view-set{
+  flex:1;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  min-height:0;
+}
+#view-todo .list, #view-set .set-wrap{
+  flex:1;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+
+/* iPhone 모드에서도 동일하게 고정 */
+body.iphone-mode{height:100dvh;overflow:hidden;}
+body.iphone-mode .device{flex:1;min-height:0;height:100%;max-height:100%;}
+body.iphone-mode .inner{min-height:0;}
+body.ipad-mode{height:100dvh;overflow:hidden;}
+body.ipad-mode .device{flex:1;min-height:0;height:100%;}
+
 
 
 </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>FamChat v1.3.17 - - iPhone Compact UI</title>
+<title>FamChat v1.3.20 - - iPad Extra Large - 눈 보호</title>
 <link rel="manifest" href="manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="FamChat">
@@ -243,24 +351,132 @@ body.iphone-mode .card p{font-size:9.5px;}
 body.iphone-mode .todo{padding:7px;border-radius:10px;border-width:1.5px;}
 body.iphone-mode .todo span{font-size:11px;}
 
-/* iPad 모드 (해준) - 기존 크기 유지 + 약간 더 큼 */
-.inner.kid #chatList{padding:12px 10px;gap:12px;}
-.inner.kid .kakao-row{gap:10px;max-width:88%;}
-.inner.kid .kakao-profile{width:44px;height:44px;border-radius:16px;font-size:22px;border-width:2px;}
-.inner.kid .kakao-author{font-size:12px;}
-.inner.kid .kakao-bubble{padding:11px 15px;font-size:16px;line-height:1.5;max-width:300px;border-radius:18px;font-weight:600;}
-.inner.kid .kakao-time{font-size:11px;}
-.inner.kid .date-sep{font-size:11px;padding:6px 12px;margin:8px 0;}
-body.ipad-mode .device{max-width:480px;}
-body.ipad-mode .header h1{font-size:24px;}
-body.ipad-mode .tab{padding:12px;font-size:12px;}
+/* iPad 모드 (해준) - 눈 보호 위해 특대 사이즈 v1.3.20 */
+.inner.kid #chatList{padding:16px 14px;gap:16px;}
+.inner.kid .kakao-row{gap:14px;max-width:92%;}
+.inner.kid .kakao-profile{width:56px;height:56px;border-radius:20px;font-size:28px;border-width:2.5px;box-shadow:0 2px 4px rgba(0,0,0,0.1);}
+.inner.kid .kakao-content{gap:6px;}
+.inner.kid .kakao-author{font-size:15px;font-weight:900;}
+.inner.kid .kakao-bubble{padding:14px 20px;font-size:20px;line-height:1.6;max-width:380px;border-radius:22px;font-weight:700;letter-spacing:-0.3px;box-shadow:0 2px 3px rgba(0,0,0,0.12);}
+.inner.kid .kakao-row.other .kakao-bubble{border-top-left-radius:6px;}
+.inner.kid .kakao-row.mine .kakao-bubble{border-top-right-radius:6px;}
+.inner.kid .kakao-bubble-line{gap:8px;}
+.inner.kid .kakao-time{font-size:13px;font-weight:700;}
+.inner.kid .kakao-del{font-size:11px;padding:3px 8px;}
+.inner.kid .date-sep{font-size:13px;padding:8px 16px;margin:12px 0;letter-spacing:-0.2px;}
+
+body.ipad-mode .device{max-width:680px;border-width:6px;border-radius:32px;padding:14px;min-height:0;}
+body.ipad-mode .inner{padding:14px;border-radius:22px;min-height:0;}
+body.ipad-mode .header{padding:10px 0 12px;}
+body.ipad-mode .header h1{font-size:30px;letter-spacing:-0.5px;}
+body.ipad-mode .badge{font-size:12px;padding:4px 10px;}
+body.ipad-mode .top{padding:12px;font-size:14px;border-radius:14px;margin-bottom:8px;}
+body.ipad-mode .live{padding:10px 12px;font-size:13px;border-radius:12px;margin-bottom:8px;gap:8px;}
+body.ipad-mode .dot{width:14px;height:14px;}
+body.ipad-mode .tabs{gap:8px;margin-bottom:10px;}
+body.ipad-mode .tab{padding:16px 12px;font-size:15px;font-weight:900;border-radius:20px;border-width:2.5px;}
+body.ipad-mode .input-wrap{padding:14px;border-radius:20px;border-width:2.5px;}
+body.ipad-mode .send-label{font-size:12px;padding:5px 12px;margin-bottom:8px;border-radius:10px;}
+body.ipad-mode .input-row{gap:10px;}
+body.ipad-mode .input-row input{padding:14px 18px;font-size:18px;min-height:52px;border-radius:18px;border-width:2.5px;font-weight:700;}
+body.ipad-mode .input-row button{padding:14px 18px;font-size:16px;min-height:52px;min-width:80px;border-radius:18px;font-weight:900;}
+body.ipad-mode .set-wrap{gap:12px;max-height:none;}
+body.ipad-mode .card{padding:16px;border-radius:16px;border-width:2.5px;}
+body.ipad-mode .card h3{font-size:16px;margin-bottom:8px;}
+body.ipad-mode .card p{font-size:14px;line-height:1.6;}
+body.ipad-mode .todo{padding:14px 16px;border-radius:16px;border-width:2.5px;gap:12px;}
+body.ipad-mode .todo span{font-size:17px;font-weight:700;}
+body.ipad-mode #vapidInput{font-size:14px;padding:10px 12px;}
+
+
+/* ===== v1.3.19 KakaoTalk Scroll Fix - 대화가 길어져도 화면 안에서만 스크롤 ===== */
+html, body{height:100%;overflow:hidden;overscroll-behavior:none;}
+body{
+  height:100dvh;
+  height:100vh; /* fallback */
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  padding:0;
+  padding-bottom: env(safe-area-inset-bottom);
+  background:#FFF8F0;
+}
+.header{flex-shrink:0;padding:8px 10px 6px;z-index:10;background:#FFF8F0;}
+.device{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  min-height:0;
+  max-height:100%;
+  height:100%;
+  margin:0 auto;
+}
+.inner{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  min-height:0;
+}
+.box{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  min-height:0;
+}
+#view-chat{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  min-height:0;
+  background:#B2C7DA;
+  border-radius:14px;
+}
+#chatList{
+  flex:1;
+  overflow-y:auto;
+  overflow-x:hidden;
+  min-height:0;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+}
+#view-chat .input-wrap{
+  flex-shrink:0;
+  position:sticky;
+  bottom:0;
+  z-index:20;
+}
+#view-todo, #view-set{
+  flex:1;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  min-height:0;
+}
+#view-todo .list, #view-set .set-wrap{
+  flex:1;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+
+/* iPhone 모드에서도 동일하게 고정 */
+body.iphone-mode{height:100dvh;overflow:hidden;}
+body.iphone-mode .device{flex:1;min-height:0;height:100%;max-height:100%;}
+body.iphone-mode .inner{min-height:0;}
+body.ipad-mode{height:100dvh;overflow:hidden;}
+body.ipad-mode .device{flex:1;min-height:0;height:100%;}
+
 
 
 </style>
 </head>
 <body>
 <div class="header">
-<h1>전씨네 Family Chat</h1><span class="badge">v1.3.17</span>
+<h1>전씨네 Family Chat</h1><span class="badge">v1.3.20</span>
 </div>
 <div class="device">
 <div class="inner" id="inner">
@@ -307,8 +523,8 @@ const firebaseConfig = {'apiKey': 'AIzaSyDKTiB6lqRDCHaM8vxWwbiX0K_nlb8_4jQ', 'au
 let db, chatRef, todosRef;
 let cur = localStorage.getItem('curUser') || '아빠';
 const modes = [{id:'아빠',icon:'👨'},{id:'엄마',icon:'👩'},{id:'해준',icon:'👦'}];
-const FAMCHAT_BUILD = '2026.10.26.1317';
-const FAMCHAT_VERSION = 'v1.3.17';
+const FAMCHAT_BUILD = '2026.10.26.1320';
+const FAMCHAT_VERSION = 'v1.3.20';
 let familyId = localStorage.getItem('familyId') || 'jeon-family';
 let data = {messages:[], todos:[]};
 
@@ -553,6 +769,23 @@ function saveFCMToken(token){
   }catch(e){ console.log('save token error', e); }
 }
 
+
+function saveVapidKey(){
+  const inp = document.getElementById('vapidInput');
+  const key = inp ? inp.value.trim() : '';
+  if(!key){
+    toast('키를 입력하세요');
+    return;
+  }
+  if(!key.startsWith('B') || key.length < 80){
+    toast('⚠️ B로 시작하는 87자 키가 맞는지 확인');
+    // still save
+  }
+  localStorage.setItem('vapidKey', key);
+  toast('✅ VAPID 키 저장됨 - 푸시 활성화 중...');
+  setTimeout(()=>{ initFCM(); }, 500);
+}
+
 function updateFCMStatus(status){
   // 설정 화면 갱신용
   window._fcmStatus = status;
@@ -681,7 +914,12 @@ function renderChat(){
     }
   });
   el.innerHTML=html;
-  el.scrollTop=el.scrollHeight;
+  // 카톡처럼 항상 맨 아래로 - 대화 길어져도 화면 안에서만 위로 올라감
+  requestAnimationFrame(()=>{
+    el.scrollTop = el.scrollHeight;
+    // iOS에서 확실하게
+    setTimeout(()=>{ el.scrollTop = el.scrollHeight; }, 50);
+  });
 }
 
 function renderTodos(){
@@ -712,7 +950,27 @@ function renderSettings(){
     'checking': '🔄 푸시 상태 확인 중...',
     'error': '⚠️ FCM 오류 - 콘솔 확인'
   }[fcmStatus] || fcmStatus;
-  html+=`<div class="card" style="background:${fcmColor};border:2px solid ${fcmBorder};"><h3>📲 ${dev.isIPad ? 'iPad' : dev.isIPhone ? 'iPhone' : '푸시'} 알림 - ${cur}</h3><p style="font-size:11px;line-height:1.5;">상태: <b>${statusText}</b><br>디바이스: ${dev.platform} / PWA: ${dev.isPWA ? '예 (홈화면 추가됨)':'아니오 - 홈화면에 추가하면 백그라운드 푸시 가능'}<br>현재 사용자: <b>${cur}</b> (${dev.isIPad ? '해준이 iPad 반영됨' : dev.isIPhone ? (cur==='해준'?'해준이가 iPhone? iPad로 변경 권장':'아이폰 반영됨') : '기타'})<br><span style="font-size:9px;color:#666;">토큰: ${fcmToken ? fcmToken.substring(0,20)+'...' : '없음'}</span></p><button class="btn" style="background:black;color:white;" onclick="initFCM()">🔄 푸시 다시 활성화</button><button class="btn" style="background:#FEE500;margin-top:5px;" onclick="if(Notification.permission!=='granted'){Notification.requestPermission().then(initFCM);}else{initFCM();}">🔔 iPhone처럼 알림 허용</button><p style="font-size:9px;margin-top:6px;color:#555;">💡 아이폰에서 다른 앱 사용 중에도 알림 받으려면:<br>1. Safari 공유버튼 > 홈 화면에 추가<br>2. 홈화면 아이콘으로 FamChat 열기<br>3. 위 버튼으로 알림 허용<br>4. Firebase Console에서 VAPID 키 설정 (가이드 참조)</p></div>`;
+  const currentVapid = localStorage.getItem('vapidKey') || '';
+  html+=`<div class="card" style="background:${fcmColor};border:2px solid ${fcmBorder};"><h3>📲 ${dev.isIPad ? 'iPad' : dev.isIPhone ? 'iPhone' : '푸시'} 알림 - ${cur}</h3>
+  <p style="font-size:11px;line-height:1.5;">상태: <b>${statusText}</b><br>디바이스: ${dev.platform} / PWA: ${dev.isPWA ? '예 (홈화면 추가됨)':'아니오 - 홈화면에 추가하면 백그라운드 푸시 가능'}<br>현재 사용자: <b>${cur}</b> (${dev.isIPad ? '해준이 iPad 반영됨' : dev.isIPhone ? (cur==='해준'?'해준이가 iPhone? iPad로 변경 권장':'아이폰 반영됨') : '기타'})<br><span style="font-size:9px;color:#666;">토큰: ${fcmToken ? fcmToken.substring(0,20)+'...' : '없음 (VAPID 키 필요)'}</span></p>
+  
+  <div style="background:white;border:1.5px solid #ddd;border-radius:10px;padding:8px;margin:8px 0;">
+    <div style="font-size:10px;font-weight:900;margin-bottom:4px;">🔑 VAPID 키 (Web Push 인증서)</div>
+    <input id="vapidInput" type="text" placeholder="B로 시작하는 87자 키 붙여넣기" value="${currentVapid}" style="width:100%;border:1.5px solid black;border-radius:8px;padding:7px 9px;font-size:11px;font-family:monospace;">
+    <div style="display:flex;gap:5px;margin-top:6px;">
+      <button class="btn" style="flex:1;background:black;color:white;margin:0;font-size:10px;padding:7px;" onclick="saveVapidKey()">💾 키 저장 & 푸시 활성화</button>
+      <button class="btn" style="flex:1;background:white;margin:0;font-size:10px;padding:7px;" onclick="document.getElementById('vapidInput').value='';localStorage.removeItem('vapidKey');toast('VAPID 키 삭제됨');">🗑️ 삭제</button>
+    </div>
+    <p style="font-size:8.5px;color:#666;margin-top:5px;line-height:1.4;">
+      VAPID 키는 Firebase Console > 프로젝트 설정(⚙️) > 클라우드 메시징 > 웹 푸시 인증서 > 키 쌍 생성 에서 복사<br>
+      예: BNc... (87자, B로 시작)
+    </p>
+  </div>
+
+  <button class="btn" style="background:black;color:white;" onclick="initFCM()">🔄 푸시 다시 활성화</button>
+  <button class="btn" style="background:#FEE500;margin-top:5px;" onclick="if(Notification.permission!=='granted'){Notification.requestPermission().then(initFCM);}else{initFCM();}">🔔 iPhone처럼 알림 허용</button>
+  <p style="font-size:9px;margin-top:6px;color:#555;line-height:1.4;">💡 <b>아이폰에서 다른 앱 사용 중에도 알림 받으려면:</b><br>1. Safari 공유버튼 > 홈 화면에 추가<br>2. 홈화면 아이콘으로 FamChat 열기<br>3. Firebase Console에서 VAPID 키 복사 → 위 입력창에 붙여넣기 → 저장<br>4. 위 버튼으로 알림 허용</p>
+  </div>`;
   html+=`<div class="card" style="background:#FFF9E6;border:2px dashed black;"><h3>💾 데이터는 안 사라짐!</h3>
 <p style="font-size:11px;line-height:1.5;">• 업데이트해도 Firebase에 저장된 대화는 그대로<br>• <b>0개로 보이는 이유:</b><br>1. Family ID가 바뀌었을 수 있음 (기본: jeon-family)<br>2. 예전 버전은 폰에만 저장됨 (Firebase 아님)<br>3. 아직 Firebase에 메시지를 안 보냈음</p><button class="btn" style="background:black;color:white;" onclick="if(confirm('기존 폰 데이터를 Firebase로 옮길까요?')){migrateOldData(); toast('복구 시도중...');}">📦 기존 폰 데이터 복구</button></div>`;
   html+=`<div class="card"><h3>🔄 사용자 전환</h3><div class="modes">`;
