@@ -27,10 +27,10 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#FFF8F0;color:#111827;padding:10px;}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#FFF8F0;color:#111827;padding:10px;padding-bottom:30px;min-height:100vh;}
 h1{font-size:22px;font-weight:900;text-align:center;padding:10px 0 6px;}
-.device{max-width:420px;margin:0 auto;background:white;border:5px solid black;border-radius:28px;padding:8px;}
-.inner{border-radius:18px;padding:10px;min-height:640px;display:flex;flex-direction:column;background:#F9FAFB;}
+.device{max-width:420px;margin:0 auto;background:white;border:5px solid black;border-radius:28px;padding:8px;display:flex;flex-direction:column;height:82vh;max-height:800px;min-height:600px;}
+.inner{border-radius:18px;padding:10px;flex:1;display:flex;flex-direction:column;background:#F9FAFB;overflow:hidden;}
 .inner.kid{background:#FFF0F6;}
 .top{background:black;color:white;border-radius:14px;padding:9px;text-align:center;font-size:11px;font-weight:900;margin-bottom:6px;cursor:pointer;}
 .live{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:800;background:#E8F5E9;border:1.5px solid black;border-radius:12px;padding:7px;margin-bottom:6px;}
@@ -42,8 +42,8 @@ h1{font-size:22px;font-weight:900;text-align:center;padding:10px 0 6px;}
 .tab{flex:1;padding:9px;border-radius:18px;font-size:11px;font-weight:900;border:2px solid black;text-align:center;cursor:pointer;}
 .tab.on{background:black;color:white;}
 .tab.off{background:white;color:black;}
-.box{flex:1;display:flex;flex-direction:column;overflow:hidden;}
-.list{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:7px;max-height:360px;}
+.box{flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0;}
+.list{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:7px;min-height:200px;}
 .msg{border:2px solid black;border-radius:14px;padding:9px;background:white;position:relative;animation:slideIn 0.2s;}
 @keyframes slideIn{from{transform:translateY(8px);opacity:0;}to{transform:translateY(0);opacity:1;}}
 .msg.mine{background:#E3F2FD;border-color:#1976D2;}
@@ -52,10 +52,10 @@ h1{font-size:22px;font-weight:900;text-align:center;padding:10px 0 6px;}
 .text{font-size:13px;font-weight:700;padding-right:22px;word-break:break-word;white-space:pre-wrap;}
 .time{font-size:9px;color:#666;margin-top:3px;}
 .del{position:absolute;top:5px;right:5px;background:#FF4444;color:white;border:none;border-radius:50%;width:20px;height:20px;font-size:11px;font-weight:900;cursor:pointer;}
-.input-area{border:2px solid black;border-radius:14px;padding:7px;background:white;margin-top:6px;}
+.input-area{border:2px solid black;border-radius:18px;padding:12px;background:white;margin-top:auto;flex-shrink:0;box-shadow:0 -2px 10px rgba(0,0,0,0.05);}
 .row{display:flex;gap:5px;}
-.row input{flex:1;border:1.5px solid black;border-radius:18px;padding:10px 12px;font-size:12px;font-weight:700;}
-.row button{border:none;background:black;color:white;border-radius:18px;padding:10px 16px;font-weight:900;cursor:pointer;}
+.row input{flex:1;border:2px solid black;border-radius:20px;padding:14px 16px;font-size:14px;font-weight:700;min-height:48px;}
+.row button{border:2px solid black;background:black;color:white;border-radius:20px;padding:14px 22px;font-weight:900;cursor:pointer;font-size:14px;min-height:48px;min-width:70px;flex-shrink:0;}
 .todo{border:2px solid black;border-radius:14px;padding:9px;background:white;display:flex;gap:8px;align-items:center;}
 .todo span{flex:1;font-size:12px;font-weight:700;cursor:pointer;word-break:break-word;}
 .set-wrap{display:flex;flex-direction:column;gap:8px;overflow-y:auto;max-height:460px;}
