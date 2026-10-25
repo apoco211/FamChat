@@ -1,19 +1,14 @@
 {
-  "name": "FamChat",
+  "name": "전씨네 Family Chat",
   "short_name": "FamChat",
-  "start_url": "./index.html",
+  "description": "전씨네 가족 채팅 - 아이폰/아이패드 푸시 지원",
+  "start_url": "./",
   "display": "standalone",
-  "scope": "./",
-  "background_color": "#ffffff",
-  "theme_color": "#10b981",
+  "background_color": "#B2C7DA",
+  "theme_color": "#000000",
   "icons": [
     {
-      "src": "./icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "./icon-512.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/5962/5962463.png",
       "sizes": "512x512",
       "type": "image/png"
     }
