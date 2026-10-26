@@ -1,4 +1,4 @@
-<html lang="ko"><!-- FamChat Build: 2026.10.26.2230 | v1.5.4 | 2026-10-26 | via Builder-a4u v8.2.7 | PAT Secrets Auto Push --><!-- old: 2026.10.26.2000 | v1.5.1 --><head><style>
+<html lang="ko"><!-- FamChat Build: 2026.10.26.2330 | v1.5.5 | 2026-10-26 | via Builder-a4u v8.2.7 | PAT Secrets Auto Push --><!-- old: 2026.10.26.2000 | v1.5.1 --><head><style>
 @font-face {
   font-family: "Optimistic";
   font-style: normal;
@@ -21,8 +21,8 @@
 }
 </style>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>FamChat v1.5.4 - - PAT Auto Secrets</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>FamChat v1.5.5 - - PAT Auto Secrets</title>
 <link rel="manifest" href="manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="FamChat">
@@ -34,6 +34,19 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/libsodium-wrappers@0.7.15/dist/modules/libsodium-wrappers.js"></script>
 <style>
+/* v1.5.5 iPhone auto-zoom fix */
+html{ -webkit-text-size-adjust: 100%; touch-action: manipulation; }
+body{ touch-action: manipulation; -webkit-touch-callout: none; }
+input, textarea, select{ font-size: 16px !important; -webkit-text-size-adjust: 100%; touch-action: manipulation; }
+input:focus, textarea:focus{ font-size: 16px !important; }
+.inner:not(.kid) input, .inner:not(.kid) textarea{ font-size: 16px !important; }
+.secret-input{ font-size: 16px !important; }
+#chatInput, #todoInput, #noticeInput{ font-size: 16px !important; }
+@media screen and (max-width: 430px){
+  input, textarea{ font-size: 16px !important; }
+}
+
+
 
 
 
@@ -633,7 +646,7 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 </head>
 <body class="iphone-mode">
 <div class="header">
-<h1>전씨네 Family Chat</h1><span class="badge">v1.5.4</span>
+<h1>전씨네 Family Chat</h1><span class="badge">v1.5.5</span>
 </div>
 <div class="device">
 <div class="inner" id="inner">
@@ -699,8 +712,8 @@ const firebaseConfig = {'apiKey': 'AIzaSyDKTiB6lqRDCHaM8vxWwbiX0K_nlb8_4jQ', 'au
 let db, chatRef, todosRef, routinesRef, readsRef, noticesRef, storageRef;
 let cur = localStorage.getItem('curUser') || '아빠';
 const modes = [{id:'아빠',icon:'👨'},{id:'엄마',icon:'👩'},{id:'해준',icon:'👦'},{id:'해온',icon:'👧'}];
-const FAMCHAT_BUILD = '2026.10.26.2230';
-const FAMCHAT_VERSION = 'v1.5.4';
+const FAMCHAT_BUILD = '2026.10.26.2330';
+const FAMCHAT_VERSION = 'v1.5.5';
 let familyId = localStorage.getItem('familyId') || 'jeon-family';
 let data = {messages:[], todos:[], routines:[], reads:{}, notices:[], settings:{}};
 let noticeSchedule = JSON.parse(localStorage.getItem('noticeSchedule') || '["08:00","14:00","17:00","19:00"]');
