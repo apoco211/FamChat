@@ -1,4 +1,4 @@
-<html lang="ko"><!-- FamChat Build: 2026.10.26.2100 | v1.5.2 | 2026-10-26 | via Builder-a4u v8.2.7 | PAT Secrets Auto Push --><!-- old: 2026.10.26.2000 | v1.5.1 --><head><style>
+<html lang="ko"><!-- FamChat Build: 2026.10.26.2230 | v1.5.4 | 2026-10-26 | via Builder-a4u v8.2.7 | PAT Secrets Auto Push --><!-- old: 2026.10.26.2000 | v1.5.1 --><head><style>
 @font-face {
   font-family: "Optimistic";
   font-style: normal;
@@ -22,7 +22,7 @@
 </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>FamChat v1.5.2 - - - - - PAT Auto Secrets</title>
+<title>FamChat v1.5.4 - - PAT Auto Secrets</title>
 <link rel="manifest" href="manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="FamChat">
@@ -633,7 +633,7 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 </head>
 <body class="iphone-mode">
 <div class="header">
-<h1>전씨네 Family Chat</h1><span class="badge">v1.5.2</span>
+<h1>전씨네 Family Chat</h1><span class="badge">v1.5.4</span>
 </div>
 <div class="device">
 <div class="inner" id="inner">
@@ -699,8 +699,8 @@ const firebaseConfig = {'apiKey': 'AIzaSyDKTiB6lqRDCHaM8vxWwbiX0K_nlb8_4jQ', 'au
 let db, chatRef, todosRef, routinesRef, readsRef, noticesRef, storageRef;
 let cur = localStorage.getItem('curUser') || '아빠';
 const modes = [{id:'아빠',icon:'👨'},{id:'엄마',icon:'👩'},{id:'해준',icon:'👦'},{id:'해온',icon:'👧'}];
-const FAMCHAT_BUILD = '2026.10.26.2100';
-const FAMCHAT_VERSION = 'v1.5.2';
+const FAMCHAT_BUILD = '2026.10.26.2230';
+const FAMCHAT_VERSION = 'v1.5.4';
 let familyId = localStorage.getItem('familyId') || 'jeon-family';
 let data = {messages:[], todos:[], routines:[], reads:{}, notices:[], settings:{}};
 let noticeSchedule = JSON.parse(localStorage.getItem('noticeSchedule') || '["08:00","14:00","17:00","19:00"]');
@@ -1274,7 +1274,7 @@ function goTab(name){
   if(name==='set') renderSettings();
   if(name==='todo') renderTodos();
   if(name==='notice') renderNotices();
-  if(name==='chat'){ renderChat(); setTimeout(()=>updateReadStatus(), 500); }
+  if(name==='chat'){ renderChat(); setTimeout(()=>updateReadStatus(true), 500); }
 }
 
 function renderTop(){
@@ -1294,13 +1294,13 @@ function renderTop(){
   }
 }
 
-function updateReadStatus(){
-  if(document.hidden) return;
+function updateReadStatus(force){
+  if(!force && document.hidden) return;
   const viewChat = document.getElementById('view-chat');
-  if(!viewChat || viewChat.style.display==='none') return;
+  if(!force && (!viewChat || viewChat.style.display==='none')) return;
   if(data.messages.length===0) return;
   const now = Date.now();
-  if(now - lastReadUpdate < 1000) return;
+  if(!force && now - lastReadUpdate < 800) return;
   lastReadUpdate = now;
   const sorted = data.messages.slice().sort((a,b)=> new Date(a.created_at)-new Date(b.created_at));
   const last = sorted[sorted.length-1];
@@ -1333,14 +1333,32 @@ function renderChat(){
     const escContent=escapeHtml(msg.content || '');
 
     const readers = [];
-    for(const m of modes){
-      if(m.id===msg.author) continue;
-      const r = data.reads[m.id];
-      if(r && r.lastReadAt && new Date(r.lastReadAt) >= d){
-        readers.push(m);
+    // 핵심 수정: 내 메시지(isMine)에만 읽음 표시, 그리고 나 자신(cur)은 제외
+    if(isMine){
+      for(const m of modes){
+        if(m.id===msg.author) continue; // 글쓴이 자신 제외
+        if(m.id===cur) continue; // 내 자신 제외 - 이미 내가 쓴 글이라 의미 없음, 상대만 보여야 함
+        const r = data.reads[m.id];
+        let hasRead = false;
+        if(r && r.lastReadAt && new Date(r.lastReadAt) >= d){
+          hasRead = true;
+        }
+        // 보완: 이 메시지 이후에 m이 메시지를 보냈다면 100% 읽은 것
+        if(!hasRead){
+          const sentAfter = data.messages.some(mm => mm.author===m.id && new Date(mm.created_at) > d);
+          if(sentAfter) hasRead = true;
+        }
+        if(!hasRead && r && r.lastReadId){
+          const lastReadMsg = data.messages.find(mm => mm._key===r.lastReadId || mm.id===r.lastReadId);
+          if(lastReadMsg && new Date(lastReadMsg.created_at) >= d){
+            hasRead = true;
+          }
+        }
+        if(hasRead) readers.push(m);
       }
     }
-    const readIconsHtml = readers.length>0 ? '<div class="kakao-read-icons">'+readers.map(r=>'<span class="read-icon" title="'+r.id+' 읽음">'+r.icon+'</span>').join('')+'</div>' : '';
+    // isMine일 때만 아이콘 표시, 남의 글에는 표시 안 함 (카톡 그룹채팅 방식)
+    const readIconsHtml = (isMine && readers.length>0) ? '<div class="kakao-read-icons">'+readers.map(r=>'<span class="read-icon" title="'+r.id+' 읽음">'+r.icon+'</span>').join('')+'</div>' : '';
 
     let bubbleInner = '';
     if(msg.type==='image' && msg.imageUrl){
@@ -1609,6 +1627,8 @@ function sendMsg(){
   chatRef.push(msg);
   inp.value='';
   sendPushToFamily(cur, txt);
+  // 내가 메시지 보냈으니 내 읽음 위치도 최신으로 갱신 (다른 사람 메시지 읽었다는 의미)
+  setTimeout(()=>{ updateReadStatus(true); }, 300);
 }
 
 function deleteMsg(key){ if(!confirm('삭제?')) return; 
