@@ -1,0 +1,169 @@
+name: FamChat Notices Auto Scrape v1.5.1
+
+on:
+  schedule:
+    # 매시간 정각에 실행 (00분) - KST 변환은 스크립트에서 체크
+    # 08:00 KST = 23:00 UTC 전날, 14:00 KST = 05:00 UTC, 17:00 KST = 08:00 UTC, 19:00 KST = 10:00 UTC
+    # 매시간 실행으로 설정 변경에 대응
+    - cron: '0 * * * *'
+  workflow_dispatch:
+    inputs:
+      force_run:
+        description: '강제 실행 (스케줄 무시)'
+        required: false
+        default: 'false'
+        type: choice
+        options: ['false', 'true']
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          npm init -y
+          npm install puppeteer firebase-admin @google/generative-ai
+
+      - name: Scrape with Schedule Check
+        env:
+          HICLASS_ID: ${{ secrets.HICLASS_ID }}
+          HICLASS_PW: ${{ secrets.HICLASS_PW }}
+          KIDSNOTE_ID: ${{ secrets.KIDSNOTE_ID }}
+          KIDSNOTE_PW: ${{ secrets.KIDSNOTE_PW }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          FIREBASE_DATABASE_URL: ${{ secrets.FIREBASE_DATABASE_URL }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          FORCE_RUN: ${{ inputs.force_run }}
+        run: |
+          node - << 'EOF'
+          const admin = require('firebase-admin');
+          const { GoogleGenerativeAI } = require('@google/generative-ai');
+
+          // Firebase init
+          const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+          admin.initializeApp({
+            credential: admin.credential.cert(serviceAccount),
+            databaseURL: process.env.FIREBASE_DATABASE_URL
+          });
+          const db = admin.database();
+
+          const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+          const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+          function getKSTNow() {
+            const now = new Date();
+            const kstStr = now.toLocaleString('en-US', { timeZone: 'Asia/Seoul', hour12: false });
+            const kst = new Date(kstStr);
+            const hh = String(kst.getHours()).padStart(2,'0');
+            const mm = String(kst.getMinutes()).padStart(2,'0');
+            return { hh, mm, timeStr: `${hh}:${mm}`, hour: kst.getHours() };
+          }
+
+          async function extractTodosWithGemini(content, child) {
+            const prompt = `너는 초등학교/어린이집 가정통신문에서 해야할 일을 추출하는 AI야. JSON 배열만 출력: [{"title":"체육복 챙기기","owner":"${child}","due":"2026-10-27"}]. 공지: ${content.substring(0,2000)}`;
+            try {
+              const result = await model.generateContent(prompt);
+              const text = result.response.text();
+              const match = text.match(/\[.*\]/s);
+              if (!match) return [];
+              return JSON.parse(match[0]);
+            } catch(e) { console.log('Gemini error', e.message); return []; }
+          }
+
+          (async () => {
+            const familyId = 'jeon-family';
+            const kst = getKSTNow();
+            console.log(`Current KST: ${kst.timeStr}`);
+
+            // Firebase에서 사용자가 설정한 스케줄 가져오기
+            let schedule = ["08:00","14:00","17:00","19:00"]; // 기본값 (아침 추가)
+            try {
+              const settingsSnap = await db.ref(`family/${familyId}/settings/noticeSchedule`).once('value');
+              const val = settingsSnap.val();
+              if (val && Array.isArray(val) && val.length>0) {
+                schedule = val;
+              } else {
+                const settingsObjSnap = await db.ref(`family/${familyId}/settings`).once('value');
+                const obj = settingsObjSnap.val();
+                if (obj && obj.noticeSchedule && Array.isArray(obj.noticeSchedule)) {
+                  schedule = obj.noticeSchedule;
+                }
+              }
+            } catch(e) { console.log('Schedule fetch error, using default', e.message); }
+
+            console.log(`Configured schedule: ${schedule.join(', ')}`);
+
+            const forceRun = process.env.FORCE_RUN === 'true';
+            if (!forceRun) {
+              // 현재 KST 시간이 스케줄에 포함되어 있는지 체크 (정각 기준 ±30분 허용)
+              const currentHour = kst.hour;
+              const shouldRun = schedule.some(t => {
+                const [sh, sm] = t.split(':').map(Number);
+                return sh === currentHour;
+              });
+              if (!shouldRun) {
+                console.log(`Skip - current hour ${currentHour} not in schedule ${schedule.join(', ')}`);
+                process.exit(0);
+              }
+            } else {
+              console.log('Force run enabled - ignoring schedule');
+            }
+
+            console.log(`Running scrape at KST ${kst.timeStr} - schedule matched!`);
+
+            // 기존 공지 중복 체크
+            const existingSnap = await db.ref(`family/${familyId}/notices`).once('value');
+            const existing = existingSnap.val() || {};
+            const existingTitles = Object.values(existing).map(n => n.title);
+
+            // TODO: 실제 크롤링 로직 구현 필요 (puppeteer)
+            // 아래는 예시 - 실제 구현 시 HICLASS/KIDSNOTE 로그인 후 공지 파싱
+            const allNotices = [];
+            // 예: allNotices.push({ child: '해준', source: 'hiclass', title: '...', content: '...', link: '' });
+
+            console.log(`Found ${allNotices.length} notices from crawling (현재는 예시, 실제 크롤링 코드 추가 필요)`);
+
+            for (const n of allNotices) {
+              if (existingTitles.includes(n.title)) {
+                console.log('Duplicate skip', n.title);
+                continue;
+              }
+              const aiTodos = await extractTodosWithGemini(n.content, n.child);
+              const noticeRef = db.ref(`family/${familyId}/notices`).push();
+              await noticeRef.set({
+                id: Date.now().toString(),
+                child: n.child,
+                source: n.source,
+                title: n.title,
+                content: n.content,
+                link: n.link || '',
+                registeredBy: '자동',
+                aiTodos: aiTodos,
+                aiExtractedAt: new Date().toISOString(),
+                created_at: new Date().toISOString()
+              });
+              const chatRef = db.ref(`family/${familyId}/messages`).push();
+              await chatRef.set({
+                id: Date.now().toString(),
+                author: '📢 봇',
+                content: `[${n.child}] 새 공지: ${n.title} (AI 할일 ${aiTodos.length}개)`,
+                type: 'text',
+                source: 'notice-bot',
+                created_at: new Date().toISOString()
+              });
+            }
+            console.log('Scrape finished');
+            process.exit(0);
+          })();
+          EOF
+
+      - name: Done
+        run: echo "Scrape check done - KST times configurable via FamChat settings"
