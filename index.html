@@ -1,4 +1,4 @@
-<html lang="ko"><!-- FamChat Build: 2026.10.26.2340 | v1.5.7 | 2026-10-26 | via Builder-a4u v8.2.7 | Flicker Fix --><!-- old: 2026.10.26.2335 | v1.5.6 --><head><style>
+<html lang="ko"><!-- FamChat Build: 2026.10.26.2350 | v1.5.8 | 2026-10-26 | via Builder-a4u v8.2.7 | Flicker Fix --><!-- old: 2026.10.26.2350 | v1.5.8 --><head><style>
 @font-face {
   font-family: "Optimistic";
   font-style: normal;
@@ -22,7 +22,7 @@
 </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>FamChat v1.5.7 - - No Flicker</title>
+<title>FamChat v1.5.8 - - No Flicker</title>
 <link rel="manifest" href="manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="FamChat">
@@ -667,7 +667,7 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 </head>
 <body class="iphone-mode">
 <div class="header">
-<h1>전씨네 Family Chat</h1><span class="badge">v1.5.7</span>
+<h1>전씨네 Family Chat</h1><span class="badge">v1.5.8</span>
 </div>
 <div class="device">
 <div class="inner" id="inner">
@@ -736,8 +736,8 @@ const firebaseConfig = {'apiKey': 'AIzaSyDKTiB6lqRDCHaM8vxWwbiX0K_nlb8_4jQ', 'au
 let db, chatRef, todosRef, routinesRef, readsRef, noticesRef, storageRef;
 let cur = localStorage.getItem('curUser') || '아빠';
 const modes = [{id:'아빠',icon:'👨'},{id:'엄마',icon:'👩'},{id:'해준',icon:'👦'},{id:'해온',icon:'👧'}];
-const FAMCHAT_BUILD = '2026.10.26.2340';
-const FAMCHAT_VERSION = 'v1.5.7';
+const FAMCHAT_BUILD = '2026.10.26.2350';
+const FAMCHAT_VERSION = 'v1.5.8';
 let familyId = localStorage.getItem('familyId') || 'jeon-family';
 let data = {messages:[], todos:[], routines:[], reads:{}, notices:[], settings:{}};
 let replyTarget = null;
@@ -892,7 +892,7 @@ async function initFCM(){
     if('serviceWorker' in navigator){
       try{ const reg = await navigator.serviceWorker.register('firebase-messaging-sw.js'); console.log('SW registered', reg); }catch(e){ console.log('SW register fail', e); }
     }
-    const vapidKey = localStorage.getItem('vapidKey') || 'BNcX...YOUR_VAPID_KEY_HERE...';
+    const vapidKey = localStorage.getItem('vapidKey') || 'BAEP-XTjieXQ8zI3clS6fxaeiFIHAPWJrWRIgccaw3PgO_mo9xtwb9Lr1Y7QReEsTTxjvVZC4pBRk2-1ug6NJik';
     const perm = await Notification.requestPermission();
     if(perm !== 'granted'){ updateFCMStatus('denied'); return; }
     try{
