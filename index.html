@@ -1,4 +1,4 @@
-<html lang="ko"><!-- FamChat Build: 2026.10.26.2330 | v1.5.5 | 2026-10-26 | via Builder-a4u v8.2.7 | PAT Secrets Auto Push --><!-- old: 2026.10.26.2000 | v1.5.1 --><head><style>
+<html lang="ko"><!-- FamChat Build: 2026.10.26.2335 | v1.5.6 | 2026-10-26 | via Builder-a4u v8.2.7 | Reply Feature --><!-- old: 2026.10.26.2330 | v1.5.5 --><head><style>
 @font-face {
   font-family: "Optimistic";
   font-style: normal;
@@ -22,7 +22,7 @@
 </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>FamChat v1.5.5 - - PAT Auto Secrets</title>
+<title>FamChat v1.5.6 - - Reply</title>
 <link rel="manifest" href="manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="FamChat">
@@ -34,6 +34,21 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/libsodium-wrappers@0.7.15/dist/modules/libsodium-wrappers.js"></script>
 <style>
+
+/* v1.5.6 Reply feature */
+.kakao-reply{ background:rgba(0,0,0,0.08); border:none; border-radius:8px; padding:2px 6px; font-size:9px; font-weight:800; cursor:pointer; opacity:0; transition:opacity 0.15s; }
+.kakao-row:hover .kakao-reply{ opacity:1; }
+.kakao-quote{ background:rgba(0,0,0,0.06); border-left:3px solid #999; border-radius:8px 8px 8px 4px; padding:5px 8px; margin-bottom:4px; font-size:10px; line-height:1.3; color:#555; max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.kakao-row.mine .kakao-quote{ background:rgba(0,0,0,0.08); border-left-color:#B89F00; }
+.reply-preview{ background:#FFF9C4; border:1.5px solid #FBC02D; border-radius:12px; padding:6px 10px; margin-bottom:6px; display:flex; gap:8px; align-items:center; }
+.reply-preview-content{ flex:1; font-size:11px; line-height:1.3; overflow:hidden; }
+.reply-preview-content strong{ font-size:10px; display:block; margin-bottom:2px; }
+.reply-preview-content span{ color:#555; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:block; }
+.reply-preview-close{ background:#FF4444; color:white; border:none; border-radius:50%; width:20px; height:20px; font-size:12px; font-weight:900; cursor:pointer; }
+.inner:not(.kid) .kakao-quote{ font-size:9px; padding:4px 6px; max-width:150px; }
+.inner.kid .kakao-quote{ font-size:13px; padding:7px 10px; max-width:280px; }
+
+
 /* v1.5.5 iPhone auto-zoom fix */
 html{ -webkit-text-size-adjust: 100%; touch-action: manipulation; }
 body{ touch-action: manipulation; -webkit-touch-callout: none; }
@@ -646,7 +661,7 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 </head>
 <body class="iphone-mode">
 <div class="header">
-<h1>전씨네 Family Chat</h1><span class="badge">v1.5.5</span>
+<h1>전씨네 Family Chat</h1><span class="badge">v1.5.6</span>
 </div>
 <div class="device">
 <div class="inner" id="inner">
@@ -663,6 +678,7 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 <div class="list" id="chatList"></div>
 <div class="input-wrap">
 <div class="send-label" id="sendBadge">👨 아빠로 전송</div>
+<div id="replyPreview" class="reply-preview" style="display:none;"></div>
 <div class="upload-progress" id="uploadProgress">📤 업로드중...</div>
 <div class="input-row">
 <input id="chatInput" placeholder="아빠로 메시지..." onkeypress="if(event.key==='Enter')sendMsg()">
@@ -707,15 +723,17 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 <script>
 
 
+
 const firebaseConfig = {'apiKey': 'AIzaSyDKTiB6lqRDCHaM8vxWwbiX0K_nlb8_4jQ', 'authDomain': 'jeon-family-chat.firebaseapp.com', 'projectId': 'jeon-family-chat', 'storageBucket': 'jeon-family-chat.firebasestorage.app', 'messagingSenderId': '575056885546', 'appId': '1:575056885546:web:2fa1c64876773817906413', 'databaseURL': 'https://jeon-family-chat-default-rtdb.firebaseio.com'};
 
 let db, chatRef, todosRef, routinesRef, readsRef, noticesRef, storageRef;
 let cur = localStorage.getItem('curUser') || '아빠';
 const modes = [{id:'아빠',icon:'👨'},{id:'엄마',icon:'👩'},{id:'해준',icon:'👦'},{id:'해온',icon:'👧'}];
-const FAMCHAT_BUILD = '2026.10.26.2330';
-const FAMCHAT_VERSION = 'v1.5.5';
+const FAMCHAT_BUILD = '2026.10.26.2335';
+const FAMCHAT_VERSION = 'v1.5.6';
 let familyId = localStorage.getItem('familyId') || 'jeon-family';
 let data = {messages:[], todos:[], routines:[], reads:{}, notices:[], settings:{}};
+let replyTarget = null;
 let noticeSchedule = JSON.parse(localStorage.getItem('noticeSchedule') || '["08:00","14:00","17:00","19:00"]');
 let todoSubTab = localStorage.getItem('todoSubTab') || 'today';
 let noticeSubTab = localStorage.getItem('noticeSubTab') || 'all';
@@ -1373,19 +1391,28 @@ function renderChat(){
     // isMine일 때만 아이콘 표시, 남의 글에는 표시 안 함 (카톡 그룹채팅 방식)
     const readIconsHtml = (isMine && readers.length>0) ? '<div class="kakao-read-icons">'+readers.map(r=>'<span class="read-icon" title="'+r.id+' 읽음">'+r.icon+'</span>').join('')+'</div>' : '';
 
+    let quoteHtml = '';
+    if(msg.replyTo){
+      const parent = data.messages.find(m=> m._key===msg.replyTo || m.id===msg.replyTo);
+      const parentAuthor = msg.replyAuthor || parent?.author || '알 수 없음';
+      const parentContent = msg.replyContent || parent?.content || (parent?.type==='image' ? '📷 사진' : '');
+      const safeParentContent = escapeHtml(parentContent).substring(0,50);
+      quoteHtml = '<div class="kakao-quote">↩️ '+parentAuthor+': '+safeParentContent+'</div>';
+    }
+
     let bubbleInner = '';
     if(msg.type==='image' && msg.imageUrl){
       const safeUrl = msg.imageUrl.replace(/'/g, "\'");
       const captionHtml = msg.content ? '<div class="img-caption">'+escContent+'</div>' : '';
-      bubbleInner = '<div class="kakao-bubble has-image" onclick="openImageViewer(\''+safeUrl+'\')"><img src="'+msg.imageUrl+'" loading="lazy" alt="사진">'+captionHtml+'</div>';
+      bubbleInner = '<div class="kakao-bubble has-image"><div>'+quoteHtml+'</div><div onclick="openImageViewer(\''+safeUrl+'\')"><img src="'+msg.imageUrl+'" loading="lazy" alt="사진">'+captionHtml+'</div></div>';
     } else {
-      bubbleInner = '<div class="kakao-bubble" onclick="editMsg(\''+safeKey+'\')">'+ (escContent || '(사진)') +'</div>';
+      bubbleInner = '<div class="kakao-bubble"><div>'+quoteHtml+'</div><div onclick="setReply(\''+safeKey+'\')">'+ (escContent || '(사진)') +'</div></div>';
     }
 
     if(isMine){
-      html+='<div class="kakao-row mine"><div class="kakao-content"><div class="kakao-bubble-line"><div class="kakao-read-wrap"><div class="kakao-meta"><span class="kakao-time">'+timeStr+'</span><button class="kakao-del" onclick="deleteMsg(\''+safeKey+'\')">삭제</button></div>'+readIconsHtml+'</div>'+bubbleInner+'</div></div></div>';
+      html+='<div class="kakao-row mine"><div class="kakao-content"><div class="kakao-bubble-line"><div class="kakao-read-wrap"><div class="kakao-meta"><span class="kakao-time">'+timeStr+'</span><div style="display:flex;gap:3px;"><button class="kakao-reply" onclick="setReply(\''+safeKey+'\')">↩️</button><button class="kakao-del" onclick="deleteMsg(\''+safeKey+'\')">삭제</button></div></div>'+readIconsHtml+'</div>'+bubbleInner+'</div></div></div>';
     } else {
-      html+='<div class="kakao-row other"><div class="kakao-profile">'+mode.icon+'</div><div class="kakao-content"><div class="kakao-author">'+msg.author+'</div><div class="kakao-bubble-line">'+bubbleInner+'<div class="kakao-read-wrap"><div class="kakao-meta"><span class="kakao-time">'+timeStr+'</span><button class="kakao-del" onclick="deleteMsg(\''+safeKey+'\')">삭제</button></div>'+readIconsHtml+'</div></div></div></div>';
+      html+='<div class="kakao-row other"><div class="kakao-profile">'+mode.icon+'</div><div class="kakao-content"><div class="kakao-author">'+msg.author+'</div><div class="kakao-bubble-line">'+bubbleInner+'<div class="kakao-read-wrap"><div class="kakao-meta"><span class="kakao-time">'+timeStr+'</span><div style="display:flex;gap:3px;"><button class="kakao-reply" onclick="setReply(\''+safeKey+'\')">↩️</button><button class="kakao-del" onclick="deleteMsg(\''+safeKey+'\')">삭제</button></div></div>'+readIconsHtml+'</div></div></div></div>';
     }
   });
   el.innerHTML=html;
@@ -1633,14 +1660,39 @@ function toast(msg){
   setTimeout(()=>{ el.style.display='none'; }, 2500);
 }
 
+
+function setReply(key){
+  const msg = data.messages.find(m=>m._key===key);
+  if(!msg) return;
+  replyTarget = msg;
+  const preview = document.getElementById('replyPreview');
+  const author = msg.author;
+  const content = msg.type==='image' ? '📷 사진' : (msg.content||'').substring(0,40);
+  preview.innerHTML = '<div class="reply-preview-content"><strong>'+author+'에게 답장</strong><span>'+escapeHtml(content)+'</span></div><button class="reply-preview-close" onclick="clearReply()">×</button>';
+  preview.style.display = 'flex';
+  document.getElementById('chatInput').focus();
+  toast('↩️ '+author+'에게 답장');
+}
+
+function clearReply(){
+  replyTarget = null;
+  const preview = document.getElementById('replyPreview');
+  if(preview){ preview.style.display='none'; preview.innerHTML=''; }
+}
+
 function sendMsg(){
   const inp=document.getElementById('chatInput');
   const txt=inp.value.trim(); if(!txt) return;
   const msg={id:Date.now().toString(),author:cur,content:txt,type:'text',source:'family',created_at:new Date().toISOString()};
+  if(replyTarget){
+    msg.replyTo = replyTarget._key || replyTarget.id;
+    msg.replyAuthor = replyTarget.author;
+    msg.replyContent = replyTarget.type==='image' ? '📷 사진' : (replyTarget.content||'').substring(0,100);
+  }
   chatRef.push(msg);
   inp.value='';
+  clearReply();
   sendPushToFamily(cur, txt);
-  // 내가 메시지 보냈으니 내 읽음 위치도 최신으로 갱신 (다른 사람 메시지 읽었다는 의미)
   setTimeout(()=>{ updateReadStatus(true); }, 300);
 }
 
@@ -1797,6 +1849,7 @@ document.getElementById('chatList').addEventListener('scroll', ()=>{
 });
 
 document.addEventListener('click', function initAudio(){ requestNotifPermission(); document.removeEventListener('click', initAudio); }, {once:true});
+
 
 
 </script>
