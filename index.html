@@ -1,4 +1,4 @@
-<html lang="ko"><!-- FamChat Build: 2026.10.26.2345 | v1.5.16 | 2026-10-26 | via Builder-a4u v8.2.7 | Flicker Fix --><!-- old: 2026.10.26.2335 | v1.5.6 --><head><style>
+<html lang="ko"><!-- FamChat Build: 2026.10.26.2345 | v1.5.17 | 2026-10-26 | via Builder-a4u v8.2.7 | Flicker Fix --><!-- old: 2026.10.26.2335 | v1.5.6 --><head><style>
 @font-face {
   font-family: "Optimistic";
   font-style: normal;
@@ -22,7 +22,7 @@
 </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>FamChat v1.5.16 - - No Flicker</title>
+<title>FamChat v1.5.17 - - No Flicker</title>
 <link rel="manifest" href="manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="FamChat">
@@ -35,7 +35,7 @@
 <script src="https://cdn.jsdelivr.net/npm/libsodium-wrappers@0.7.15/dist/modules/libsodium-wrappers.js"></script>
 <style>
 
-/* v1.5.16 flicker fix */
+/* v1.5.17 flicker fix */
 #chatList{ contain: layout; will-change: auto; }
 .kakao-row{ will-change: auto; transform: translateZ(0); }
 
@@ -118,7 +118,7 @@ input:focus, textarea:focus{ font-size: 16px !important; }
 /* ===== v1.3.15 KakaoTalk-like Chat UI ===== */
 #view-chat{background:#B2C7DA;border-radius:14px;}
 #chatList{background:transparent;padding:10px 8px;gap:10px;scroll-behavior:smooth;}
-.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.16 flicker fix */}
+.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.17 flicker fix */}
 .kakao-row.other{align-self:flex-start;}
 .kakao-row.mine{align-self:flex-end;}
 .kakao-profile{width:38px;height:38px;border-radius:15px;background:#fff;border:1.5px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;box-shadow:0 1px 2px rgba(0,0,0,0.06);}
@@ -375,7 +375,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#FFF8F0;
 /* ===== v1.3.15 KakaoTalk-like Chat UI ===== */
 #view-chat{background:#B2C7DA;border-radius:14px;}
 #chatList{background:transparent;padding:10px 8px;gap:10px;scroll-behavior:smooth;}
-.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.16 flicker fix */}
+.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.17 flicker fix */}
 .kakao-row.other{align-self:flex-start;}
 .kakao-row.mine{align-self:flex-end;}
 .kakao-profile{width:38px;height:38px;border-radius:15px;background:#fff;border:1.5px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;box-shadow:0 1px 2px rgba(0,0,0,0.06);}
@@ -667,7 +667,7 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 </head>
 <body class="iphone-mode">
 <div class="header">
-<h1>전씨네 Family Chat</h1><span class="badge">v1.5.16</span>
+<h1>전씨네 Family Chat</h1><span class="badge">v1.5.17</span>
 </div>
 <div class="device">
 <div class="inner" id="inner">
@@ -737,7 +737,7 @@ let db, chatRef, todosRef, routinesRef, readsRef, noticesRef, storageRef;
 let cur = localStorage.getItem('curUser') || '아빠';
 const modes = [{id:'아빠',icon:'👨'},{id:'엄마',icon:'👩'},{id:'해준',icon:'👦'},{id:'해온',icon:'👧'}];
 const FAMCHAT_BUILD = '2026.10.26.2345';
-const FAMCHAT_VERSION = 'v1.5.16';
+const FAMCHAT_VERSION = 'v1.5.17';
 let familyId = localStorage.getItem('familyId') || 'jeon-family';
 let data = {messages:[], todos:[], routines:[], reads:{}, notices:[], settings:{}};
 let replyTarget = null;
@@ -892,7 +892,7 @@ async function initFCM(){
     window._lastFCMError = null;
     messaging = firebase.messaging();
     
-    // v1.5.16: Try to register firebase-messaging-sw.js, if 404 then create blob SW
+    // v1.5.17: Try to register firebase-messaging-sw.js, if 404 then create blob SW
     if('serviceWorker' in navigator){
       try{
         let swUrl = 'firebase-messaging-sw.js';
@@ -1087,32 +1087,69 @@ async function handlePhotoSelect(event){
   const file = event.target.files[0];
   if(!file) return;
   console.log('Photo select', file.name, file.size, file.type);
-  if(file.size > 10*1024*1024){ toast('⚠️ 10MB 이상은 너무 커요'); event.target.value=''; return; }
+  if(file.size > 15*1024*1024){ toast('⚠️ 15MB 이상은 너무 커요'); event.target.value=''; return; }
   const progress = document.getElementById('uploadProgress');
+  progress.style.display='block';
   try{
-    progress.style.display='block';
     progress.textContent='📤 압축중...';
-    const compressed = await compressImage(file, 1024, 0.7);
-    progress.textContent='📤 업로드중... ' + Math.round(compressed.blob.size/1024) + 'KB';
-    console.log('Compressed', compressed.blob.size);
+    const compressed = await compressImage(file, 1280, 0.75);
+    const kb = Math.round(compressed.blob.size/1024);
+    progress.textContent='📤 업로드중... ' + kb + 'KB';
+    console.log('Compressed', compressed.blob.size, compressed.mime);
+    
     const fileName = Date.now() + '_' + Math.random().toString(36).substring(2,7) + '.jpg';
-    const storageRef = firebase.storage().ref('family/'+familyId+'/chat_images/'+fileName);
-    const snapshot = await storageRef.put(compressed.blob, {contentType: 'image/jpeg'});
-    const url = await snapshot.ref.getDownloadURL();
-    console.log('Uploaded URL', url);
-    const msg = {id:Date.now().toString(),author:cur,content:'',type:'image',imageUrl:url,storagePath:'family/'+familyId+'/chat_images/'+fileName,created_at:new Date().toISOString()};
+    const storagePath = 'family/'+familyId+'/chat_images/'+fileName;
+    const storageRef = firebase.storage().ref(storagePath);
+    
+    // Upload with progress + timeout
+    const uploadPromise = new Promise((resolve, reject)=>{
+      let timeout = setTimeout(()=>{ reject(new Error('업로드 30초 타임아웃 - Storage 규칙 또는 네트워크 확인')); }, 30000);
+      const task = storageRef.put(compressed.blob, {contentType: 'image/jpeg'});
+      task.on('state_changed', 
+        (snap)=>{
+          const pct = Math.round((snap.bytesTransferred / snap.totalBytes)*100);
+          progress.textContent = '📤 업로드중... ' + pct + '% (' + kb + 'KB)';
+        },
+        (err)=>{ clearTimeout(timeout); reject(err); },
+        async ()=>{
+          clearTimeout(timeout);
+          try{
+            const url = await task.snapshot.ref.getDownloadURL();
+            resolve(url);
+          }catch(e){ reject(e); }
+        }
+      );
+    });
+
+    let imageUrl;
+    try{
+      imageUrl = await uploadPromise;
+      console.log('Uploaded URL', imageUrl);
+    }catch(uploadErr){
+      console.warn('Storage upload failed, fallback to base64', uploadErr);
+      // Fallback: if compressed < 800KB, store as base64 directly in DB (works without Storage)
+      if(compressed.blob.size < 800*1024 && compressed.dataUrl){
+        imageUrl = compressed.dataUrl;
+        progress.textContent = '📤 Storage 실패, 직접 전송중...';
+        console.log('Using base64 fallback');
+      } else {
+        throw uploadErr;
+      }
+    }
+
+    const msg = {id:Date.now().toString(),author:cur,content:'',type:'image',imageUrl:imageUrl,storagePath:imageUrl.startsWith('data:') ? '' : storagePath,created_at:new Date().toISOString()};
     await chatRef.push(msg);
     toast('✅ 사진 전송됨');
   }catch(err){
     console.error('Photo upload fail', err);
-    toast('❌ 사진 실패: ' + (err.message || err));
-    alert('사진 업로드 실패:\n'+ (err.message || err) + '\n\nFirebase Storage 규칙을 확인해주세요.\n\nStorage > Rules에:\nallow read, write: if true; 로 임시 설정');
+    toast('❌ 사진 실패: ' + (err.message || err.code || err));
+    alert('사진 업로드 실패:\n'+ (err.message || err.code || err) + '\n\n1. Firebase 콘솔 > Storage > Rules가\nallow read, write: if true; 인지 확인\n2. Storage가 활성화되어 있는지 확인\n3. 파일이 너무 크면 800KB 이하로 줄여서 재시도');
   }finally{
     progress.style.display='none';
     event.target.value='';
   }
-
 }
+
 
 function openImageViewer(url){
   const modal = document.getElementById('imgModal');
