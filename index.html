@@ -1,4 +1,4 @@
-<html lang="ko"><!-- FamChat Build: 2026.10.26.2345 | v1.5.17 | 2026-10-26 | via Builder-a4u v8.2.7 | Flicker Fix --><!-- old: 2026.10.26.2335 | v1.5.6 --><head><style>
+<html lang="ko"><!-- FamChat Build: 2026.10.26.2345 | v1.5.18 | 2026-10-26 | via Builder-a4u v8.2.7 | Flicker Fix --><!-- old: 2026.10.26.2335 | v1.5.6 --><head><style>
 @font-face {
   font-family: "Optimistic";
   font-style: normal;
@@ -22,7 +22,7 @@
 </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>FamChat v1.5.17 - - No Flicker</title>
+<title>FamChat v1.5.18 - - No Flicker</title>
 <link rel="manifest" href="manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="FamChat">
@@ -35,7 +35,7 @@
 <script src="https://cdn.jsdelivr.net/npm/libsodium-wrappers@0.7.15/dist/modules/libsodium-wrappers.js"></script>
 <style>
 
-/* v1.5.17 flicker fix */
+/* v1.5.18 flicker fix */
 #chatList{ contain: layout; will-change: auto; }
 .kakao-row{ will-change: auto; transform: translateZ(0); }
 
@@ -118,7 +118,7 @@ input:focus, textarea:focus{ font-size: 16px !important; }
 /* ===== v1.3.15 KakaoTalk-like Chat UI ===== */
 #view-chat{background:#B2C7DA;border-radius:14px;}
 #chatList{background:transparent;padding:10px 8px;gap:10px;scroll-behavior:smooth;}
-.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.17 flicker fix */}
+.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.18 flicker fix */}
 .kakao-row.other{align-self:flex-start;}
 .kakao-row.mine{align-self:flex-end;}
 .kakao-profile{width:38px;height:38px;border-radius:15px;background:#fff;border:1.5px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;box-shadow:0 1px 2px rgba(0,0,0,0.06);}
@@ -375,7 +375,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#FFF8F0;
 /* ===== v1.3.15 KakaoTalk-like Chat UI ===== */
 #view-chat{background:#B2C7DA;border-radius:14px;}
 #chatList{background:transparent;padding:10px 8px;gap:10px;scroll-behavior:smooth;}
-.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.17 flicker fix */}
+.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.18 flicker fix */}
 .kakao-row.other{align-self:flex-start;}
 .kakao-row.mine{align-self:flex-end;}
 .kakao-profile{width:38px;height:38px;border-radius:15px;background:#fff;border:1.5px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;box-shadow:0 1px 2px rgba(0,0,0,0.06);}
@@ -663,11 +663,23 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 /* v1.5.2 PAT */
 .secret-input{width:100%;border:1.5px solid black;border-radius:8px;padding:7px 9px;font-size:11px;font-family:monospace;margin-top:4px;}
 .pat-card{background:#E3F2FD;border:2px solid #64B5F6;}
+
+/* v1.5.18 photo download */
+#imgModal{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;flex-direction:column;z-index:9999;padding:20px;}
+#imgModal.show{display:flex;}
+#imgModalImg{max-width:90vw;max-height:70vh;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.5);}
+.close-btn{position:absolute;top:20px;right:20px;background:rgba(255,255,255,0.2);border:none;color:white;font-size:28px;width:40px;height:40px;border-radius:50%;cursor:pointer;}
+.img-modal-actions{display:flex;gap:12px;margin-top:16px;}
+.img-download-btn, .img-share-btn{background:white;color:#333;border:none;border-radius:20px;padding:10px 18px;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.2);}
+.img-download-btn:active, .img-share-btn:active{transform:scale(0.95);}
+.kakao-bubble.has-image{position:relative;}
+.kakao-img-dl{position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.6);color:white;border:none;border-radius:50%;width:28px;height:28px;font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0.9;}
 </style>
+
 </head>
 <body class="iphone-mode">
 <div class="header">
-<h1>전씨네 Family Chat</h1><span class="badge">v1.5.17</span>
+<h1>전씨네 Family Chat</h1><span class="badge">v1.5.18</span>
 </div>
 <div class="device">
 <div class="inner" id="inner">
@@ -724,7 +736,7 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 </div>
 <div class="toast" id="toast"></div>
 <input type="file" id="photoInput" accept="image/*" style="display:none" onchange="handlePhotoSelect(event)">
-<div id="imgModal" onclick="closeImageViewer()"><button class="close-btn" onclick="closeImageViewer()">×</button><img id="imgModalImg" src=""></div>
+<div id="imgModal" onclick="if(event.target===this) closeImageViewer()"><button class="close-btn" onclick="closeImageViewer()">×</button><img id="imgModalImg" src=""><div class="img-modal-actions"><button class="img-download-btn" onclick="downloadCurrentImage()">⬇️ 저장</button><button class="img-share-btn" onclick="shareCurrentImage()">📤 공유</button></div></div>
 
 <script>
 
@@ -737,7 +749,7 @@ let db, chatRef, todosRef, routinesRef, readsRef, noticesRef, storageRef;
 let cur = localStorage.getItem('curUser') || '아빠';
 const modes = [{id:'아빠',icon:'👨'},{id:'엄마',icon:'👩'},{id:'해준',icon:'👦'},{id:'해온',icon:'👧'}];
 const FAMCHAT_BUILD = '2026.10.26.2345';
-const FAMCHAT_VERSION = 'v1.5.17';
+const FAMCHAT_VERSION = 'v1.5.18';
 let familyId = localStorage.getItem('familyId') || 'jeon-family';
 let data = {messages:[], todos:[], routines:[], reads:{}, notices:[], settings:{}};
 let replyTarget = null;
@@ -892,7 +904,7 @@ async function initFCM(){
     window._lastFCMError = null;
     messaging = firebase.messaging();
     
-    // v1.5.17: Try to register firebase-messaging-sw.js, if 404 then create blob SW
+    // v1.5.18: Try to register firebase-messaging-sw.js, if 404 then create blob SW
     if('serviceWorker' in navigator){
       try{
         let swUrl = 'firebase-messaging-sw.js';
@@ -1151,9 +1163,11 @@ async function handlePhotoSelect(event){
 }
 
 
+let _currentImageUrl = '';
 function openImageViewer(url){
   const modal = document.getElementById('imgModal');
   const img = document.getElementById('imgModalImg');
+  _currentImageUrl = url;
   img.src = url;
   modal.classList.add('show');
 }
@@ -1162,6 +1176,56 @@ function closeImageViewer(){
   modal.classList.remove('show');
   document.getElementById('imgModalImg').src='';
 }
+async function downloadCurrentImage(){
+  if(!_currentImageUrl) return;
+  await downloadImage(_currentImageUrl, 'FamChat_' + Date.now() + '.jpg');
+}
+async function shareCurrentImage(){
+  if(!_currentImageUrl) return;
+  if(navigator.share){
+    try{
+      const res = await fetch(_currentImageUrl);
+      const blob = await res.blob();
+      const file = new File([blob], 'FamChat.jpg', {type: blob.type});
+      if(navigator.canShare && navigator.canShare({files:[file]})){
+        await navigator.share({files:[file], title:'FamChat 사진'});
+        return;
+      }
+    }catch(e){ console.log('share file fail', e); }
+    try{ await navigator.share({title:'FamChat 사진', url:_currentImageUrl}); return; }catch(e){}
+  }
+  // fallback to download
+  downloadCurrentImage();
+}
+async function downloadImage(url, filename){
+  try{
+    toast('⬇️ 다운로드중...');
+    let blob;
+    if(url.startsWith('data:')){
+      // base64
+      const res = await fetch(url);
+      blob = await res.blob();
+    } else {
+      const res = await fetch(url, {mode:'cors'});
+      if(!res.ok) throw new Error('fetch failed '+res.status);
+      blob = await res.blob();
+    }
+    const blobUrl = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = blobUrl;
+    a.download = filename || 'FamChat_'+Date.now()+'.jpg';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(()=>{ document.body.removeChild(a); URL.revokeObjectURL(blobUrl); }, 1000);
+    toast('✅ 저장됨 - 파일 앱에서 확인');
+  }catch(e){
+    console.error('download fail', e);
+    // iPhone fallback: open in new tab, user can long-press to save
+    window.open(url, '_blank');
+    toast('새 탭에서 길게 눌러 저장하세요');
+  }
+}
+
 
 async function cleanupOldData(){
   const NINETY_DAYS = 90*24*60*60*1000;
@@ -1563,7 +1627,7 @@ function renderChat(force){
     if(msg.type==='image' && msg.imageUrl){
       const safeUrl = msg.imageUrl.replace(/'/g, "\'");
       const captionHtml = msg.content ? '<div class="img-caption">'+escContent+'</div>' : '';
-      bubbleInner = '<div class="kakao-bubble has-image"><div>'+quoteHtml+'</div><div onclick="openImageViewer(\''+safeUrl+'\')"><img src="'+msg.imageUrl+'" loading="lazy" alt="사진">'+captionHtml+'</div></div>';
+      bubbleInner = '<div class="kakao-bubble has-image"><div>'+quoteHtml+'</div><div style="position:relative;" onclick="openImageViewer(\''+safeUrl+'\')"><img src="'+msg.imageUrl+'" loading="lazy" alt="사진" style="border-radius:12px;max-width:100%;"><button class="kakao-img-dl" onclick="event.stopPropagation(); downloadImage(\''+safeUrl+'\', \'FamChat_'+Date.now()+'.jpg\')" title="저장">⬇️</button>'+captionHtml+'</div></div>';
     } else {
       bubbleInner = '<div class="kakao-bubble"><div>'+quoteHtml+'</div><div onclick="setReply(\''+safeKey+'\')">'+ (escContent || '(사진)') +'</div></div>';
     }
