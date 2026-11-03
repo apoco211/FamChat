@@ -1,4 +1,4 @@
-<html lang="ko"><!-- FamChat Build: 2026.10.26.2345 | v1.5.20 | 2026-10-26 | via Builder-a4u v8.2.7 | Flicker Fix --><!-- old: 2026.10.26.2335 | v1.5.6 --><head><style>
+<html lang="ko"><!-- FamChat Build: 2026.10.26.2345 | v1.5.21 | 2026-10-26 | via Builder-a4u v8.2.7 | Flicker Fix --><!-- old: 2026.10.26.2335 | v1.5.6 --><head><style>
 @font-face {
   font-family: "Optimistic";
   font-style: normal;
@@ -22,7 +22,7 @@
 </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>FamChat v1.5.20 - - No Flicker</title>
+<title>FamChat v1.5.21 - - No Flicker</title>
 <link rel="manifest" href="manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="FamChat">
@@ -35,7 +35,7 @@
 <script src="https://cdn.jsdelivr.net/npm/libsodium-wrappers@0.7.15/dist/modules/libsodium-wrappers.js"></script>
 <style>
 
-/* v1.5.20 flicker fix */
+/* v1.5.21 flicker fix */
 #chatList{ contain: layout; will-change: auto; }
 .kakao-row{ will-change: auto; transform: translateZ(0); }
 
@@ -118,7 +118,7 @@ input:focus, textarea:focus{ font-size: 16px !important; }
 /* ===== v1.3.15 KakaoTalk-like Chat UI ===== */
 #view-chat{background:#B2C7DA;border-radius:14px;}
 #chatList{background:transparent;padding:10px 8px;gap:10px;scroll-behavior:smooth;}
-.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.20 flicker fix */}
+.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.21 flicker fix */}
 .kakao-row.other{align-self:flex-start;}
 .kakao-row.mine{align-self:flex-end;}
 .kakao-profile{width:38px;height:38px;border-radius:15px;background:#fff;border:1.5px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;box-shadow:0 1px 2px rgba(0,0,0,0.06);}
@@ -375,7 +375,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#FFF8F0;
 /* ===== v1.3.15 KakaoTalk-like Chat UI ===== */
 #view-chat{background:#B2C7DA;border-radius:14px;}
 #chatList{background:transparent;padding:10px 8px;gap:10px;scroll-behavior:smooth;}
-.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.20 flicker fix */}
+.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.21 flicker fix */}
 .kakao-row.other{align-self:flex-start;}
 .kakao-row.mine{align-self:flex-end;}
 .kakao-profile{width:38px;height:38px;border-radius:15px;background:#fff;border:1.5px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;box-shadow:0 1px 2px rgba(0,0,0,0.06);}
@@ -664,7 +664,7 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 .secret-input{width:100%;border:1.5px solid black;border-radius:8px;padding:7px 9px;font-size:11px;font-family:monospace;margin-top:4px;}
 .pat-card{background:#E3F2FD;border:2px solid #64B5F6;}
 
-/* v1.5.20 photo download */
+/* v1.5.21 photo download */
 #imgModal{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;flex-direction:column;z-index:9999;padding:20px;}
 #imgModal.show{display:flex;}
 #imgModalImg{max-width:90vw;max-height:70vh;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.5);}
@@ -679,20 +679,20 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 </head>
 <body class="iphone-mode">
 <div class="header">
-<h1>전씨네 Family Chat</h1><span class="badge">v1.5.20</span>
+<h1>전씨네 Family Chat</h1><span class="badge">v1.5.21</span>
 </div>
 <div class="device">
 <div class="inner" id="inner">
 <div class="top" id="topBadge" onclick="goTab('set')">👨 아빠 모드 - 터치하면 설정</div>
 <div class="live" id="liveStatus"><div class="dot off" id="dot"></div><span id="liveText">Firebase 연결중...</span></div>
 <div class="tabs">
-<div class="tab off" id="tab-chat" onclick="goTab('chat')">💬 채팅</div>
+<div class="tab on" id="tab-chat" onclick="goTab('chat')">💬 채팅</div>
 <div class="tab off" id="tab-todo" onclick="goTab('todo')">✅ 할일</div>
 <div class="tab off" id="tab-notice" onclick="goTab('notice')">📢 공지</div>
-<div class="tab on" id="tab-set" onclick="goTab('set')">⚙️ 설정</div>
+<div class="tab off" id="tab-set" onclick="goTab('set')">⚙️ 설정</div>
 </div>
 
-<div id="view-chat" class="box" style="display: none;">
+<div id="view-chat" class="box" style="display: flex;">
 <div class="list" id="chatList"></div>
 <div class="input-wrap">
 <div class="send-label" id="sendBadge">👨 아빠로 전송</div>
@@ -728,8 +728,8 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 </div>
 </div>
 
-<div id="view-set" class="box" style="display: flex;">
-<div class="set-wrap" id="setWrap"><div class="card" style="border:3px solid black;background:#FFF9C4;"><h3>👤 사용자 변경 (현재: 아빠)</h3><div class="modes" style="display:flex;gap:6px;flex-wrap:wrap;margin:8px 0;"><button class="on" onclick="changeMode('아빠')" style="flex:1;min-width:60px;padding:10px 8px;border-radius:10px;border:2px solid black;background:black;color:white;font-weight:900;font-size:12px;">👨 아빠</button><button class="" onclick="changeMode('엄마')" style="flex:1;min-width:60px;padding:10px 8px;border-radius:10px;border:2px solid black;background:white;color:black;font-weight:900;font-size:12px;">👩 엄마</button><button class="" onclick="changeMode('해준')" style="flex:1;min-width:60px;padding:10px 8px;border-radius:10px;border:2px solid black;background:white;color:black;font-weight:900;font-size:12px;">👦 해준</button><button class="" onclick="changeMode('해온')" style="flex:1;min-width:60px;padding:10px 8px;border-radius:10px;border:2px solid black;background:white;color:black;font-weight:900;font-size:12px;">👧 해온</button></div><p style="margin-top:6px;font-size:11px;font-weight:800;">현재 사용자: 👨 아빠<br><span style="font-size:9px;color:#666;font-weight:400;">아빠/엄마는 iPhone, 해준/해온은 iPad (해준 iPad mini)</span></p></div><div class="card" style="background:#E8F5E9;border:2px solid #4ADE80;"><h3>🔥 Firebase 연결됨 - v1.5.20</h3><p>Family ID: <b>jeon-family</b><br>메시지 0개 • 할일 0개 • 루틴 0개 • 공지 0개<br><span style="font-size:9px;color:#666;">GitHub Actions 14:00/17:00/19:00 자동 수집 + 90일 자동삭제</span></p><p style="font-size:9px;background:white;padding:6px;border-radius:8px;margin-top:6px;border:1px solid #ddd;">DB: family/jeon-family/messages<br>현재 사용자: 아빠<br>Build: 2026.10.26.2345</p></div><div class="card" style="background:#FFF9E6;border:2px solid #FFD93D;"><h3>📲 iPhone 알림 - 아빠</h3><p style="font-size:11px;line-height:1.5;">상태: <b>🔄 푸시 상태 확인 중...</b><br>디바이스: iPhone / PWA: 아니오<br>현재 사용자: <b>아빠</b><br><span style="font-size:9px;color:#666;">토큰: 없음</span></p><div style="background:white;border:1.5px solid #ddd;border-radius:10px;padding:8px;margin:8px 0;"><div style="font-size:10px;font-weight:900;margin-bottom:4px;">🔑 VAPID 키</div><input id="vapidInput" type="text" placeholder="B로 시작하는 87자 키" value="[STRIPPED87bytes]" style="width:100%;border:1.5px solid black;border-radius:8px;padding:7px 9px;font-size:11px;font-family:monospace;"><div style="display:flex;gap:5px;margin-top:6px;"><button class="btn" style="flex:1;background:black;color:white;margin:0;font-size:10px;padding:7px;" onclick="saveVapidKey()">💾 키 저장 &amp; 푸시 활성화</button><button class="btn" style="flex:1;background:white;margin:0;font-size:10px;padding:7px;" onclick="document.getElementById('vapidInput').value='';localStorage.removeItem('vapidKey');toast('VAPID 키 삭제됨');">🗑️ 삭제</button></div></div><button class="btn" style="background:black;color:white;" onclick="initFCM()">🔄 푸시 다시 활성화</button></div><div class="card pat-card"><h3>🔐 GitHub 자동 저장 (아이폰용)</h3><p style="font-size:11px;">앱에서 ID/PW 입력하면 GitHub Secrets로 자동 암호화 저장돼요. PAT 필요.<br><span style="font-size:8px;color:#666;">PAT는 repo 권한 필요, 비번은 로컬에 저장 안 함</span></p><div style="background:white;border-radius:10px;padding:8px;margin-top:6px;"><label style="font-size:9px;font-weight:900;">GitHub PAT (ghp_...)</label><input id="githubPatInput" type="password" class="secret-input" placeholder="ghp_xxxx" value=""><label style="font-size:9px;font-weight:900;margin-top:6px;display:block;">Repo (owner/repo)</label><input id="githubRepoInput" type="text" class="secret-input" placeholder="username/FamChat" value=""><div style="height:1px;background:#ddd;margin:8px 0;"></div><label style="font-size:9px;font-weight:900;">하이클래스 ID (엄마)</label><input id="hiclassIdInput" type="text" class="secret-input" placeholder="엄마 아이디" value=""><label style="font-size:9px;font-weight:900;margin-top:4px;display:block;">하이클래스 PW</label><input id="hiclassPwInput" type="password" class="secret-input" placeholder="비밀번호 (저장 안 함, GitHub로만 전송)"><label style="font-size:9px;font-weight:900;margin-top:6px;display:block;">키즈노트 ID (아빠)</label><input id="kidsnoteIdInput" type="text" class="secret-input" placeholder="아빠 아이디" value=""><label style="font-size:9px;font-weight:900;margin-top:4px;display:block;">키즈노트 PW</label><input id="kidsnotePwInput" type="password" class="secret-input" placeholder="비밀번호 (저장 안 함)"><div style="display:flex;gap:5px;margin-top:8px;"><button class="btn" style="flex:1;background:black;color:white;margin:0;font-size:10px;padding:8px;" onclick="pushSecretsToGitHub()">🚀 GitHub Secrets로 자동 저장</button><button class="btn" style="flex:1;background:white;margin:0;font-size:10px;padding:8px;" onclick="saveLocalCreds()">💾 로컬만 저장</button></div><p style="font-size:8px;color:#666;margin-top:6px;">FIREBASE_SERVICE_ACCOUNT는 GitHub에서 수동으로 1회 등록 필요 (JSON 키)</p></div></div><div class="card" style="background:#F3E8FD;border:2px solid #CE93D8;"><h3>🤖 제미나이 AI (할일 추출)</h3><p style="font-size:11px;">공지사항에서 할일을 자동 추출해요.<br><span style="font-size:9px;color:#666;">GitHub Actions에서도 같은 키 사용</span></p><div style="background:white;border:1.5px solid #ddd;border-radius:10px;padding:8px;margin:8px 0;"><input id="geminiInput" type="password" placeholder="Gemini API Key (AIza...)" value="" style="width:100%;border:1.5px solid black;border-radius:8px;padding:7px 9px;font-size:11px;font-family:monospace;"><div style="display:flex;gap:5px;margin-top:6px;"><button class="btn" style="flex:1;background:#9C27B0;color:white;margin:0;font-size:10px;padding:7px;" onclick="saveGeminiKey()">💾 제미나이 키 저장</button><button class="btn" style="flex:1;background:white;margin:0;font-size:10px;padding:7px;" onclick="document.getElementById('geminiInput').value='';localStorage.removeItem('geminiKey');toast('키 삭제됨');">🗑️ 삭제</button></div></div></div><div class="card" style="border:2px solid black;"><h3>👤 사용자 변경</h3><div class="modes"><button class="on" onclick="changeMode('아빠')">👨 아빠</button><button class="" onclick="changeMode('엄마')">👩 엄마</button><button class="" onclick="changeMode('해준')">👦 해준</button><button class="" onclick="changeMode('해온')">👧 해온</button></div><p style="margin-top:6px;font-size:11px;font-weight:900;">현재 사용자: 아빠 (👨)<br><span style="font-size:9px;color:#666;">아빠/엄마 iPhone, 해준/해온 iPad (해준이는 iPad mini)</span></p></div><div class="card" style="background:#FFF9E6;border:2px dashed #FFC107;"><h3>📢 공지 자동화 (v1.5.0)</h3><p>GitHub Actions가 14:00/17:00/19:00에 자동 수집<br>하이클래스=엄마 계정, 키즈노트=아빠 계정<br>수집 후 제미나이로 할일 자동 추출<br><span style="font-size:9px;color:#666;">설정: GitHub Secrets에 HICLASS_ID/PW, KIDSNOTE_ID/PW, GEMINI_API_KEY, FIREBASE_URL 저장 필요</span></p><button class="btn" style="background:#FEE500;" onclick="goTab('notice')">📢 공지 탭으로 이동</button></div><div class="card"><h3>🔧 기타</h3><p style="font-size:9px;color:#666;">Build 2026.10.26.2345 | v1.5.20</p><button class="btn" style="background:white;" onclick="toggleAlarm()">🔕 알람 끄기 (현재 ON)</button><button class="btn" style="background:white;" onclick="addSample()">샘플 할일 3개 추가</button><button class="btn" style="background:#FFEBEE;border-color:#FF4444;" onclick="clearAll()">⚠️ 전체 삭제</button></div></div>
+<div id="view-set" class="box" style="display:none;">
+<div class="set-wrap" id="setWrap"></div>
 </div>
 
 </div>
@@ -749,10 +749,14 @@ let db, chatRef, todosRef, routinesRef, readsRef, noticesRef, storageRef;
 let cur = localStorage.getItem('curUser') || '아빠';
 const _validIdsInit = ['아빠','엄마','해준','해온'];
 if(!_validIdsInit.includes(cur)){ cur = '아빠'; localStorage.setItem('curUser', cur); }
+// v1.5.21 device lock
+let lockedUser = localStorage.getItem('lockedUser') || '';
+if(lockedUser && _validIdsInit.includes(lockedUser)){ cur = lockedUser; }
+
 
 const modes = [{id:'아빠',icon:'👨'},{id:'엄마',icon:'👩'},{id:'해준',icon:'👦'},{id:'해온',icon:'👧'}];
 const FAMCHAT_BUILD = '2026.10.26.2345';
-const FAMCHAT_VERSION = 'v1.5.20';
+const FAMCHAT_VERSION = 'v1.5.21';
 let familyId = localStorage.getItem('familyId') || 'jeon-family';
 let data = {messages:[], todos:[], routines:[], reads:{}, notices:[], settings:{}};
 let replyTarget = null;
@@ -907,7 +911,7 @@ async function initFCM(){
     window._lastFCMError = null;
     messaging = firebase.messaging();
     
-    // v1.5.20: Try to register firebase-messaging-sw.js, if 404 then create blob SW
+    // v1.5.21: Try to register firebase-messaging-sw.js, if 404 then create blob SW
     if('serviceWorker' in navigator){
       try{
         let swUrl = 'firebase-messaging-sw.js';
@@ -1490,12 +1494,17 @@ function goTab(name){
 }
 
 function renderTop(){
+  // v1.5.21 device lock enforcement
+  const _locked = localStorage.getItem('lockedUser') || '';
+  if(_locked && ['아빠','엄마','해준','해온'].includes(_locked)){
+    cur = _locked;
+  }
   // cur가 깨졌을 경우 자동 복구
   const validIds = modes.map(x=>x.id);
   if(!validIds.includes(cur)){
     console.log('Invalid cur', cur, 'reset to 아빠');
     cur = '아빠';
-    localStorage.setItem('curUser', cur);
+    if(!_locked) localStorage.setItem('curUser', cur);
   }
   const m = modes.find(x=>x.id===cur) || modes[0];
   const topBadge = document.getElementById('topBadge');
@@ -1831,10 +1840,17 @@ function renderSettings(){
   const validIds = ['아빠','엄마','해준','해온'];
   if(!validIds.includes(cur)){ cur='아빠'; localStorage.setItem('curUser', cur); }
   let html='';
-  // v1.5.20: 사용자 변경을 맨 위로 이동 - 무조건 보이게
+  // v1.5.21: 사용자 변경 + 기기 고정
   try{
     const curMode = modes.find(x=>x.id===cur) || modes[0];
-    html+='<div class="card" style="border:3px solid black;background:#FFF9C4;"><h3>👤 사용자 변경 (현재: '+cur+')</h3><div class="modes" style="display:flex;gap:6px;flex-wrap:wrap;margin:8px 0;">'+modes.map(m=>'<button class="'+(cur===m.id?'on':'')+'" onclick="changeMode(\''+m.id+'\')" style="flex:1;min-width:60px;padding:10px 8px;border-radius:10px;border:2px solid black;background:'+(cur===m.id?'black':'white')+';color:'+(cur===m.id?'white':'black')+';font-weight:900;font-size:12px;">'+m.icon+' '+m.id+'</button>').join('')+'</div><p style="margin-top:6px;font-size:11px;font-weight:800;">현재 사용자: '+curMode.icon+' '+cur+'<br><span style="font-size:9px;color:#666;font-weight:400;">아빠/엄마는 iPhone, 해준/해온은 iPad (해준 iPad mini)</span></p></div>';
+    const locked = localStorage.getItem('lockedUser') || '';
+    if(locked){
+      // Locked device UI
+      const lockedMode = modes.find(x=>x.id===locked);
+      html+='<div class="card" style="border:3px solid #4ADE80;background:#E8F5E9;"><h3>🔒 '+locked+' 전용 기기 (고정됨)</h3><p style="font-size:12px;font-weight:900;margin:6px 0;">'+lockedMode.icon+' '+locked+' 모드로 고정되어 있어요<br><span style="font-size:9px;color:#666;font-weight:400;">이 아이패드 미니는 해준이만 사용해요</span></p><button class="btn" style="background:white;font-size:11px;" onclick="unlockDevice()">🔓 고정 해제 (부모만)</button></div>';
+    } else {
+      html+='<div class="card" style="border:3px solid black;background:#FFF9C4;"><h3>👤 사용자 변경 (현재: '+cur+')</h3><div class="modes" style="display:flex;gap:6px;flex-wrap:wrap;margin:8px 0;">'+modes.map(m=>'<button class="'+(cur===m.id?'on':'')+'" onclick="changeMode(\''+m.id+'\')" style="flex:1;min-width:60px;padding:10px 8px;border-radius:10px;border:2px solid black;background:'+(cur===m.id?'black':'white')+';color:'+(cur===m.id?'white':'black')+';font-weight:900;font-size:12px;">'+m.icon+' '+m.id+'</button>').join('')+'</div><p style="margin-top:6px;font-size:11px;font-weight:800;">현재 사용자: '+curMode.icon+' '+cur+'<br><span style="font-size:9px;color:#666;font-weight:400;">아빠/엄마는 iPhone, 해준/해온은 iPad (해준 iPad mini)</span></p><div style="margin-top:8px;padding-top:8px;border-top:1px dashed #999;"><p style="font-size:9px;color:#666;margin-bottom:4px;">이 기기를 특정 사용자 전용으로 고정할 수 있어요</p><div style="display:flex;gap:4px;flex-wrap:wrap;">'+modes.map(m=>'<button class="btn" style="flex:1;min-width:50px;font-size:9px;padding:6px;background:white;margin:0;" onclick="lockDeviceTo(\''+m.id+'\')">🔒 '+m.id+' 전용으로 고정</button>').join('')+'</div></div></div>';
+    }
   }catch(e){ console.error('user card error', e); html+='<div class="card"><h3>👤 사용자 변경</h3><p>오류: '+e.message+'</p></div>'; }
   
   html+='<div class="card" style="background:#E8F5E9;border:2px solid #4ADE80;"><h3>🔥 Firebase 연결됨 - '+FAMCHAT_VERSION+'</h3><p>Family ID: <b>'+familyId+'</b><br>메시지 '+data.messages.length+'개 • 할일 '+data.todos.length+'개 • 루틴 '+data.routines.length+'개 • 공지 '+data.notices.length+'개<br><span style="font-size:9px;color:#666;">GitHub Actions 14:00/17:00/19:00 자동 수집 + 90일 자동삭제</span></p><p style="font-size:9px;background:white;padding:6px;border-radius:8px;margin-top:6px;border:1px solid #ddd;">DB: family/'+familyId+'/messages<br>현재 사용자: '+cur+'<br>Build: '+FAMCHAT_BUILD+'</p></div>';
@@ -1887,6 +1903,11 @@ function renderSettings(){
 }
 
 function changeMode(id){
+  const locked = localStorage.getItem('lockedUser') || '';
+  if(locked && locked!==id){
+    toast('🔒 '+locked+' 전용 기기로 고정되어 있어요. 고정 해제 후 변경하세요.');
+    return;
+  }
   cur=id;
   localStorage.setItem('curUser', id);
   renderTop();
@@ -1897,6 +1918,26 @@ function changeMode(id){
   toast(modes.find(m=>m.id===id).icon+' '+id+' 모드로 변경');
   setTimeout(()=>updateReadStatus(), 300);
 }
+function lockDeviceTo(id){
+  if(!confirm(id+' 전용 기기로 고정할까요?\n\n이 기기에서는 '+id+' 모드만 사용되고, 다른 사용자로 변경할 수 없게 됩니다.\n해제는 설정에서 할 수 있어요.')){
+    return;
+  }
+  localStorage.setItem('lockedUser', id);
+  localStorage.setItem('curUser', id);
+  cur=id;
+  renderTop();
+  renderSettings();
+  toast('🔒 '+id+' 전용으로 고정됨');
+}
+function unlockDevice(){
+  if(!confirm('고정을 해제할까요?\n부모만 해제해주세요.')){
+    return;
+  }
+  localStorage.removeItem('lockedUser');
+  toast('🔓 고정 해제됨');
+  renderSettings();
+}
+
 
 function escapeHtml(s){
   if(!s) return '';
