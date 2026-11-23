@@ -1,4 +1,4 @@
-<html lang="ko"><!-- FamChat Build: 2026.11.23 | v1.5.24 SOUND FIX | 정리본: 중복 폰트/아티팩트 스크립트 제거 + 워키토키 포함 --><head><style>
+<html lang="ko"><!-- FamChat Build: 2026.11.23 | v1.5.26 TURN | 정리본: 중복 폰트/아티팩트 스크립트 제거 + 워키토키 포함 --><head><style>
 @font-face {
   font-family: "Optimistic";
   font-style: normal;
@@ -41,7 +41,7 @@
   font-family: "Optimistic Mono", ui-monospace, monospace;
 }
 
-/* ===== v1.5.24 Walkie Talkie ===== */
+/* ===== v1.5.26 Walkie Talkie ===== */
 .walkie-btn{ background:#FF5722; color:white; border:2px solid black; border-radius:20px; padding:6px 12px; font-size:11px; font-weight:900; cursor:pointer; margin-left:6px; }
 .walkie-btn.on{ background:#4CAF50; }
 .walkie-btn.speaking{ background:#FF0000; animation: walkiePulse 0.6s infinite; }
@@ -60,7 +60,7 @@
 </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>FamChat v1.5.24</title>
+<title>FamChat v1.5.26</title>
 <link rel="manifest" href="manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="FamChat">
@@ -73,7 +73,7 @@
 <script src="https://cdn.jsdelivr.net/npm/libsodium-wrappers@0.7.15/dist/modules/libsodium-wrappers.js"></script>
 <style>
 
-/* v1.5.24 flicker fix */
+/* v1.5.26 flicker fix */
 #chatList{ contain: layout; will-change: auto; }
 .kakao-row{ will-change: auto; transform: translateZ(0); }
 
@@ -106,7 +106,7 @@ input:focus, textarea:focus{ font-size: 16px !important; }
 /* ===== v1.3.15 KakaoTalk-like Chat UI ===== */
 #view-chat{background:#B2C7DA;border-radius:14px;}
 #chatList{background:transparent;padding:10px 8px;gap:10px;scroll-behavior:smooth;}
-.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.24 flicker fix */}
+.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.26 flicker fix */}
 .kakao-row.other{align-self:flex-start;}
 .kakao-row.mine{align-self:flex-end;}
 .kakao-profile{width:38px;height:38px;border-radius:15px;background:#fff;border:1.5px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;box-shadow:0 1px 2px rgba(0,0,0,0.06);}
@@ -359,7 +359,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#FFF8F0;
 /* ===== v1.3.15 KakaoTalk-like Chat UI ===== */
 #view-chat{background:#B2C7DA;border-radius:14px;}
 #chatList{background:transparent;padding:10px 8px;gap:10px;scroll-behavior:smooth;}
-.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.24 flicker fix */}
+.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.26 flicker fix */}
 .kakao-row.other{align-self:flex-start;}
 .kakao-row.mine{align-self:flex-end;}
 .kakao-profile{width:38px;height:38px;border-radius:15px;background:#fff;border:1.5px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;box-shadow:0 1px 2px rgba(0,0,0,0.06);}
@@ -644,7 +644,7 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 .secret-input{width:100%;border:1.5px solid black;border-radius:8px;padding:7px 9px;font-size:11px;font-family:monospace;margin-top:4px;}
 .pat-card{background:#E3F2FD;border:2px solid #64B5F6;}
 
-/* v1.5.24 photo download */
+/* v1.5.26 photo download */
 #imgModal{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;flex-direction:column;z-index:9999;padding:20px;}
 #imgModal.show{display:flex;}
 #imgModalImg{max-width:90vw;max-height:70vh;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.5);}
@@ -655,7 +655,7 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 .kakao-bubble.has-image{position:relative;}
 .kakao-img-dl{position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.6);color:white;border:none;border-radius:50%;width:28px;height:28px;font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0.9;}
 
-/* ===== v1.5.24 Walkie Talkie ===== */
+/* ===== v1.5.26 Walkie Talkie ===== */
 .walkie-btn{ background:#FF5722; color:white; border:2px solid black; border-radius:20px; padding:6px 12px; font-size:11px; font-weight:900; cursor:pointer; margin-left:6px; }
 .walkie-btn.on{ background:#4CAF50; }
 .walkie-btn.speaking{ background:#FF0000; animation: walkiePulse 0.6s infinite; }
@@ -676,13 +676,13 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 </head>
 <body class="iphone-mode">
 <div class="header">
-<h1>전씨네 Family Chat</h1><span class="badge">v1.5.24 CLEAN</span>
+<h1>전씨네 Family Chat</h1><span class="badge">v1.5.26 CLEAN</span>
 </div>
 <div class="device">
 <div class="inner" id="inner">
 <div style="display:flex;align-items:center;gap:6px;"><div class="top" id="topBadge" onclick="goTab('set')" style="flex:1;">👨 아빠 모드 - 터치하면 설정</div>
 <button id="walkieTopBtn" class="walkie-btn" onclick="toggleWalkiePanel()">🎙️ 워키토키</button></div>
-<div id="walkiePanel"><div style="display:flex;justify-content:space-between;align-items:center;"><h3 style="margin:0;font-size:14px;">🎙️ 실시간 워키토키</h3><span id="walkieStatusDot" style="font-size:11px;">● 꺼짐</span></div><p style="font-size:10px;color:#666;margin:4px 0;">가족 4명 같이 듣는 무전기예요. 버튼 꾹 누르면 말해져요.</p><div id="walkieOnline" class="walkie-online"></div><div id="walkieStatus" class="walkie-status">아직 연결 안 됨</div><div id="walkieConn" style="font-size:10px;text-align:center;color:#666;margin-bottom:6px;">연결 상태: 대기 중</div><button id="walkieJoinBtn" class="btn" style="width:100%;background:black;color:white;margin-bottom:6px;" onclick="toggleWalkieJoin()">🎙️ 워키토키 켜기</button><button id="walkieSoundBtn" class="btn" style="width:100%;background:#FF9800;color:white;margin-bottom:8px;" onclick="unlockWalkieSound()">🔊 소리 켜기 (iPhone 필수 - 소리 안 들리면 눌러보세요)</button><button id="pttBtn" class="ptt-btn" disabled="">🎙️ 꾹 눌러서 말하기<br><span style="font-size:11px;font-weight:400;">(누르고 있는 동안만 들려요)</span></button><p style="font-size:9px;color:#666;text-align:center;margin-top:6px;">아이폰/아이패드 둘 다 앱 켜고 있어야 들려요 • 마이크 허용 필요</p><div id="walkieAudios" style="position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;"></div></div>
+<div id="walkiePanel"><div style="display:flex;justify-content:space-between;align-items:center;"><h3 style="margin:0;font-size:14px;">🎙️ 실시간 워키토키</h3><span id="walkieStatusDot" style="font-size:11px;">● 꺼짐</span></div><p style="font-size:10px;color:#666;margin:4px 0;">가족 4명 같이 듣는 무전기예요. 버튼 꾹 누르면 말해져요.</p><div id="walkieOnline" class="walkie-online"></div><div id="walkieStatus" class="walkie-status">아직 연결 안 됨</div><div id="walkieConn" style="font-size:10px;text-align:center;color:#666;margin-bottom:6px;">연결 상태: 대기 중</div><div id="walkieDebug" style="background:black;color:#00FF00;font-family:monospace;font-size:9px;padding:6px;border-radius:8px;max-height:120px;overflow:auto;margin-bottom:6px;white-space:pre-wrap;">[진단] 대기 중...</div><div style="display:flex;gap:4px;margin-bottom:6px;"><button class="btn" style="flex:1;font-size:10px;padding:6px;background:white;margin:0;" onclick="testWalkieMic()">🎤 마이크 테스트</button><button class="btn" style="flex:1;font-size:10px;padding:6px;background:white;margin:0;" onclick="testWalkieSpeaker()">🔊 스피커 테스트</button><button class="btn" style="flex:1;font-size:10px;padding:6px;background:white;margin:0;" onclick="copyWalkieLog()">📋 로그 복사</button></div><div id="walkieMicLevel" style="height:8px;background:#ddd;border-radius:4px;overflow:hidden;margin-bottom:6px;"><div id="walkieMicBar" style="height:100%;width:0%;background:#4CAF50;transition:width 0.1s;"></div></div><div id="walkieMicText" style="font-size:10px;text-align:center;color:#666;margin-bottom:6px;">마이크: 확인 안 함</div><button id="walkieJoinBtn" class="btn" style="width:100%;background:black;color:white;margin-bottom:6px;" onclick="toggleWalkieJoin()">🎙️ 워키토키 켜기</button><button id="walkieSoundBtn" class="btn" style="width:100%;background:#FF9800;color:white;margin-bottom:8px;" onclick="unlockWalkieSound()">🔊 소리 켜기 (iPhone 필수 - 소리 안 들리면 눌러보세요)</button><button id="pttBtn" class="ptt-btn" disabled="">🎙️ 꾹 눌러서 말하기<br><span style="font-size:11px;font-weight:400;">(누르고 있는 동안만 들려요)</span></button><p style="font-size:9px;color:#666;text-align:center;margin-top:6px;">아이폰/아이패드 둘 다 앱 켜고 있어야 들려요 • 마이크 허용 필요</p><div id="walkieAudios" style="position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;"></div></div>
 <div class="live" id="liveStatus"><div class="dot off" id="dot"></div><span id="liveText">Firebase 연결중...</span></div>
 <div class="tabs">
 <div class="tab on" id="tab-chat" onclick="goTab('chat')">💬 채팅</div>
@@ -742,7 +742,7 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 const firebaseConfig = {'apiKey': 'AIzaSyDKTiB6lqRDCHaM8vxWwbiX0K_nlb8_4jQ', 'authDomain': 'jeon-family-chat.firebaseapp.com', 'projectId': 'jeon-family-chat', 'storageBucket': 'jeon-family-chat.firebasestorage.app', 'messagingSenderId': '575056885546', 'appId': '1:575056885546:web:2fa1c64876773817906413', 'databaseURL': 'https://jeon-family-chat-default-rtdb.firebaseio.com'};
 
 
-/* ===== FamChat v1.5.24 CLEAN - 목차 =====
+/* ===== FamChat v1.5.26 CLEAN - 목차 =====
   1. Firebase 설정 / 전역 상태
   2. 유틸 (escapeHtml, toast, detectDevice)
   3. 채팅 (renderChat, sendMsg, 사진, 답장, 읽음)
@@ -757,14 +757,14 @@ let db, chatRef, todosRef, routinesRef, readsRef, noticesRef, storageRef;
 let cur = localStorage.getItem('curUser') || '아빠';
 const _validIdsInit = ['아빠','엄마','해준','해온'];
 if(!_validIdsInit.includes(cur)){ cur = '아빠'; localStorage.setItem('curUser', cur); }
-// v1.5.24 device lock
+// v1.5.26 device lock
 let lockedUser = localStorage.getItem('lockedUser') || '';
 if(lockedUser && _validIdsInit.includes(lockedUser)){ cur = lockedUser; }
 
 
 const modes = [{id:'아빠',icon:'👨'},{id:'엄마',icon:'👩'},{id:'해준',icon:'👦'},{id:'해온',icon:'👧'}];
 const FAMCHAT_BUILD = '2026.10.26.2345';
-const FAMCHAT_VERSION = 'v1.5.24';
+const FAMCHAT_VERSION = 'v1.5.26';
 let familyId = localStorage.getItem('familyId') || 'jeon-family';
 let data = {messages:[], todos:[], routines:[], reads:{}, notices:[], settings:{}};
 let replyTarget = null;
@@ -919,7 +919,7 @@ async function initFCM(){
     window._lastFCMError = null;
     messaging = firebase.messaging();
     
-    // v1.5.24: Try to register firebase-messaging-sw.js, if 404 then create blob SW
+    // v1.5.26: Try to register firebase-messaging-sw.js, if 404 then create blob SW
     if('serviceWorker' in navigator){
       try{
         let swUrl = 'firebase-messaging-sw.js';
@@ -1502,7 +1502,7 @@ function goTab(name){
 }
 
 function renderTop(){
-  // v1.5.24 device lock enforcement
+  // v1.5.26 device lock enforcement
   const _locked = localStorage.getItem('lockedUser') || '';
   if(_locked && ['아빠','엄마','해준','해온'].includes(_locked)){
     cur = _locked;
@@ -1848,7 +1848,7 @@ function renderSettings(){
   const validIds = ['아빠','엄마','해준','해온'];
   if(!validIds.includes(cur)){ cur='아빠'; localStorage.setItem('curUser', cur); }
   let html='';
-  // v1.5.24: 사용자 변경 + 기기 고정
+  // v1.5.26: 사용자 변경 + 기기 고정
   try{
     const curMode = modes.find(x=>x.id===cur) || modes[0];
     const locked = localStorage.getItem('lockedUser') || '';
@@ -1947,7 +1947,7 @@ function unlockDevice(){
 }
 
 
-// ===== v1.5.24 Walkie Talkie - WebRTC + Firebase RTDB signaling =====
+// ===== v1.5.26 Walkie Talkie - WebRTC + Firebase RTDB signaling =====
 let walkieJoined=false;
 let walkieLocalStream=null;
 let walkiePeers={};
@@ -2025,6 +2025,8 @@ async function joinWalkie(){
     });
 
     setTimeout(()=>{ try{ unlockWalkieSound(); }catch(e){} }, 500);
+    walkieLog('✅ 워키토키 참여 완료 - deviceId='+walkieDeviceId+', cur='+cur);
+    walkieLog('🎤 로컬 트랙: '+walkieLocalStream.getAudioTracks().length+'개');
     toast('🎙️ 워키토키 켜짐 - '+cur+'로 참여');
   }catch(e){
     console.error('joinWalkie', e);
@@ -2033,6 +2035,70 @@ async function joinWalkie(){
     toast('❌ 마이크 허용이 필요해요 - 설정 > 사파리 > 마이크 허용');
     walkieJoined=false;
   }
+}
+
+
+let walkieLogs = [];
+function walkieLog(msg){
+  const t = new Date().toLocaleTimeString('ko-KR', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+  const line = '['+t+'] '+msg;
+  walkieLogs.push(line);
+  if(walkieLogs.length>30) walkieLogs.shift();
+  const el=document.getElementById('walkieDebug');
+  if(el) el.textContent = walkieLogs.join('\n');
+  console.log('[Walkie]', line);
+}
+function testWalkieMic(){
+  if(!walkieLocalStream){ walkieLog('❌ 마이크 테스트 실패: 로컬 스트림 없음 - 워키토키 켜기 먼저'); toast('워키토키 켜기 먼저 눌러주세요'); return; }
+  const tracks=walkieLocalStream.getAudioTracks();
+  walkieLog('🎤 마이크 트랙: '+tracks.length+'개, enabled='+ (tracks[0]?.enabled) +', muted='+tracks[0]?.muted+', readyState='+tracks[0]?.readyState);
+  const micText=document.getElementById('walkieMicText');
+  if(micText) micText.textContent='마이크: 트랙 '+tracks.length+'개, 상태 '+tracks[0]?.readyState;
+  // 마이크 레벨 측정 3초
+  try{
+    if(!walkieAudioCtx) walkieAudioCtx = new (window.AudioContext||window.webkitAudioContext)();
+    if(walkieAudioCtx.state==='suspended') walkieAudioCtx.resume();
+    const src=walkieAudioCtx.createMediaStreamSource(walkieLocalStream);
+    const analyser=walkieAudioCtx.createAnalyser();
+    analyser.fftSize=256;
+    src.connect(analyser);
+    const data=new Uint8Array(analyser.frequencyBinCount);
+    let count=0;
+    const iv=setInterval(()=>{
+      analyser.getByteFrequencyData(data);
+      let sum=0; for(let i=0;i<data.length;i++) sum+=data[i];
+      const avg=sum/data.length;
+      const bar=document.getElementById('walkieMicBar');
+      if(bar) bar.style.width=Math.min(100, avg*2)+'%';
+      walkieLog('🎤 마이크 레벨: '+Math.round(avg)+' (말하면 올라가야 함)');
+      count++;
+      if(count>=15){ clearInterval(iv); walkieLog('🎤 마이크 테스트 끝 - 레벨이 0이면 마이크 안 잡히는 거'); }
+    },200);
+  }catch(e){ walkieLog('❌ 마이크 레벨 측정 실패: '+e.message); }
+}
+function testWalkieSpeaker(){
+  try{
+    if(!walkieAudioCtx) walkieAudioCtx = new (window.AudioContext||window.webkitAudioContext)();
+    if(walkieAudioCtx.state==='suspended') walkieAudioCtx.resume();
+    const osc=walkieAudioCtx.createOscillator();
+    const gain=walkieAudioCtx.createGain();
+    gain.gain.value=0.2;
+    osc.frequency.value=880;
+    osc.connect(gain); gain.connect(walkieAudioCtx.destination);
+    osc.start(); osc.stop(walkieAudioCtx.currentTime+0.5);
+    walkieLog('🔊 스피커 테스트: 삐- 소리 들리면 스피커 OK');
+    toast('🔊 삐- 소리 들리면 스피커 OK');
+  }catch(e){ walkieLog('❌ 스피커 테스트 실패: '+e.message); }
+  // 원격 오디오 상태도 체크
+  document.querySelectorAll('#walkieAudios audio').forEach(a=>{
+    walkieLog('🔊 원격 오디오: id='+a.id+', paused='+a.paused+', muted='+a.muted+', volume='+a.volume+', srcObject='+(a.srcObject?'있음':'없음'));
+  });
+  if(document.querySelectorAll('#walkieAudios audio').length===0) walkieLog('❌ 원격 오디오 요소 0개 - 연결이 안 된 거 (상대가 안 켰거나 신호 실패)');
+}
+function copyWalkieLog(){
+  const txt=walkieLogs.join('\n');
+  if(navigator.clipboard) navigator.clipboard.writeText(txt).then(()=>toast('로그 복사됨')).catch(()=>{});
+  else { prompt('로그 복사', txt); }
 }
 
 function unlockWalkieSound(){
@@ -2086,18 +2152,28 @@ function leaveWalkie(){
 }
 function createPeerConnection(targetId, isInitiator){
   if(walkiePeers[targetId]) return walkiePeers[targetId];
-  const pc = new RTCPeerConnection({ iceServers:[{ urls:'stun:stun.l.google.com:19302' }, { urls:'stun:stun1.l.google.com:19302' }] });
+  // v1.5.26 TURN 추가: 테더링/셀룰러/다른 와이파이에서도 연결되게
+  // STUN으로 직접 연결 시도 -> 안 되면 TURN으로 우회 (같은 와이파이는 그대로 직접 연결)
+  const pc = new RTCPeerConnection({ iceServers:[
+    { urls:'stun:stun.l.google.com:19302' },
+    { urls:'stun:stun1.l.google.com:19302' },
+    { urls:'stun:stun.relay.metered.ca:80' },
+    // 무료 TURN (OpenRelay) - 테더링/엄격한 NAT용
+    { urls:'turn:openrelay.metered.ca:80', username:'openrelayproject', credential:'openrelayproject' },
+    { urls:'turn:openrelay.metered.ca:443', username:'openrelayproject', credential:'openrelayproject' },
+    { urls:'turn:openrelay.metered.ca:443?transport=tcp', username:'openrelayproject', credential:'openrelayproject' }
+  ], iceCandidatePoolSize: 10 });
   walkiePeers[targetId]=pc;
   // 내 오디오 보내기
   if(walkieLocalStream){
     walkieLocalStream.getTracks().forEach(track=>{ try{ pc.addTrack(track, walkieLocalStream); }catch(e){} });
   }
-  pc.onicecandidate = (e)=>{
+  pc.onicecandidate = (e)=>{ if(e.candidate){ walkieLog('🧊 ICE 후보: '+e.candidate.type+' ('+e.candidate.protocol+')'); }
     if(e.candidate){
       sendWalkieSignal(targetId, { from: walkieDeviceId, type:'ice', candidate: e.candidate });
     }
   };
-  pc.ontrack = (e)=>{
+  pc.ontrack = (e)=>{ walkieLog('🔊 원격 오디오 수신! from '+targetId+', 트랙 '+e.track.kind);
     let audioEl=document.getElementById('audio_'+targetId);
     if(!audioEl){
       audioEl=document.createElement('audio');
@@ -2118,7 +2194,7 @@ function createPeerConnection(targetId, isInitiator){
     if(p) p.catch(()=>{ const c=document.getElementById('walkieConn'); if(c) c.textContent='⚠️ 소리 차단됨 - 🔊 소리 켜기 버튼 눌러주세요'; });
     updateWalkieConnState();
   };
-  pc.onconnectionstatechange = ()=>{ updateWalkieConnState(); if(pc.connectionState==='failed'){ try{ pc.restartIce(); }catch(e){} } };
+  pc.onconnectionstatechange = ()=>{ walkieLog('🔗 Peer '+targetId+' 상태: '+pc.connectionState+' / ICE: '+pc.iceConnectionState); updateWalkieConnState(); if(pc.connectionState==='failed'){ try{ pc.restartIce(); }catch(e){} } };
   if(isInitiator){
     pc.createOffer({ offerToReceiveAudio:true }).then(offer=>{
       return pc.setLocalDescription(offer).then(()=>{
@@ -2128,13 +2204,13 @@ function createPeerConnection(targetId, isInitiator){
   }
   return pc;
 }
-function sendWalkieSignal(targetId, data){
+function sendWalkieSignal(targetId, data){ walkieLog('📤 신호 전송: '+data.type+' to '+targetId);
   try{
     const ref=db.ref('family/'+familyId+'/walkie/signals/'+targetId);
     ref.push(data);
   }catch(e){ console.error('send signal', e); }
 }
-async function handleWalkieSignal(sig){
+async function handleWalkieSignal(sig){ walkieLog('📩 신호 수신: '+sig.type+' from '+sig.from);
   const from=sig.from;
   let pc=walkiePeers[from];
   if(!pc){ pc=createPeerConnection(from, false); }
@@ -2176,7 +2252,7 @@ function updateWalkieOnlineUI(val){
 function startTalk(){
   if(!walkieJoined){ joinWalkie().then(()=>{ setTimeout(startTalk, 800); }); return; }
   if(!walkieLocalStream) return;
-  walkieLocalStream.getAudioTracks().forEach(t=>t.enabled=true);
+  walkieLocalStream.getAudioTracks().forEach(t=>{ t.enabled=true; walkieLog('🎤 말하기 ON - 트랙 enabled='+t.enabled); });
   const ptt=document.getElementById('pttBtn');
   if(ptt) ptt.classList.add('talking');
   const statusEl=document.getElementById('walkieStatus');
