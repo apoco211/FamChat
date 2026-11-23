@@ -1,4 +1,4 @@
-<html lang="ko"><!-- FamChat Build: 2026.10.26.2345 | v1.5.21 | 2026-10-26 | via Builder-a4u v8.2.7 | Flicker Fix --><!-- old: 2026.10.26.2335 | v1.5.6 --><head><style>
+<html lang="ko"><!-- FamChat Build: 2026.11.23 | v1.5.23 CLEAN | 정리본: 중복 폰트/아티팩트 스크립트 제거 + 워키토키 포함 --><head><style>
 @font-face {
   font-family: "Optimistic";
   font-style: normal;
@@ -19,10 +19,48 @@
 :where(code, pre, kbd, samp) {
   font-family: "Optimistic Mono", ui-monospace, monospace;
 }
+</style><style>
+@font-face {
+  font-family: "Optimistic";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Optimistic Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
+}
+:where(html) {
+  font-family: "Optimistic", system-ui, sans-serif;
+}
+:where(code, pre, kbd, samp) {
+  font-family: "Optimistic Mono", ui-monospace, monospace;
+}
+
+/* ===== v1.5.23 Walkie Talkie ===== */
+.walkie-btn{ background:#FF5722; color:white; border:2px solid black; border-radius:20px; padding:6px 12px; font-size:11px; font-weight:900; cursor:pointer; margin-left:6px; }
+.walkie-btn.on{ background:#4CAF50; }
+.walkie-btn.speaking{ background:#FF0000; animation: walkiePulse 0.6s infinite; }
+@keyframes walkiePulse{ 0%{transform:scale(1);} 50%{transform:scale(1.05);} 100%{transform:scale(1);} }
+#walkiePanel{ display:none; background:#FFF3E0; border:2px solid #FF9800; border-radius:16px; padding:12px; margin:8px 0; }
+#walkiePanel.show{ display:block; }
+.walkie-online{ display:flex; gap:6px; flex-wrap:wrap; margin:8px 0; }
+.walkie-user{ background:white; border:2px solid #ddd; border-radius:20px; padding:6px 10px; font-size:11px; font-weight:800; }
+.walkie-user.me{ border-color:black; background:#FFF9C4; }
+.walkie-user.speaking{ border-color:#FF0000; background:#FFEBEE; color:#D32F2F; }
+.ptt-btn{ width:100%; height:90px; border-radius:20px; border:3px solid black; background:#FF5722; color:white; font-size:18px; font-weight:900; cursor:pointer; touch-action:none; user-select:none; -webkit-user-select:none; }
+.ptt-btn:active, .ptt-btn.talking{ background:#D32F2F; transform:scale(0.98); }
+.ptt-btn:disabled{ background:#ccc; }
+.walkie-status{ font-size:11px; font-weight:800; text-align:center; margin:6px 0; }
+
 </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>FamChat v1.5.21 - - No Flicker</title>
+<title>FamChat v1.5.23</title>
 <link rel="manifest" href="manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="FamChat">
@@ -35,11 +73,9 @@
 <script src="https://cdn.jsdelivr.net/npm/libsodium-wrappers@0.7.15/dist/modules/libsodium-wrappers.js"></script>
 <style>
 
-/* v1.5.21 flicker fix */
+/* v1.5.23 flicker fix */
 #chatList{ contain: layout; will-change: auto; }
 .kakao-row{ will-change: auto; transform: translateZ(0); }
-
-
 
 /* v1.5.6 Reply feature */
 .kakao-reply{ background:rgba(0,0,0,0.08); border:none; border-radius:8px; padding:2px 6px; font-size:9px; font-weight:800; cursor:pointer; opacity:0; transition:opacity 0.15s; }
@@ -67,58 +103,10 @@ input:focus, textarea:focus{ font-size: 16px !important; }
   input, textarea{ font-size: 16px !important; }
 }
 
-
-
-
-
-
-@font-face {
-  font-family: "Optimistic";
-  font-style: normal;
-  font-weight: 400 600;
-  font-display: swap;
-  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Optimistic Mono";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
-}
-:where(html) {
-  font-family: "Optimistic", system-ui, sans-serif;
-}
-:where(code, pre, kbd, samp) {
-  font-family: "Optimistic Mono", ui-monospace, monospace;
-}
-
-
-@font-face {
-  font-family: "Optimistic";
-  font-style: normal;
-  font-weight: 400 600;
-  font-display: swap;
-  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Optimistic Mono";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
-}
-:where(html) {
-  font-family: "Optimistic", system-ui, sans-serif;
-}
-:where(code, pre, kbd, samp) {
-  font-family: "Optimistic Mono", ui-monospace, monospace;
-}
-
 /* ===== v1.3.15 KakaoTalk-like Chat UI ===== */
 #view-chat{background:#B2C7DA;border-radius:14px;}
 #chatList{background:transparent;padding:10px 8px;gap:10px;scroll-behavior:smooth;}
-.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.21 flicker fix */}
+.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.23 flicker fix */}
 .kakao-row.other{align-self:flex-start;}
 .kakao-row.mine{align-self:flex-end;}
 .kakao-profile{width:38px;height:38px;border-radius:15px;background:#fff;border:1.5px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;box-shadow:0 1px 2px rgba(0,0,0,0.06);}
@@ -325,10 +313,6 @@ body.iphone-mode .device{flex:1;min-height:0;height:100%;max-height:100%;}
 body.iphone-mode .inner{min-height:0;}
 body.ipad-mode{height:100dvh;overflow:hidden;}
 body.ipad-mode .device{flex:1;min-height:0;height:100%;}
-
-
-
-
 
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#FFF8F0;color:#111827;padding:10px;padding-bottom:100px;}
@@ -375,7 +359,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#FFF8F0;
 /* ===== v1.3.15 KakaoTalk-like Chat UI ===== */
 #view-chat{background:#B2C7DA;border-radius:14px;}
 #chatList{background:transparent;padding:10px 8px;gap:10px;scroll-behavior:smooth;}
-.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.21 flicker fix */}
+.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.23 flicker fix */}
 .kakao-row.other{align-self:flex-start;}
 .kakao-row.mine{align-self:flex-end;}
 .kakao-profile{width:38px;height:38px;border-radius:15px;background:#fff;border:1.5px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;box-shadow:0 1px 2px rgba(0,0,0,0.06);}
@@ -582,10 +566,6 @@ body.iphone-mode .device{flex:1;min-height:0;height:100%;max-height:100%;}
 body.iphone-mode .inner{min-height:0;}
 body.ipad-mode{height:100dvh;overflow:hidden;}
 body.ipad-mode .device{flex:1;min-height:0;height:100%;}
-
-
-
-
 
 /* ===== v1.4.0 NEW: Routine SubTabs ===== */
 .todo-subtabs{display:flex;gap:5px;margin-bottom:8px;flex-shrink:0;}
@@ -664,7 +644,7 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 .secret-input{width:100%;border:1.5px solid black;border-radius:8px;padding:7px 9px;font-size:11px;font-family:monospace;margin-top:4px;}
 .pat-card{background:#E3F2FD;border:2px solid #64B5F6;}
 
-/* v1.5.21 photo download */
+/* v1.5.23 photo download */
 #imgModal{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;flex-direction:column;z-index:9999;padding:20px;}
 #imgModal.show{display:flex;}
 #imgModalImg{max-width:90vw;max-height:70vh;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.5);}
@@ -674,16 +654,35 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 .img-download-btn:active, .img-share-btn:active{transform:scale(0.95);}
 .kakao-bubble.has-image{position:relative;}
 .kakao-img-dl{position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.6);color:white;border:none;border-radius:50%;width:28px;height:28px;font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0.9;}
+
+/* ===== v1.5.23 Walkie Talkie ===== */
+.walkie-btn{ background:#FF5722; color:white; border:2px solid black; border-radius:20px; padding:6px 12px; font-size:11px; font-weight:900; cursor:pointer; margin-left:6px; }
+.walkie-btn.on{ background:#4CAF50; }
+.walkie-btn.speaking{ background:#FF0000; animation: walkiePulse 0.6s infinite; }
+@keyframes walkiePulse{ 0%{transform:scale(1);} 50%{transform:scale(1.05);} 100%{transform:scale(1);} }
+#walkiePanel{ display:none; background:#FFF3E0; border:2px solid #FF9800; border-radius:16px; padding:12px; margin:8px 0; }
+#walkiePanel.show{ display:block; }
+.walkie-online{ display:flex; gap:6px; flex-wrap:wrap; margin:8px 0; }
+.walkie-user{ background:white; border:2px solid #ddd; border-radius:20px; padding:6px 10px; font-size:11px; font-weight:800; }
+.walkie-user.me{ border-color:black; background:#FFF9C4; }
+.walkie-user.speaking{ border-color:#FF0000; background:#FFEBEE; color:#D32F2F; }
+.ptt-btn{ width:100%; height:90px; border-radius:20px; border:3px solid black; background:#FF5722; color:white; font-size:18px; font-weight:900; cursor:pointer; touch-action:none; user-select:none; -webkit-user-select:none; }
+.ptt-btn:active, .ptt-btn.talking{ background:#D32F2F; transform:scale(0.98); }
+.ptt-btn:disabled{ background:#ccc; }
+.walkie-status{ font-size:11px; font-weight:800; text-align:center; margin:6px 0; }
+
 </style>
 
 </head>
 <body class="iphone-mode">
 <div class="header">
-<h1>전씨네 Family Chat</h1><span class="badge">v1.5.21</span>
+<h1>전씨네 Family Chat</h1><span class="badge">v1.5.23 CLEAN</span>
 </div>
 <div class="device">
 <div class="inner" id="inner">
-<div class="top" id="topBadge" onclick="goTab('set')">👨 아빠 모드 - 터치하면 설정</div>
+<div style="display:flex;align-items:center;gap:6px;"><div class="top" id="topBadge" onclick="goTab('set')" style="flex:1;">👨 아빠 모드 - 터치하면 설정</div>
+<button id="walkieTopBtn" class="walkie-btn" onclick="toggleWalkiePanel()">🎙️ 워키토키</button></div>
+<div id="walkiePanel"><div style="display:flex;justify-content:space-between;align-items:center;"><h3 style="margin:0;font-size:14px;">🎙️ 실시간 워키토키</h3><span id="walkieStatusDot" style="font-size:11px;">● 꺼짐</span></div><p style="font-size:10px;color:#666;margin:4px 0;">가족 4명 같이 듣는 무전기예요. 버튼 꾹 누르면 말해져요.</p><div id="walkieOnline" class="walkie-online"></div><div id="walkieStatus" class="walkie-status">아직 연결 안 됨</div><button id="walkieJoinBtn" class="btn" style="width:100%;background:black;color:white;margin-bottom:8px;" onclick="toggleWalkieJoin()">🎙️ 워키토키 켜기</button><button id="pttBtn" class="ptt-btn" disabled="">🎙️ 꾹 눌러서 말하기<br><span style="font-size:11px;font-weight:400;">(누르고 있는 동안만 들려요)</span></button><p style="font-size:9px;color:#666;text-align:center;margin-top:6px;">아이폰/아이패드 둘 다 앱 켜고 있어야 들려요 • 마이크 허용 필요</p><div id="walkieAudios" style="display:none;"></div></div>
 <div class="live" id="liveStatus"><div class="dot off" id="dot"></div><span id="liveText">Firebase 연결중...</span></div>
 <div class="tabs">
 <div class="tab on" id="tab-chat" onclick="goTab('chat')">💬 채팅</div>
@@ -740,23 +739,32 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 
 <script>
 
-
-
-
 const firebaseConfig = {'apiKey': 'AIzaSyDKTiB6lqRDCHaM8vxWwbiX0K_nlb8_4jQ', 'authDomain': 'jeon-family-chat.firebaseapp.com', 'projectId': 'jeon-family-chat', 'storageBucket': 'jeon-family-chat.firebasestorage.app', 'messagingSenderId': '575056885546', 'appId': '1:575056885546:web:2fa1c64876773817906413', 'databaseURL': 'https://jeon-family-chat-default-rtdb.firebaseio.com'};
+
+
+/* ===== FamChat v1.5.23 CLEAN - 목차 =====
+  1. Firebase 설정 / 전역 상태
+  2. 유틸 (escapeHtml, toast, detectDevice)
+  3. 채팅 (renderChat, sendMsg, 사진, 답장, 읽음)
+  4. 할일/루틴 (renderTodos, generateDailyRoutines)
+  5. 공지 (renderNotices, Gemini AI)
+  6. 설정 (renderSettings, 사용자 변경, 기기 고정, GitHub Secrets, VAPID, FCM)
+  7. 워키토키 (WebRTC + Firebase signaling)
+  8. 초기화 / 리스너
+  ========================================= */
 
 let db, chatRef, todosRef, routinesRef, readsRef, noticesRef, storageRef;
 let cur = localStorage.getItem('curUser') || '아빠';
 const _validIdsInit = ['아빠','엄마','해준','해온'];
 if(!_validIdsInit.includes(cur)){ cur = '아빠'; localStorage.setItem('curUser', cur); }
-// v1.5.21 device lock
+// v1.5.23 device lock
 let lockedUser = localStorage.getItem('lockedUser') || '';
 if(lockedUser && _validIdsInit.includes(lockedUser)){ cur = lockedUser; }
 
 
 const modes = [{id:'아빠',icon:'👨'},{id:'엄마',icon:'👩'},{id:'해준',icon:'👦'},{id:'해온',icon:'👧'}];
 const FAMCHAT_BUILD = '2026.10.26.2345';
-const FAMCHAT_VERSION = 'v1.5.21';
+const FAMCHAT_VERSION = 'v1.5.23';
 let familyId = localStorage.getItem('familyId') || 'jeon-family';
 let data = {messages:[], todos:[], routines:[], reads:{}, notices:[], settings:{}};
 let replyTarget = null;
@@ -911,7 +919,7 @@ async function initFCM(){
     window._lastFCMError = null;
     messaging = firebase.messaging();
     
-    // v1.5.21: Try to register firebase-messaging-sw.js, if 404 then create blob SW
+    // v1.5.23: Try to register firebase-messaging-sw.js, if 404 then create blob SW
     if('serviceWorker' in navigator){
       try{
         let swUrl = 'firebase-messaging-sw.js';
@@ -1494,7 +1502,7 @@ function goTab(name){
 }
 
 function renderTop(){
-  // v1.5.21 device lock enforcement
+  // v1.5.23 device lock enforcement
   const _locked = localStorage.getItem('lockedUser') || '';
   if(_locked && ['아빠','엄마','해준','해온'].includes(_locked)){
     cur = _locked;
@@ -1840,7 +1848,7 @@ function renderSettings(){
   const validIds = ['아빠','엄마','해준','해온'];
   if(!validIds.includes(cur)){ cur='아빠'; localStorage.setItem('curUser', cur); }
   let html='';
-  // v1.5.21: 사용자 변경 + 기기 고정
+  // v1.5.23: 사용자 변경 + 기기 고정
   try{
     const curMode = modes.find(x=>x.id===cur) || modes[0];
     const locked = localStorage.getItem('lockedUser') || '';
@@ -1939,6 +1947,230 @@ function unlockDevice(){
 }
 
 
+// ===== v1.5.23 Walkie Talkie - WebRTC + Firebase RTDB signaling =====
+let walkieJoined=false;
+let walkieLocalStream=null;
+let walkiePeers={};
+let walkieDeviceId = localStorage.getItem('walkieDeviceId') || '';
+if(!walkieDeviceId){ walkieDeviceId = (cur||'아빠') + '_' + Math.random().toString(36).slice(2,6); localStorage.setItem('walkieDeviceId', walkieDeviceId); }
+let walkiePresenceRef=null;
+let walkieSignalRef=null;
+let walkiePresenceListener=null;
+let walkieSignalListener=null;
+let walkieAudioCtx=null;
+
+function toggleWalkiePanel(){
+  const p=document.getElementById('walkiePanel');
+  if(!p) return;
+  p.classList.toggle('show');
+  if(p.classList.contains('show')){ updateWalkieOnlineUI({}); }
+}
+function toggleWalkieJoin(){
+  if(walkieJoined) leaveWalkie();
+  else joinWalkie();
+}
+async function joinWalkie(){
+  try{
+    // iOS 오디오 활성화
+    try{ if(!walkieAudioCtx) walkieAudioCtx = new (window.AudioContext||window.webkitAudioContext)(); if(walkieAudioCtx.state==='suspended') await walkieAudioCtx.resume(); }catch(e){}
+    const statusEl=document.getElementById('walkieStatus');
+    if(statusEl) statusEl.textContent='🎤 마이크 켜는 중... 허용 눌러주세요';
+    walkieLocalStream = await navigator.mediaDevices.getUserMedia({ audio:{ echoCancellation:true, noiseSuppression:true, autoGainControl:true }, video:false });
+    // 기본은 음소거 - 말할 때만 켬 (PTT)
+    walkieLocalStream.getAudioTracks().forEach(t=>{ t.enabled=false; });
+    walkieJoined=true;
+    const joinBtn=document.getElementById('walkieJoinBtn');
+    if(joinBtn){ joinBtn.textContent='🔌 워키토키 끄기'; joinBtn.style.background='#D32F2F'; }
+    const dot=document.getElementById('walkieStatusDot');
+    if(dot) dot.textContent='● 켜짐';
+    const topBtn=document.getElementById('walkieTopBtn');
+    if(topBtn) topBtn.classList.add('on');
+    const ptt=document.getElementById('pttBtn');
+    if(ptt) ptt.disabled=false;
+    if(statusEl) statusEl.textContent='✅ 연결됨 - 꾹 눌러서 말해보세요';
+
+    // Presence
+    const base='family/'+familyId+'/walkie';
+    walkiePresenceRef = db.ref(base+'/presence');
+    walkieSignalRef = db.ref(base+'/signals/'+walkieDeviceId);
+    // 내 presence 등록
+    const myRef = walkiePresenceRef.child(walkieDeviceId);
+    await myRef.set({ user: cur, deviceId: walkieDeviceId, joinedAt: Date.now(), speaking:false });
+    myRef.onDisconnect().remove();
+
+    // 다른 사람 들어오면 연결
+    walkiePresenceListener = walkiePresenceRef.on('value', snap=>{
+      const val=snap.val()||{};
+      updateWalkieOnlineUI(val);
+      Object.keys(val).forEach(otherId=>{
+        if(otherId===walkieDeviceId) return;
+        if(!walkiePeers[otherId]){
+          // ID 비교로 한쪽만 offer 생성 (중복 방지)
+          const iAmInitiator = walkieDeviceId < otherId;
+          createPeerConnection(otherId, iAmInitiator);
+        }
+      });
+      // 나간 사람 정리
+      Object.keys(walkiePeers).forEach(pid=>{
+        if(!val[pid]){ closePeer(pid); }
+      });
+    });
+
+    // 신호 수신
+    walkieSignalListener = walkieSignalRef.on('child_added', async snap=>{
+      const sig=snap.val();
+      if(!sig || !sig.from || sig.from===walkieDeviceId) { snap.ref.remove(); return; }
+      try{ await handleWalkieSignal(sig); }catch(e){ console.error('signal handle', e); }
+      snap.ref.remove();
+    });
+
+    toast('🎙️ 워키토키 켜짐 - '+cur+'로 참여');
+  }catch(e){
+    console.error('joinWalkie', e);
+    const statusEl=document.getElementById('walkieStatus');
+    if(statusEl) statusEl.textContent='❌ 마이크 허용 안 됨: '+e.message;
+    toast('❌ 마이크 허용이 필요해요 - 설정 > 사파리 > 마이크 허용');
+    walkieJoined=false;
+  }
+}
+function leaveWalkie(){
+  walkieJoined=false;
+  try{ if(walkieLocalStream) walkieLocalStream.getTracks().forEach(t=>t.stop()); }catch(e){}
+  walkieLocalStream=null;
+  Object.keys(walkiePeers).forEach(pid=>closePeer(pid));
+  walkiePeers={};
+  try{ if(walkiePresenceRef) walkiePresenceRef.child(walkieDeviceId).remove(); }catch(e){}
+  try{ if(walkiePresenceRef && walkiePresenceListener) walkiePresenceRef.off('value', walkiePresenceListener); }catch(e){}
+  try{ if(walkieSignalRef && walkieSignalListener) walkieSignalRef.off('child_added', walkieSignalListener); }catch(e){}
+  const joinBtn=document.getElementById('walkieJoinBtn');
+  if(joinBtn){ joinBtn.textContent='🎙️ 워키토키 켜기'; joinBtn.style.background='black'; }
+  const dot=document.getElementById('walkieStatusDot');
+  if(dot) dot.textContent='● 꺼짐';
+  const topBtn=document.getElementById('walkieTopBtn');
+  if(topBtn) topBtn.classList.remove('on');
+  const ptt=document.getElementById('pttBtn');
+  if(ptt){ ptt.disabled=true; ptt.classList.remove('talking'); }
+  const statusEl=document.getElementById('walkieStatus');
+  if(statusEl) statusEl.textContent='꺼짐';
+  updateWalkieOnlineUI({});
+  toast('워키토키 꺼짐');
+}
+function createPeerConnection(targetId, isInitiator){
+  if(walkiePeers[targetId]) return walkiePeers[targetId];
+  const pc = new RTCPeerConnection({ iceServers:[{ urls:'stun:stun.l.google.com:19302' }, { urls:'stun:stun1.l.google.com:19302' }] });
+  walkiePeers[targetId]=pc;
+  // 내 오디오 보내기
+  if(walkieLocalStream){
+    walkieLocalStream.getTracks().forEach(track=>{ try{ pc.addTrack(track, walkieLocalStream); }catch(e){} });
+  }
+  pc.onicecandidate = (e)=>{
+    if(e.candidate){
+      sendWalkieSignal(targetId, { from: walkieDeviceId, type:'ice', candidate: e.candidate });
+    }
+  };
+  pc.ontrack = (e)=>{
+    let audioEl=document.getElementById('audio_'+targetId);
+    if(!audioEl){
+      audioEl=document.createElement('audio');
+      audioEl.id='audio_'+targetId;
+      audioEl.autoplay=true;
+      audioEl.playsInline=true;
+      audioEl.controls=false;
+      document.getElementById('walkieAudios').appendChild(audioEl);
+    }
+    audioEl.srcObject=e.streams[0];
+    audioEl.play().catch(()=>{});
+  };
+  pc.onconnectionstatechange = ()=>{ if(pc.connectionState==='failed' || pc.connectionState==='disconnected'){ /* 재시도 */ } };
+  if(isInitiator){
+    pc.createOffer({ offerToReceiveAudio:true }).then(offer=>{
+      return pc.setLocalDescription(offer).then(()=>{
+        sendWalkieSignal(targetId, { from: walkieDeviceId, type:'offer', sdp: pc.localDescription });
+      });
+    }).catch(e=>console.error('offer', e));
+  }
+  return pc;
+}
+function sendWalkieSignal(targetId, data){
+  try{
+    const ref=db.ref('family/'+familyId+'/walkie/signals/'+targetId);
+    ref.push(data);
+  }catch(e){ console.error('send signal', e); }
+}
+async function handleWalkieSignal(sig){
+  const from=sig.from;
+  let pc=walkiePeers[from];
+  if(!pc){ pc=createPeerConnection(from, false); }
+  if(sig.type==='offer'){
+    await pc.setRemoteDescription(new RTCSessionDescription(sig.sdp));
+    const answer=await pc.createAnswer();
+    await pc.setLocalDescription(answer);
+    sendWalkieSignal(from, { from: walkieDeviceId, type:'answer', sdp: pc.localDescription });
+  } else if(sig.type==='answer'){
+    if(pc.signalingState!=='stable') await pc.setRemoteDescription(new RTCSessionDescription(sig.sdp));
+  } else if(sig.type==='ice' && sig.candidate){
+    try{ await pc.addIceCandidate(new RTCIceCandidate(sig.candidate)); }catch(e){}
+  }
+}
+function closePeer(pid){
+  try{ if(walkiePeers[pid]) walkiePeers[pid].close(); }catch(e){}
+  delete walkiePeers[pid];
+  const el=document.getElementById('audio_'+pid);
+  if(el) el.remove();
+}
+function updateWalkieOnlineUI(val){
+  const wrap=document.getElementById('walkieOnline');
+  if(!wrap) return;
+  const entries=Object.values(val||{});
+  if(entries.length===0){ wrap.innerHTML='<span style="font-size:11px;color:#999;">아무도 없어요 - 워키토키를 켜보세요</span>'; return; }
+  wrap.innerHTML=entries.map(u=>{
+    const isMe=u.deviceId===walkieDeviceId;
+    const mode=modes.find(m=>m.id===u.user) || {icon:'👤'};
+    return '<div class="walkie-user '+(isMe?'me':'')+' '+(u.speaking?'speaking':'')+'">'+mode.icon+' '+u.user+(isMe?' (나)':'')+(u.speaking?' 🔊 말하는 중':'')+'</div>';
+  }).join('');
+  // 상단 버튼에 말하는 사람 표시
+  const anySpeaking=entries.find(u=>u.speaking);
+  const topBtn=document.getElementById('walkieTopBtn');
+  if(topBtn){
+    if(anySpeaking && anySpeaking.deviceId!==walkieDeviceId){ topBtn.textContent='🔊 '+anySpeaking.user+' 말하는 중'; topBtn.classList.add('speaking'); }
+    else if(walkieJoined){ topBtn.textContent='🎙️ 워키토키'; topBtn.classList.remove('speaking'); }
+  }
+}
+function startTalk(){
+  if(!walkieJoined){ joinWalkie().then(()=>{ setTimeout(startTalk, 800); }); return; }
+  if(!walkieLocalStream) return;
+  walkieLocalStream.getAudioTracks().forEach(t=>t.enabled=true);
+  const ptt=document.getElementById('pttBtn');
+  if(ptt) ptt.classList.add('talking');
+  const statusEl=document.getElementById('walkieStatus');
+  if(statusEl) statusEl.textContent='🔴 말하는 중... (버튼 떼면 끝)';
+  try{ db.ref('family/'+familyId+'/walkie/presence/'+walkieDeviceId+'/speaking').set(true); }catch(e){}
+  try{ if(walkieAudioCtx && walkieAudioCtx.state==='suspended') walkieAudioCtx.resume(); }catch(e){}
+}
+function stopTalk(){
+  if(!walkieLocalStream) return;
+  walkieLocalStream.getAudioTracks().forEach(t=>t.enabled=false);
+  const ptt=document.getElementById('pttBtn');
+  if(ptt) ptt.classList.remove('talking');
+  const statusEl=document.getElementById('walkieStatus');
+  if(statusEl) statusEl.textContent='✅ 연결됨 - 꾹 눌러서 말해보세요';
+  try{ db.ref('family/'+familyId+'/walkie/presence/'+walkieDeviceId+'/speaking').set(false); }catch(e){}
+}
+// PTT 버튼 바인딩
+document.addEventListener('DOMContentLoaded', ()=>{
+  const ptt=document.getElementById('pttBtn');
+  if(ptt){
+    const start=(e)=>{ e.preventDefault(); startTalk(); };
+    const stop=(e)=>{ e.preventDefault(); stopTalk(); };
+    ptt.addEventListener('pointerdown', start);
+    ptt.addEventListener('pointerup', stop);
+    ptt.addEventListener('pointerleave', stop);
+    ptt.addEventListener('pointercancel', stop);
+    ptt.addEventListener('touchstart', start, {passive:false});
+    ptt.addEventListener('touchend', stop, {passive:false});
+    ptt.addEventListener('contextmenu', e=>e.preventDefault());
+  }
+});
 function escapeHtml(s){
   if(!s) return '';
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
@@ -2149,9 +2381,6 @@ document.getElementById('chatList').addEventListener('scroll', ()=>{
 
 document.addEventListener('click', function initAudio(){ requestNotifPermission(); document.removeEventListener('click', initAudio); }, {once:true});
 
-
-
-
 </script>
-<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script>
-</body></html>
+
+<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body></html>
