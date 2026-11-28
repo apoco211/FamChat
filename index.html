@@ -1,4 +1,25 @@
-<html lang="ko"><!-- FamChat Build: 2026.11.23 | v1.5.32 TURN | 정리본: 중복 폰트/아티팩트 스크립트 제거 + 워키토키 포함 --><head><style>
+<html lang="ko" style="--app-h: 708px; --kb-h: 0px;"><!-- FamChat Build: 2026.11.28 | v1.5.35 TURN | 정리본: 중복 폰트/아티팩트 스크립트 제거 + 워키토키 포함 --><head><style>
+@font-face {
+  font-family: "Optimistic";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Optimistic Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
+}
+:where(html) {
+  font-family: "Optimistic", system-ui, sans-serif;
+}
+:where(code, pre, kbd, samp) {
+  font-family: "Optimistic Mono", ui-monospace, monospace;
+}
+</style><style>
 @font-face {
   font-family: "Optimistic";
   font-style: normal;
@@ -62,8 +83,8 @@
 
 </style>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>FamChat v1.5.32</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
+<title>FamChat v1.5.35</title>
 <script>
 (function(){ try{ function applyTablet(){ if(window.innerWidth>=768){ document.body.classList.add('ipad-mode'); document.body.classList.remove('iphone-mode'); } } window.addEventListener('resize', applyTablet); document.addEventListener('DOMContentLoaded', applyTablet); applyTablet(); }catch(e){} })();
 </script>
@@ -757,11 +778,98 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 .walkie-status{ font-size:11px; font-weight:800; text-align:center; margin:6px 0; }
 
 </style>
+<!-- FamChat v1.5.33 FIX: 아래 잘림 + 키보드 가림 - 색/폰트/크기/디자인 변경 없음, 높이 레이아웃만 수정 -->
+<style id="famchat-fix-1-5-33">
+/* 원인: body{height:100dvh; display:block; overflow:hidden} + .header(바깥) + .device{height:100%} = 100dvh+헤더+패딩 > 화면 -> 아래 입력창이 화면 밖으로 잘림. 탭이 잘린 영역이라 키보드도 안 뜸. */
+/* 해결: body를 flex column으로 바꿔 헤더+device가 100dvh 안에 정확히 들어가게 함. .device/.inner의 min-height 강제값 제거. */
+html{height:100%;}
+body{
+  display:flex !important;
+  flex-direction:column !important;
+  height:100vh !important;
+  height:100dvh !important;
+  min-height:0 !important;
+  max-height:100dvh !important;
+  overflow:hidden !important;
+  box-sizing:border-box !important;
+  padding-bottom:max(10px, env(safe-area-inset-bottom)) !important;
+}
+body .header{flex-shrink:0 !important; flex-grow:0 !important;}
+body .device{
+  flex:1 1 auto !important;
+  min-height:0 !important;
+  height:auto !important;
+  max-height:none !important;
+  overflow:hidden !important;
+  box-sizing:border-box !important;
+}
+body .inner{
+  flex:1 1 auto !important;
+  min-height:0 !important;
+  height:auto !important;
+  max-height:none !important;
+  overflow:hidden !important;
+}
+#view-chat, .box{flex:1 1 auto !important; min-height:0 !important;}
+#chatList{flex:1 1 auto !important; min-height:0 !important; padding-bottom:8px !important;}
+#view-chat .input-wrap, .input-wrap{flex-shrink:0 !important;}
+#chatInput{position:relative; z-index:30;}
+/* iPad(768px+) 미디어쿼리의 height:100dvh !important .device 규칙도 같은 방식으로 덮음 */
+@media screen and (min-width:768px){
+  body{padding:0 !important; padding-top:max(0px, env(safe-area-inset-top)) !important; padding-bottom:0 !important;}
+  body .device{height:auto !important; min-height:0 !important; max-height:none !important;}
+  body .inner{min-height:0 !important;}
+}
+</style>
+<!-- FamChat v1.5.34 FIX: 아이패드 미니 화면맞춤 + 속도 - 디자인/색/폰트/말풍선 크기 변경 없음 -->
+<style id="famchat-fix-1-5-34">
+:root{ --app-h: 100vh; --kb-h: 0px; }
+/* 구형 아이패드 미니는 100dvh를 몰라서 100vh(사파리 바 포함)로 잘렸음. JS가 측정한 실제 보이는 높이(--app-h)를 단일 기준으로 사용 */
+html{height:var(--app-h) !important;}
+body{
+  height:var(--app-h) !important;
+  min-height:var(--app-h) !important;
+  max-height:var(--app-h) !important;
+  overflow:hidden !important;
+}
+body .device{flex:1 1 auto !important; min-height:0 !important; height:auto !important; max-height:none !important;}
+body .inner{flex:1 1 auto !important; min-height:0 !important; height:auto !important;}
+/* 속도: 부드러운 스크롤·블러 끄기 (보기에는 거의 차이 없음, 구형 GPU 부하 대폭 감소) */
+#chatList{scroll-behavior:auto !important;}
+.date-sep{backdrop-filter:none !important; -webkit-backdrop-filter:none !important;}
+#chatList .kakao-row{content-visibility:auto; contain-intrinsic-size:auto 72px;}
+#chatList .kakao-bubble{box-shadow:0 1px 1px rgba(0,0,0,0.08) !important;}
+.chat-load-more{display:block; width:100%; background:#fff; border:2px solid #111; border-radius:14px; padding:10px; font-size:12px; font-weight:900; cursor:pointer; margin:6px 0; flex-shrink:0;}
+/* 아이패드 미니: 입력창이 키보드/사파리 바에 가려지지 않게, 입력 영역은 항상 바닥에 고정 */
+#view-chat .input-wrap{flex-shrink:0 !important; padding-bottom:max(8px, env(safe-area-inset-bottom)) !important;}
+@media screen and (min-width:768px){
+  body{padding:0 !important; padding-top:max(0px, env(safe-area-inset-top)) !important; padding-bottom:0 !important;}
+  body .device{height:auto !important; min-height:0 !important; max-height:none !important; border:none !important; border-radius:0 !important;}
+  body .inner{min-height:0 !important; padding:12px 16px !important;}
+  #chatList{padding-bottom:8px !important;}
+  .input-row input{min-height:48px !important; font-size:16px !important;}
+}
+</style>
+<!-- FamChat v1.5.35 FIX: 세로 좁은 너비 오른쪽 잘림만 수정 - 원본 디자인/색/폰트/말풍선 크기 변경 없음 -->
+<style id="famchat-fix-1-5-35">
+@media screen and (max-width:480px){
+  html,body{max-width:100% !important; overflow-x:hidden !important;}
+  body{padding-left:0 !important; padding-right:0 !important;}
+  body .header{max-width:100% !important; box-sizing:border-box !important; padding-left:10px !important; padding-right:10px !important;}
+  body .device{width:100% !important; max-width:100% !important; min-width:0 !important; box-sizing:border-box !important;}
+  body .inner{max-width:100% !important; min-width:0 !important; box-sizing:border-box !important;}
+  .tabs,.input-row,.box,#view-chat{min-width:0 !important; max-width:100% !important;}
+  .tab{min-width:0 !important;}
+}
+</style>
+
+
+
 
 </head>
 <body class="iphone-mode">
 <div class="header">
-<h1>전씨네 Family Chat</h1><span class="badge">v1.5.32 CLEAN</span>
+<h1>전씨네 Family Chat</h1><span class="badge">v1.5.35 CLEAN</span>
 </div>
 <div class="device">
 <div class="inner" id="inner">
@@ -783,7 +891,7 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 <div id="replyPreview" class="reply-preview" style="display:none;"></div>
 <div class="upload-progress" id="uploadProgress">📤 업로드중...</div>
 <div class="input-row">
-<input id="chatInput" placeholder="아빠로 메시지..." onkeypress="if(event.key==='Enter')sendMsg()">
+<input id="chatInput" placeholder="아빠로 메시지..." enterkeyhint="send" autocomplete="off" onkeypress="if(event.key==='Enter')sendMsg()">
 <button class="photo-btn" onclick="document.getElementById('photoInput').click()">📷</button>
 <button onclick="sendMsg()">전송</button>
 </div>
@@ -827,7 +935,7 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 const firebaseConfig = {'apiKey': 'AIzaSyDKTiB6lqRDCHaM8vxWwbiX0K_nlb8_4jQ', 'authDomain': 'jeon-family-chat.firebaseapp.com', 'projectId': 'jeon-family-chat', 'storageBucket': 'jeon-family-chat.firebasestorage.app', 'messagingSenderId': '575056885546', 'appId': '1:575056885546:web:2fa1c64876773817906413', 'databaseURL': 'https://jeon-family-chat-default-rtdb.firebaseio.com'};
 
 
-/* ===== FamChat v1.5.32 CLEAN - 목차 =====
+/* ===== FamChat v1.5.35 CLEAN - 목차 =====
   1. Firebase 설정 / 전역 상태
   2. 유틸 (escapeHtml, toast, detectDevice)
   3. 채팅 (renderChat, sendMsg, 사진, 답장, 읽음)
@@ -1364,6 +1472,9 @@ async function cleanupOldData(){
 }
 
 async function generateDailyRoutines(){
+  // v1.5.34: 채팅/할일/루틴 리스너 3곳에서 동시 호출돼 중복 생성되던 것 방지 - 60초에 1번만
+  if(Date.now() - (window._lastRoutinesRun||0) < 60000) return; window._lastRoutinesRun=Date.now();
+
   if(!data.routines || data.routines.length===0) return;
   const today = getTodayStr();
   for(const routine of data.routines){
@@ -1642,55 +1753,67 @@ function updateReadStatus(force){
 
 
 function updateReadIconsOnly(){
-  // 전체를 다시 그리지 않고 읽음 아이콘만 갱신 - 깜빡임 방지
-  const sorted=data.messages.slice().sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
-  const rows = document.querySelectorAll('#chatList .kakao-row');
-  sorted.forEach((msg, idx)=>{
-    const row = rows[idx];
-    if(!row) return;
-    const isMine = msg.author===cur;
-    if(!isMine) return; // 내 메시지에만 아이콘
-    const d = new Date(msg.created_at);
-    const readers = [];
-    for(const m of modes){
-      if(m.id===msg.author) continue;
-      if(m.id===cur) continue;
-      const r = data.reads[m.id];
-      let hasRead = false;
-      if(r && r.lastReadAt && new Date(r.lastReadAt) >= d) hasRead = true;
-      if(!hasRead){
-        const sentAfter = data.messages.some(mm => mm.author===m.id && new Date(mm.created_at) > d);
-        if(sentAfter) hasRead = true;
-      }
-      if(!hasRead && r && r.lastReadId){
-        const lastReadMsg = data.messages.find(mm => mm._key===r.lastReadId || mm.id===r.lastReadId);
-        if(lastReadMsg && new Date(lastReadMsg.created_at) >= d) hasRead = true;
-      }
-      if(hasRead) readers.push(m);
-    }
-    const iconsContainer = row.querySelector('.kakao-read-icons');
-    if(iconsContainer){
-      iconsContainer.innerHTML = readers.map(r=>'<span class="read-icon" title="'+r.id+' 읽음">'+r.icon+'</span>').join('');
-    }
+  // v1.5.34: 보이는 60개만 갱신 + O(n^2) 제거 (이전: 메시지마다 전체 스캔)
+  var el=document.getElementById('chatList');
+  if(!el) return;
+  var sorted=data.messages.slice().sort(function(a,b){ return new Date(a.created_at)-new Date(b.created_at); });
+  var visible = (typeof getVisibleChatMessages==='function') ? getVisibleChatMessages(sorted) : sorted;
+  var rows = document.querySelectorAll('#chatList .kakao-row');
+  // 읽음 캐시 1번만 계산
+  var msgByKey={}; for(var i=0;i<data.messages.length;i++){ var mm=data.messages[i]; if(mm._key) msgByKey[mm._key]=mm; if(mm.id) msgByKey[mm.id]=mm; }
+  var lastSent={}; for(var j=0;j<data.messages.length;j++){ var m2=data.messages[j]; var t2=new Date(m2.created_at).getTime(); if(!lastSent[m2.author]||t2>lastSent[m2.author]) lastSent[m2.author]=t2; }
+  var readTime={}; for(var k=0;k<modes.length;k++){ var u=modes[k]; var r=data.reads[u.id]; var t1=r&&r.lastReadAt?new Date(r.lastReadAt).getTime():0; var t2b=0; if(r&&r.lastReadId&&msgByKey[r.lastReadId]) t2b=new Date(msgByKey[r.lastReadId].created_at).getTime(); readTime[u.id]=Math.max(t1,t2b); }
+  visible.forEach(function(msg, idx){
+    var row = rows[idx]; if(!row) return;
+    if(msg.author!==cur) return;
+    var d=new Date(msg.created_at).getTime();
+    var readers=[];
+    for(var q=0;q<modes.length;q++){ var mo=modes[q]; if(mo.id===msg.author) continue; if(mo.id===cur) continue; if(readTime[mo.id]>=d || (lastSent[mo.id]||0)>d) readers.push(mo); }
+    var c=row.querySelector('.kakao-read-icons');
+    if(c){ c.innerHTML = readers.map(function(rr){ return '<span class="read-icon" title="'+rr.id+' 읽음">'+rr.icon+'</span>'; }).join(''); }
   });
 }
 
 let _lastChatKeys = '';
 let _renderChatDebounce = null;
+// v1.5.34 iPad mini 속도: 880개 전체 렌더 -> 최근 60개만 렌더. 이전 메시지는 버튼으로 더 보기.
+var _chatWindow = 60;
+var _chatStickToBottom = true;
+var _chatPrevScrollHeight = 0;
+var _chatPrevScrollTop = 0;
+function getVisibleChatMessages(sorted){
+  if(!sorted) return [];
+  if(sorted.length <= _chatWindow) return sorted;
+  return sorted.slice(sorted.length - _chatWindow);
+}
+function loadMoreChat(){
+  _chatWindow = Math.min(data.messages.length, _chatWindow + 60);
+  var el=document.getElementById('chatList');
+  if(el){ _chatPrevScrollHeight=el.scrollHeight; _chatPrevScrollTop=el.scrollTop; }
+  _chatStickToBottom=false;
+  renderChat(true);
+}
 function renderChat(force){
   const el=document.getElementById('chatList');
   if(!el) return;
   const sorted=data.messages.slice().sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
   const currentKeys = sorted.map(m=>m._key||m.id).join(',');
-  // 메시지 목록이 같고 force가 아니면, 읽음 아이콘만 업데이트 (깜빡임 방지)
-  if(!force && currentKeys === _lastChatKeys && el.children.length>0){
+  if(!force && currentKeys + '|w' + _chatWindow === _lastChatKeys && el.children.length>0){
     updateReadIconsOnly();
     return;
   }
-  _lastChatKeys = currentKeys;
+  _lastChatKeys = currentKeys + '|w' + _chatWindow;
+  // 읽음/답장 조회용 캐시 1번만 (이전: 메시지마다 전체 스캔 O(n^2))
+  var msgByKey={}; for(var ci=0;ci<data.messages.length;ci++){ var cm=data.messages[ci]; if(cm._key) msgByKey[cm._key]=cm; if(cm.id) msgByKey[cm.id]=cm; }
+  var lastSent={}; for(var li=0;li<data.messages.length;li++){ var lm=data.messages[li]; var lt=new Date(lm.created_at).getTime(); if(!lastSent[lm.author]||lt>lastSent[lm.author]) lastSent[lm.author]=lt; }
+  var readTime={}; for(var ri=0;ri<modes.length;ri++){ var ru=modes[ri]; var rr=data.reads[ru.id]; var rt1=rr&&rr.lastReadAt?new Date(rr.lastReadAt).getTime():0; var rt2=0; if(rr&&rr.lastReadId&&msgByKey[rr.lastReadId]) rt2=new Date(msgByKey[rr.lastReadId].created_at).getTime(); readTime[ru.id]=Math.max(rt1,rt2); }
+  var visible=getVisibleChatMessages(sorted);
   let html='';
+  if(sorted.length>visible.length){
+    html+='<button class="chat-load-more" onclick="loadMoreChat()">⬆️ 이전 메시지 더 보기 ('+(sorted.length-visible.length)+'개 남음)</button>';
+  }
   let lastDate='';
-  sorted.forEach(msg=>{
+  visible.forEach(msg=>{
     const d=new Date(msg.created_at);
     const dateStr=d.toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric',weekday:'short'});
     if(dateStr!==lastDate){
@@ -1702,53 +1825,32 @@ function renderChat(force){
     const timeStr=d.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
     const safeKey=(msg._key||'').replace(/'/g,"\'");
     const escContent=escapeHtml(msg.content || '');
-
     const readers = [];
-    // 핵심 수정: 내 메시지(isMine)에만 읽음 표시, 그리고 나 자신(cur)은 제외
     if(isMine){
+      var mt=new Date(msg.created_at).getTime();
       for(const m of modes){
-        if(m.id===msg.author) continue; // 글쓴이 자신 제외
-        if(m.id===cur) continue; // 내 자신 제외 - 이미 내가 쓴 글이라 의미 없음, 상대만 보여야 함
-        const r = data.reads[m.id];
-        let hasRead = false;
-        if(r && r.lastReadAt && new Date(r.lastReadAt) >= d){
-          hasRead = true;
-        }
-        // 보완: 이 메시지 이후에 m이 메시지를 보냈다면 100% 읽은 것
-        if(!hasRead){
-          const sentAfter = data.messages.some(mm => mm.author===m.id && new Date(mm.created_at) > d);
-          if(sentAfter) hasRead = true;
-        }
-        if(!hasRead && r && r.lastReadId){
-          const lastReadMsg = data.messages.find(mm => mm._key===r.lastReadId || mm.id===r.lastReadId);
-          if(lastReadMsg && new Date(lastReadMsg.created_at) >= d){
-            hasRead = true;
-          }
-        }
-        if(hasRead) readers.push(m);
+        if(m.id===msg.author) continue;
+        if(m.id===cur) continue;
+        if(readTime[m.id]>=mt || (lastSent[m.id]||0)>mt) readers.push(m);
       }
     }
-    // isMine일 때만 아이콘 표시, 남의 글에는 표시 안 함 (카톡 그룹채팅 방식)
     const readIconsHtml = (isMine && readers.length>0) ? '<div class="kakao-read-icons">'+readers.map(r=>'<span class="read-icon" title="'+r.id+' 읽음">'+r.icon+'</span>').join('')+'</div>' : '';
-
     let quoteHtml = '';
     if(msg.replyTo){
-      const parent = data.messages.find(m=> m._key===msg.replyTo || m.id===msg.replyTo);
-      const parentAuthor = msg.replyAuthor || parent?.author || '알 수 없음';
-      const parentContent = msg.replyContent || parent?.content || (parent?.type==='image' ? '📷 사진' : '');
+      const parent = msgByKey[msg.replyTo];
+      const parentAuthor = msg.replyAuthor || (parent&&parent.author) || '알 수 없음';
+      const parentContent = msg.replyContent || (parent&&parent.content) || (parent&&parent.type==='image' ? '📷 사진' : '');
       const safeParentContent = escapeHtml(parentContent).substring(0,50);
       quoteHtml = '<div class="kakao-quote">↩️ '+parentAuthor+': '+safeParentContent+'</div>';
     }
-
     let bubbleInner = '';
     if(msg.type==='image' && msg.imageUrl){
       const safeUrl = msg.imageUrl.replace(/'/g, "\'");
       const captionHtml = msg.content ? '<div class="img-caption">'+escContent+'</div>' : '';
-      bubbleInner = '<div class="kakao-bubble has-image"><div>'+quoteHtml+'</div><div style="position:relative;" onclick="openImageViewer(\''+safeUrl+'\')"><img src="'+msg.imageUrl+'" loading="lazy" alt="사진" style="border-radius:12px;max-width:100%;"><button class="kakao-img-dl" onclick="event.stopPropagation(); downloadImage(\''+safeUrl+'\', \'FamChat_'+Date.now()+'.jpg\')" title="저장">⬇️</button>'+captionHtml+'</div></div>';
+      bubbleInner = '<div class="kakao-bubble has-image"><div>'+quoteHtml+'</div><div style="position:relative;" onclick="openImageViewer(\''+safeUrl+'\')"><img src="'+msg.imageUrl+'" loading="lazy" decoding="async" alt="사진" style="border-radius:12px;max-width:100%;"><button class="kakao-img-dl" onclick="event.stopPropagation(); downloadImage(\''+safeUrl+'\', \'FamChat_'+Date.now()+'.jpg\')" title="저장">⬇️</button>'+captionHtml+'</div></div>';
     } else {
       bubbleInner = '<div class="kakao-bubble"><div>'+quoteHtml+'</div><div onclick="setReply(\''+safeKey+'\')">'+ (escContent || '(사진)') +'</div></div>';
     }
-
     if(isMine){
       html+='<div class="kakao-row mine"><div class="kakao-content"><div class="kakao-bubble-line"><div class="kakao-read-wrap"><div class="kakao-meta"><span class="kakao-time">'+timeStr+'</span><div style="display:flex;gap:3px;"><button class="kakao-reply" onclick="setReply(\''+safeKey+'\')">↩️</button><button class="kakao-del" onclick="deleteMsg(\''+safeKey+'\')">삭제</button></div></div>'+readIconsHtml+'</div>'+bubbleInner+'</div></div></div>';
     } else {
@@ -1757,8 +1859,13 @@ function renderChat(force){
   });
   el.innerHTML=html;
   requestAnimationFrame(()=>{
-    el.scrollTop = el.scrollHeight;
-    setTimeout(()=>{ el.scrollTop = el.scrollHeight; updateReadStatus(); }, 80);
+    if(_chatPrevScrollHeight>0){
+      el.scrollTop = el.scrollHeight - _chatPrevScrollHeight + _chatPrevScrollTop;
+      _chatPrevScrollHeight=0; _chatPrevScrollTop=0;
+    } else if(_chatStickToBottom){
+      el.scrollTop = el.scrollHeight;
+      setTimeout(()=>{ if(_chatStickToBottom){ el.scrollTop = el.scrollHeight; } updateReadStatus(); }, 80);
+    }
   });
 }
 
@@ -2704,4 +2811,71 @@ document.addEventListener('click', function initAudio(){ requestNotifPermission(
 
 </script>
 
+
+<script id="famchat-fix-1-5-33-js">
+(function(){
+  function scrollChatToBottom(){
+    var list=document.getElementById('chatList');
+    if(list){ list.scrollTop=list.scrollHeight; }
+  }
+  function bindFocus(el){
+    if(!el) return;
+    el.addEventListener('focus', function(){
+      setTimeout(function(){ scrollChatToBottom(); try{ el.scrollIntoView({block:'nearest', behavior:'smooth'}); }catch(e){} }, 300);
+    });
+  }
+  bindFocus(document.getElementById('chatInput'));
+  bindFocus(document.getElementById('todoInput'));
+  bindFocus(document.getElementById('noticeInput'));
+  if(window.visualViewport){
+    window.visualViewport.addEventListener('resize', function(){ setTimeout(scrollChatToBottom, 120); });
+  }
+})();
+</script>
+
+<script id="famchat-fix-1-5-34-js">
+(function(){
+  // --- 아이패드 미니 실제 보이는 높이 측정 (100dvh 미지원 구형 사파리 대응) ---
+  function updateAppH(){
+    var h = window.innerHeight || document.documentElement.clientHeight;
+    try{
+      if(window.visualViewport && window.visualViewport.height && Math.abs((window.visualViewport.scale||1)-1) < 0.02){
+        // 키보드 열리면 visualViewport가 줄어듦 -> 그 높이가 실제 보이는 높이
+        h = window.visualViewport.height;
+      }
+    }catch(e){}
+    document.documentElement.style.setProperty('--app-h', Math.round(h) + 'px');
+    var kb = Math.max(0, (window.innerHeight||h) - h);
+    document.documentElement.style.setProperty('--kb-h', Math.round(kb) + 'px');
+  }
+  updateAppH();
+  window.addEventListener('resize', updateAppH);
+  window.addEventListener('orientationchange', function(){ setTimeout(updateAppH, 350); setTimeout(updateAppH, 800); });
+  if(window.visualViewport){
+    window.visualViewport.addEventListener('resize', updateAppH);
+    window.visualViewport.addEventListener('scroll', updateAppH);
+  }
+  // --- 채팅 스크롤: 맨 아래면 새 메시지 따라가고, 이전 메시지 보는 중이면 고정 ---
+  var list=document.getElementById('chatList');
+  if(list){
+    list.addEventListener('scroll', function(){
+      var nearBottom = (list.scrollTop + list.clientHeight >= list.scrollHeight - 60);
+      window._chatStickToBottom = nearBottom;
+      if(typeof _chatStickToBottom !== 'undefined'){ _chatStickToBottom = nearBottom; }
+    }, {passive:true});
+  }
+  // --- 아이패드 키보드: 포커스 후 350ms 뒤에 다시 높이 측정 + 입력창이 보이게 스크롤 ---
+  function bindKb(el){
+    if(!el) return;
+    el.addEventListener('focus', function(){
+      setTimeout(updateAppH, 350);
+      setTimeout(function(){ try{ el.scrollIntoView({block:'nearest'}); }catch(e){} updateAppH(); }, 450);
+    });
+    el.addEventListener('blur', function(){ setTimeout(updateAppH, 300); });
+  }
+  bindKb(document.getElementById('chatInput'));
+  bindKb(document.getElementById('todoInput'));
+  bindKb(document.getElementById('noticeInput'));
+})();
+</script>
 <script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body></html>
