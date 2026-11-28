@@ -1,4 +1,4 @@
-<html lang="ko"><!-- FamChat Build: 2026.11.23 | v1.5.35 TURN | 정리본: 중복 폰트/아티팩트 스크립트 제거 + 워키토키 포함 --><head><style>
+<html lang="ko"><!-- FamChat Build: 2026.11.23 | v1.5.39 TURN | 정리본: 중복 폰트/아티팩트 스크립트 제거 + 워키토키 포함 --><head><style>
 @font-face {
   font-family: "Optimistic";
   font-style: normal;
@@ -62,7 +62,7 @@
   font-family: "Optimistic Mono", ui-monospace, monospace;
 }
 
-/* ===== v1.5.35 Walkie Talkie ===== */
+/* ===== v1.5.39 Walkie Talkie ===== */
 .walkie-btn{ background:#FF5722; color:white; border:2px solid black; border-radius:20px; padding:6px 12px; font-size:11px; font-weight:900; cursor:pointer; margin-left:6px; }
 .walkie-btn.on{ background:#4CAF50; }
 .walkie-btn.speaking{ background:#FF0000; animation: walkiePulse 0.6s infinite; }
@@ -82,23 +82,9 @@
 .walkie-status{ font-size:11px; font-weight:800; text-align:center; margin:6px 0; }
 
 </style>
-<style id="v1535-fix">
-/* v1.5.35 FINAL OVERRIDE - duplicates보다 나중에 와서 반드시 이김 */
-#view-chat .input-row{display:flex !important;flex-wrap:nowrap !important;gap:6px !important;align-items:center !important;width:100% !important;}
-#view-chat .input-row input{flex:1 1 140px !important;min-width:140px !important;max-width:none !important;padding:10px 12px !important;font-size:16px !important;min-height:44px !important;border-radius:14px !important;}
-#view-chat .input-row .mini-btn{flex:0 0 44px !important;min-width:44px !important;width:44px !important;max-width:44px !important;padding:10px 0 !important;font-size:16px !important;min-height:44px !important;border-radius:14px !important;}
-#view-chat .input-row .send-btn{flex:0 0 60px !important;min-width:60px !important;width:60px !important;max-width:60px !important;padding:10px 0 !important;font-size:13px !important;min-height:44px !important;border-radius:14px !important;}
-#view-chat .input-wrap{padding:10px !important;padding-bottom:calc(10px + env(safe-area-inset-bottom)) !important;}
-/* iPad Mini + 미리보기 좁을 때: 입력창이 쪼그라들지 않게 */
-@media (max-width:850px){
-  #view-chat .input-row input{min-width:120px !important;}
-  #view-chat .input-row .mini-btn{flex-basis:40px !important;min-width:40px !important;width:40px !important;max-width:40px !important;}
-  #view-chat .input-row .send-btn{flex-basis:56px !important;min-width:56px !important;width:56px !important;max-width:56px !important;}
-}
-</style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>FamChat v1.5.35</title>
+<title>FamChat v1.5.39</title>
 <script>
 (function(){ try{ function applyTablet(){ if(window.innerWidth>=768){ document.body.classList.add('ipad-mode'); document.body.classList.remove('iphone-mode'); } } window.addEventListener('resize', applyTablet); document.addEventListener('DOMContentLoaded', applyTablet); applyTablet(); }catch(e){} })();
 </script>
@@ -114,7 +100,7 @@
 <script src="https://cdn.jsdelivr.net/npm/libsodium-wrappers@0.7.15/dist/modules/libsodium-wrappers.js"></script>
 <style>
 
-/* v1.5.35 flicker fix */
+/* v1.5.39 flicker fix */
 #chatList{ contain: layout; will-change: auto; }
 .kakao-row{ will-change: auto; transform: translateZ(0); }
 
@@ -147,7 +133,7 @@ input:focus, textarea:focus{ font-size: 16px !important; }
 /* ===== v1.3.15 KakaoTalk-like Chat UI ===== */
 #view-chat{background:#B2C7DA;border-radius:14px;}
 #chatList{background:transparent;padding:10px 8px;gap:10px;scroll-behavior:smooth;}
-.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.35 flicker fix */}
+.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.39 flicker fix */}
 .kakao-row.other{align-self:flex-start;}
 .kakao-row.mine{align-self:flex-end;}
 .kakao-profile{width:38px;height:38px;border-radius:15px;background:#fff;border:1.5px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;box-shadow:0 1px 2px rgba(0,0,0,0.06);}
@@ -248,7 +234,7 @@ body.ipad-mode .todo{padding:14px 16px;border-radius:16px;border-width:2.5px;gap
 body.ipad-mode .todo span{font-size:17px;font-weight:700;}
 body.ipad-mode #vapidInput{font-size:14px;padding:10px 12px;}
 
-/* ===== v1.5.35 iPad Mini Full-Screen Optimization ===== */
+/* ===== v1.5.39 iPad Mini Full-Screen Optimization ===== */
 /* 문제: 아이패드에서도 .device가 max-width:420px 폰 틀로 가운데만 보여서 양옆이 하얗게 빔 */
 /* 해결: 화면 너비 768px 이상이면 폰 틀 제거 + 화면 꽉 채우기 - 사용자 모드(엄마/아빠/해준) 상관없이 적용 */
 @media screen and (min-width: 768px) {
@@ -382,8 +368,8 @@ body.iphone-mode .device{
   min-height:420px;
 }
 body.ipad-mode .device{
-  height:calc(100dvh - 20px);
-  max-height:calc(100dvh - 20px);
+  height:calc(100dvh - 80px);
+  max-height:calc(100dvh - 80px);
 }
 
 /* iPhone 모드에서도 동일하게 고정 */
@@ -392,35 +378,13 @@ body.iphone-mode .device{flex:1;min-height:0;height:100%;max-height:100%;}
 body.iphone-mode .inner{min-height:0;}
 body.ipad-mode{height:100dvh;overflow:hidden;}
 body.ipad-mode .device{flex:1;min-height:0;height:100%;}
-/* v1.5.35 iPad Mini compact + keyboard fix */
-@media (min-width:768px) and (max-width:850px){
-  body.ipad-mode .device{max-width:600px !important;padding:8px !important;border-width:4px !important;border-radius:24px !important;}
-  body.ipad-mode .inner{padding:8px !important;border-radius:16px !important;}
-  body.ipad-mode .header{padding:6px 0 8px !important;}
-  body.ipad-mode .header h1{font-size:22px !important;}
-  body.ipad-mode .top{padding:8px !important;font-size:12px !important;margin-bottom:6px !important;}
-  body.ipad-mode .live{padding:7px 10px !important;font-size:11px !important;margin-bottom:6px !important;}
-  body.ipad-mode .tabs{gap:6px !important;margin-bottom:8px !important;}
-  body.ipad-mode .tab{padding:10px 8px !important;font-size:13px !important;border-radius:16px !important;}
-  body.ipad-mode .input-wrap{padding:9px !important;border-radius:16px !important;padding-bottom:calc(9px + env(safe-area-inset-bottom)) !important;}
-  body.ipad-mode .input-row input{padding:10px 12px !important;font-size:16px !important;min-height:44px !important;border-radius:14px !important;}
-  body.ipad-mode .input-row button{padding:10px 12px !important;font-size:13px !important;min-height:44px !important;min-width:60px !important;border-radius:14px !important;}
-  #chatList{padding:8px 6px !important;gap:7px !important;}
-  .kakao-bubble{font-size:13px !important;padding:8px 10px !important;}
-}
-body{padding-bottom:0 !important;}
-#view-chat .input-wrap{position:sticky;bottom:0;z-index:30;background:#fff;padding-bottom:env(safe-area-inset-bottom);}
-#chatInput{font-size:16px !important;min-width:0;pointer-events:auto;}
-#view-chat{padding-bottom:0;}
-body.keyboard-open #view-chat .input-wrap{position:sticky;}
-body.keyboard-open #chatList{padding-bottom:8px;}
 
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#FFF8F0;color:#111827;padding:10px;padding-bottom:0;}
 .header{text-align:center;padding:8px 0 10px;}
 .header h1{font-size:22px;font-weight:900;display:inline-block;vertical-align:middle;}
 .badge{font-size:9px;font-weight:700;color:#666;background:white;border:1.5px solid #ddd;border-radius:20px;padding:3px 8px;margin-left:8px;vertical-align:middle;display:inline-block;}
-.device{max-width:420px;margin:0 auto;background:white;border:5px solid black;border-radius:28px;padding:8px;display:flex;flex-direction:column;min-height:0;}
+.device{max-width:420px;margin:0 auto;background:white;border:5px solid black;border-radius:28px;padding:8px;display:flex;flex-direction:column;min-height:640px;}
 .inner{border-radius:18px;padding:10px;display:flex;flex-direction:column;background:#F9FAFB;min-height:600px;flex:1;}
 .top{background:black;color:white;border-radius:14px;padding:9px;text-align:center;font-size:11px;font-weight:900;margin-bottom:6px;cursor:pointer;flex-shrink:0;}
 .live{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:800;background:#E8F5E9;border:1.5px solid black;border-radius:12px;padding:7px;margin-bottom:6px;flex-shrink:0;}
@@ -460,7 +424,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#FFF8F0;
 /* ===== v1.3.15 KakaoTalk-like Chat UI ===== */
 #view-chat{background:#B2C7DA;border-radius:14px;}
 #chatList{background:transparent;padding:10px 8px;gap:10px;scroll-behavior:smooth;}
-.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.35 flicker fix */}
+.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.39 flicker fix */}
 .kakao-row.other{align-self:flex-start;}
 .kakao-row.mine{align-self:flex-end;}
 .kakao-profile{width:38px;height:38px;border-radius:15px;background:#fff;border:1.5px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;box-shadow:0 1px 2px rgba(0,0,0,0.06);}
@@ -561,7 +525,7 @@ body.ipad-mode .todo{padding:14px 16px;border-radius:16px;border-width:2.5px;gap
 body.ipad-mode .todo span{font-size:17px;font-weight:700;}
 body.ipad-mode #vapidInput{font-size:14px;padding:10px 12px;}
 
-/* ===== v1.5.35 iPad Mini Full-Screen Optimization ===== */
+/* ===== v1.5.39 iPad Mini Full-Screen Optimization ===== */
 /* 문제: 아이패드에서도 .device가 max-width:420px 폰 틀로 가운데만 보여서 양옆이 하얗게 빔 */
 /* 해결: 화면 너비 768px 이상이면 폰 틀 제거 + 화면 꽉 채우기 - 사용자 모드(엄마/아빠/해준) 상관없이 적용 */
 @media screen and (min-width: 768px) {
@@ -783,7 +747,7 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 .secret-input{width:100%;border:1.5px solid black;border-radius:8px;padding:7px 9px;font-size:11px;font-family:monospace;margin-top:4px;}
 .pat-card{background:#E3F2FD;border:2px solid #64B5F6;}
 
-/* v1.5.35 photo download */
+/* v1.5.39 photo download */
 #imgModal{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;flex-direction:column;z-index:9999;padding:20px;}
 #imgModal.show{display:flex;}
 #imgModalImg{max-width:90vw;max-height:70vh;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.5);}
@@ -794,7 +758,7 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 .kakao-bubble.has-image{position:relative;}
 .kakao-img-dl{position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.6);color:white;border:none;border-radius:50%;width:28px;height:28px;font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0.9;}
 
-/* ===== v1.5.35 Walkie Talkie ===== */
+/* ===== v1.5.39 Walkie Talkie ===== */
 .walkie-btn{ background:#FF5722; color:white; border:2px solid black; border-radius:20px; padding:6px 12px; font-size:11px; font-weight:900; cursor:pointer; margin-left:6px; }
 .walkie-btn.on{ background:#4CAF50; }
 .walkie-btn.speaking{ background:#FF0000; animation: walkiePulse 0.6s infinite; }
@@ -818,7 +782,7 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 </head>
 <body class="iphone-mode">
 <div class="header">
-<h1>전씨네 Family Chat</h1><span class="badge">v1.5.35 CLEAN</span>
+<h1>전씨네 Family Chat</h1><span class="badge">v1.5.39 CLEAN</span>
 </div>
 <div class="device">
 <div class="inner" id="inner">
@@ -840,9 +804,9 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 <div id="replyPreview" class="reply-preview" style="display:none;"></div>
 <div class="upload-progress" id="uploadProgress">📤 업로드중...</div>
 <div class="input-row">
-<input id="chatInput" type="text" inputmode="text" enterkeyhint="send" autocomplete="off" autocapitalize="off" autocorrect="off" placeholder="아빠로 메시지..." onkeypress="if(event.key==='Enter')sendMsg()" onfocus="onChatInputFocus()" style="font-size:16px !important;flex:1 1 140px;min-width:140px;">
-<button type="button" class="photo-btn mini-btn" title="키보드 열기" onclick="focusChatInput(event)" style="background:#FFF9C4;">⌨️</button><button class="photo-btn mini-btn" onclick="document.getElementById('photoInput').click()">📷</button>
-<button onclick="sendMsg()" class="send-btn">전송</button>
+<input id="chatInput" placeholder="아빠로 메시지..." onkeypress="if(event.key==='Enter')sendMsg()">
+<button class="photo-btn" onclick="document.getElementById('photoInput').click()">📷</button>
+<button onclick="sendMsg()">전송</button>
 </div>
 </div>
 </div>
@@ -884,7 +848,7 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 const firebaseConfig = {'apiKey': 'AIzaSyDKTiB6lqRDCHaM8vxWwbiX0K_nlb8_4jQ', 'authDomain': 'jeon-family-chat.firebaseapp.com', 'projectId': 'jeon-family-chat', 'storageBucket': 'jeon-family-chat.firebasestorage.app', 'messagingSenderId': '575056885546', 'appId': '1:575056885546:web:2fa1c64876773817906413', 'databaseURL': 'https://jeon-family-chat-default-rtdb.firebaseio.com'};
 
 
-/* ===== FamChat v1.5.35 CLEAN - 목차 =====
+/* ===== FamChat v1.5.39 CLEAN - 목차 =====
   1. Firebase 설정 / 전역 상태
   2. 유틸 (escapeHtml, toast, detectDevice)
   3. 채팅 (renderChat, sendMsg, 사진, 답장, 읽음)
@@ -899,17 +863,17 @@ let db, chatRef, todosRef, routinesRef, readsRef, noticesRef, storageRef;
 let cur = localStorage.getItem('curUser') || '아빠';
 const _validIdsInit = ['아빠','엄마','해준','해온'];
 if(!_validIdsInit.includes(cur)){ cur = '아빠'; localStorage.setItem('curUser', cur); }
-// v1.5.35 device lock
+// v1.5.39 device lock
 let lockedUser = localStorage.getItem('lockedUser') || '';
 if(lockedUser && _validIdsInit.includes(lockedUser)){ cur = lockedUser; }
 
 
 const modes = [{id:'아빠',icon:'👨'},{id:'엄마',icon:'👩'},{id:'해준',icon:'👦'},{id:'해온',icon:'👧'}];
-const FAMCHAT_BUILD = '2026.11.28.2320';
-const FAMCHAT_VERSION = 'v1.5.35';
-  // v1.5.35: 880 표시를 최근 80개 보는 중으로 바꿈 + 입력창 쪼그라듦 수정 (미니 버튼 44px, 전송 60px, 입력 flex 고정)
-  // v1.5.35: iPad Mini 화면 축소 + 키보드 안 뜸 수정 (채팅 80개만 그리기, 포커스 유지, visualViewport, 키보드 버튼)
-  // v1.5.35: 속도 정리 + 워키토키 판넬 최소 정리
+const FAMCHAT_BUILD = '2026.11.28.2405';
+const FAMCHAT_VERSION = 'v1.5.39';
+  // v1.5.39: 디자인 그대로, 뒤에서 80개만 그림. 뱃지 글자만 '최근 80개 보는 중 (전체 880개)'로. 위로 스크롤하면 이전 80개 더 보기, 버튼 없음.
+  // v1.5.39: 원래 디자인 복원 - 1.5.34-37에서 바꾼 2줄 입력, 키보드 버튼, 여백 축소, 오버레이 전부 제거. 보이는 변경 없음.
+  // v1.5.39: 속도 정리 + 워키토키 판넬 최소 정리
 let familyId = localStorage.getItem('familyId') || 'jeon-family';
 let data = {messages:[], todos:[], routines:[], reads:{}, notices:[], settings:{}};
 let replyTarget = null;
@@ -1066,7 +1030,7 @@ async function initFCM(){
     window._lastFCMError = null;
     messaging = firebase.messaging();
     
-    // v1.5.35: Try to register firebase-messaging-sw.js, if 404 then create blob SW
+    // v1.5.39: Try to register firebase-messaging-sw.js, if 404 then create blob SW
     if('serviceWorker' in navigator){
       try{
         let swUrl = 'firebase-messaging-sw.js';
@@ -1633,38 +1597,24 @@ function saveScheduleToFirebase(){
   }
 }
 
-function focusChatInput(e){
-  if(e) e.preventDefault();
-  const inp=document.getElementById('chatInput');
-  if(!inp) return;
-  inp.scrollIntoView({block:'nearest', behavior:'smooth'});
-  setTimeout(function(){ inp.focus({preventScroll:false}); }, 50);
-  setTimeout(function(){ inp.focus(); const cl=document.getElementById('chatList'); if(cl) cl.scrollTop = cl.scrollHeight; }, 250);
-}
-function onChatInputFocus(){
-  document.body.classList.add('keyboard-open');
-  setTimeout(function(){ const cl=document.getElementById('chatList'); if(cl) cl.scrollTop = cl.scrollHeight; }, 120);
-  setTimeout(function(){ const inp=document.getElementById('chatInput'); if(inp) inp.scrollIntoView({block:'nearest'}); }, 180);
-}
-function onChatInputBlur(){
-  document.body.classList.remove('keyboard-open');
+function _keepInputVisible(){
+  try{
+    const inp=document.getElementById('chatInput');
+    if(inp) inp.scrollIntoView({block:'nearest'});
+    const cl=document.getElementById('chatList');
+    if(cl) cl.scrollTop = cl.scrollHeight;
+  }catch(e){}
 }
 (function(){
   try{
-    const inp = document.getElementById('chatInput');
+    const inp=document.getElementById('chatInput');
     if(inp){
-      inp.addEventListener('blur', onChatInputBlur);
-      inp.addEventListener('focus', onChatInputFocus);
+      inp.addEventListener('focus', function(){ setTimeout(_keepInputVisible, 120); });
     }
     if(window.visualViewport){
       window.visualViewport.addEventListener('resize', function(){
-        const vv = window.visualViewport;
-        const kbOpen = vv.height < window.innerHeight * 0.85;
-        document.body.classList.toggle('keyboard-open', kbOpen);
-        if(kbOpen){
-          const inp2=document.getElementById('chatInput');
-          if(inp2) inp2.scrollIntoView({block:'nearest'});
-        }
+        const vv=window.visualViewport;
+        if(vv.height < window.innerHeight * 0.85){ setTimeout(_keepInputVisible, 100); }
       });
     }
   }catch(e){}
@@ -1687,7 +1637,7 @@ function goTab(name){
 }
 
 function renderTop(){
-  // v1.5.35 device lock enforcement
+  // v1.5.39 device lock enforcement
   const _locked = localStorage.getItem('lockedUser') || '';
   if(_locked && ['아빠','엄마','해준','해온'].includes(_locked)){
     cur = _locked;
@@ -1720,6 +1670,32 @@ function renderTop(){
   }
 }
 
+// v1.5.39 invisible load-more: 위로 스크롤하면 이전 80개 더 보기, 버튼 없음, 디자인 변경 없음
+(function(){
+  let _attached=false;
+  function attach(){
+    const el=document.getElementById('chatList');
+    if(!el || _attached) return;
+    _attached=true;
+    el.addEventListener('scroll', function(){
+      if(_chatLoadingMore) return;
+      if(el.scrollTop < 40 && _chatVisibleCount < data.messages.length){
+        _chatLoadingMore=true;
+        const _oldH = el.scrollHeight;
+        const _oldTop = el.scrollTop;
+        _chatVisibleCount = Math.min(_chatVisibleCount + 80, data.messages.length);
+        renderChat(true);
+        requestAnimationFrame(function(){
+          const _newH = el.scrollHeight;
+          el.scrollTop = _newH - _oldH + _oldTop;
+          _chatLoadingMore=false;
+        });
+      }
+    });
+  }
+  document.addEventListener('DOMContentLoaded', attach);
+  setTimeout(attach, 800);
+})();
 function updateReadStatus(force){
   if(!force && document.hidden) return;
   const viewChat = document.getElementById('view-chat');
@@ -1746,9 +1722,8 @@ function updateReadStatus(force){
 
 function updateReadIconsOnly(){
   // 전체를 다시 그리지 않고 읽음 아이콘만 갱신 - 깜빡임 방지
-  const _all=data.messages.slice().sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
-  const _lim = window._chatLimit || 80;
-  const sorted = _all.slice(-_lim);
+  const _allSorted=data.messages.slice().sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
+  const sorted=_allSorted.slice(-_chatVisibleCount);
   const byKey = new Map(); data.messages.forEach(function(m){ if(m._key) byKey.set(m._key, m); if(m.id) byKey.set(m.id, m); });
   const lastSentAtByAuthor = {}; data.messages.forEach(function(m){ const tt = new Date(m.created_at).getTime(); if(!lastSentAtByAuthor[m.author] || tt > lastSentAtByAuthor[m.author]) lastSentAtByAuthor[m.author] = tt; });
   const rows = document.querySelectorAll('#chatList .kakao-row');
@@ -1784,18 +1759,16 @@ function updateReadIconsOnly(){
 
 let _lastChatKeys = '';
 let _renderChatDebounce = null;
+let _chatVisibleCount = 80;
+let _chatLoadingMore = false;
 function renderChat(force){
   const el=document.getElementById('chatList');
   if(!el) return;
   const _wasFocused = document.activeElement && document.activeElement.id==='chatInput';
-  const _wasAtBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 100;
-  const _prevTop = el.scrollTop;
-  const _allSorted=data.messages.slice().sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
-  const _limit = window._chatLimit || 80;
-  const sorted = _allSorted.slice(-_limit);
+  const sorted=data.messages.slice().sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
   const byKey = new Map(); data.messages.forEach(function(m){ if(m._key) byKey.set(m._key, m); if(m.id) byKey.set(m.id, m); });
   const lastSentAtByAuthor = {}; data.messages.forEach(function(m){ const tt = new Date(m.created_at).getTime(); if(!lastSentAtByAuthor[m.author] || tt > lastSentAtByAuthor[m.author]) lastSentAtByAuthor[m.author] = tt; });
-  const currentKeys = sorted.map(m=>m._key||m.id).join(',');
+  const currentKeys = _chatVisibleCount + '|' + sorted.map(m=>m._key||m.id).join(',');
   // 메시지 목록이 같고 force가 아니면, 읽음 아이콘만 업데이트 (깜빡임 방지)
   if(!force && currentKeys === _lastChatKeys && el.children.length>0){
     updateReadIconsOnly();
@@ -1869,21 +1842,12 @@ function renderChat(force){
       html+='<div class="kakao-row other"><div class="kakao-profile">'+mode.icon+'</div><div class="kakao-content"><div class="kakao-author">'+msg.author+'</div><div class="kakao-bubble-line">'+bubbleInner+'<div class="kakao-read-wrap"><div class="kakao-meta"><span class="kakao-time">'+timeStr+'</span><div style="display:flex;gap:3px;"><button class="kakao-reply" onclick="setReply(\''+safeKey+'\')">↩️</button><button class="kakao-del" onclick="deleteMsg(\''+safeKey+'\')">삭제</button></div></div>'+readIconsHtml+'</div></div></div></div>';
     }
   });
-  if(window._chatLimit && _allSorted.length > window._chatLimit){
-    const _more = _allSorted.length - window._chatLimit;
-    el.innerHTML = '<div style="position:sticky;top:0;z-index:5;text-align:center;margin:0 0 4px;padding:4px 0;background:#B2C7DA;"><button onclick="showMoreChat()" style="border:1.5px solid black;border-radius:20px;padding:6px 12px;font-size:11px;font-weight:900;background:white;cursor:pointer;">이전 대화 더 보기 ('+_more+'개 더 있음)</button></div>' + html;
-  } else {
-    el.innerHTML=html;
-  }
+  el.innerHTML=html;
   requestAnimationFrame(()=>{
-    if(_wasAtBottom || force){ el.scrollTop = el.scrollHeight; } else { el.scrollTop = _prevTop; }
-    if(_wasFocused){ const _inp=document.getElementById('chatInput'); if(_inp) _inp.focus({preventScroll:true}); }
-    setTimeout(()=>{ if(_wasAtBottom || force){ el.scrollTop = el.scrollHeight; } updateReadStatus(); }, 80);
+    el.scrollTop = el.scrollHeight;
+    if(_wasFocused){ const _i=document.getElementById('chatInput'); if(_i) _i.focus({preventScroll:true}); }
+    setTimeout(()=>{ el.scrollTop = el.scrollHeight; updateReadStatus(); }, 80);
   });
-}
-function showMoreChat(){
-  window._chatLimit = (window._chatLimit || 80) + 80;
-  renderChat(true);
 }
 
 function renderTodoSubTabs(){
@@ -2057,7 +2021,7 @@ function renderSettings(){
   const validIds = ['아빠','엄마','해준','해온'];
   if(!validIds.includes(cur)){ cur='아빠'; localStorage.setItem('curUser', cur); }
   let html='';
-  // v1.5.35: 사용자 변경 + 기기 고정
+  // v1.5.39: 사용자 변경 + 기기 고정
   try{
     const curMode = modes.find(x=>x.id===cur) || modes[0];
     const locked = localStorage.getItem('lockedUser') || '';
@@ -2156,7 +2120,7 @@ function unlockDevice(){
 }
 
 
-// ===== v1.5.35 Walkie Talkie - WebRTC + Firebase RTDB signaling =====
+// ===== v1.5.39 Walkie Talkie - WebRTC + Firebase RTDB signaling =====
 let walkieJoined=false;
 let walkieLocalStream=null;
 let walkiePeers={};
@@ -2274,7 +2238,7 @@ function walkieLog(msg){
 function testWalkieMic(){
   if(!walkieLocalStream){ walkieLog('❌ 마이크 테스트 실패: 로컬 스트림 없음 - 워키토키 켜기 먼저'); toast('워키토키 켜기 먼저 눌러주세요'); return; }
   const tracks=walkieLocalStream.getAudioTracks();
-  // v1.5.35 FIX: 테스트 동안만 마이크 강제 켜기 - 안 누르면 enabled=false라 0으로 나오는 버그 수정
+  // v1.5.39 FIX: 테스트 동안만 마이크 강제 켜기 - 안 누르면 enabled=false라 0으로 나오는 버그 수정
   const wasEnabled = tracks[0] ? tracks[0].enabled : false;
   if(tracks[0] && !wasEnabled){ tracks[0].enabled=true; walkieLog('🎤 테스트용으로 마이크 잠깐 켬 (끝나면 원래대로 복원) - 이제 말해보세요!'); }
   else { walkieLog('🎤 마이크 테스트 시작 - 지금 말해보세요!'); }
@@ -2420,7 +2384,7 @@ let walkiePendingIce = {}; // targetId -> [candidate,...] remote description 전
 function createPeerConnection(targetId, isInitiator){
   if(walkiePeers[targetId]) return walkiePeers[targetId];
   if(walkiePeers[targetId]) return walkiePeers[targetId];
-  // v1.5.35 TURN 추가: 테더링/셀룰러/다른 와이파이에서도 연결되게
+  // v1.5.39 TURN 추가: 테더링/셀룰러/다른 와이파이에서도 연결되게
   // STUN으로 직접 연결 시도 -> 안 되면 TURN으로 우회 (같은 와이파이는 그대로 직접 연결)
   const pc = new RTCPeerConnection({ iceServers:[
     { urls:'stun:stun.l.google.com:19302' },
@@ -2430,7 +2394,7 @@ function createPeerConnection(targetId, isInitiator){
     { urls:'turn:openrelay.metered.ca:80', username:'openrelayproject', credential:'openrelayproject' },
     { urls:'turn:openrelay.metered.ca:443', username:'openrelayproject', credential:'openrelayproject' },
     { urls:'turn:openrelay.metered.ca:443?transport=tcp', username:'openrelayproject', credential:'openrelayproject' },
-    // v1.5.35 예비 TURN - OpenRelay가 안 되면 여기로
+    // v1.5.39 예비 TURN - OpenRelay가 안 되면 여기로
     { urls:'turn:relay1.expressturn.com:3478', username:'ef5G6P2W5P4J7K3L', credential:'expressturn' },
     { urls:'turn:standard.relay.metered.ca:80', username:'e8a3c1b2d3e4f5a6b7c8d9e0', credential:'openrelayproject' }
   ], iceCandidatePoolSize: 10 });
@@ -2480,7 +2444,7 @@ function createPeerConnection(targetId, isInitiator){
       }).catch(e=>walkieLog('❌ Offer 생성 실패: '+e.message));
     };
     doOffer();
-    // v1.5.35: answer가 안 오면 5초마다 Offer 재전송 (신호 유실 대응)
+    // v1.5.39: answer가 안 오면 5초마다 Offer 재전송 (신호 유실 대응)
     pc._offerRetry = setInterval(()=>{
       if(!walkiePeers[targetId]){ clearInterval(pc._offerRetry); return; }
       if(pc.connectionState==='connected' || pc.connectionState==='completed'){ clearInterval(pc._offerRetry); return; }
@@ -2512,7 +2476,7 @@ async function handleWalkieSignal(sig){ walkieLog('📩 신호 수신: '+sig.typ
     if(pc.signalingState!=='stable') await pc.setRemoteDescription(new RTCSessionDescription(sig.sdp));
     if(walkiePendingIce[from]){ for(const c of walkiePendingIce[from]){ try{ await pc.addIceCandidate(new RTCIceCandidate(c)); }catch(e){} } walkiePendingIce[from]=[]; walkieLog('🧊 대기 ICE 처리 완료'); }
   } else if(sig.type==='ice' && sig.candidate){
-    // v1.5.35 FIX: remoteDescription 아직 없으면 ICE 버리지 말고 큐에 보관
+    // v1.5.39 FIX: remoteDescription 아직 없으면 ICE 버리지 말고 큐에 보관
     if(!pc.remoteDescription || !pc.remoteDescription.type){
       if(!walkiePendingIce[from]) walkiePendingIce[from]=[];
       walkiePendingIce[from].push(sig.candidate);
@@ -2650,7 +2614,7 @@ function setReply(key){
   const content = msg.type==='image' ? '📷 사진' : (msg.content||'').substring(0,40);
   preview.innerHTML = '<div class="reply-preview-content"><strong>'+author+'에게 답장</strong><span>'+escapeHtml(content)+'</span></div><button class="reply-preview-close" onclick="clearReply()">×</button>';
   preview.style.display = 'flex';
-  setTimeout(function(){ const _i=document.getElementById('chatInput'); if(_i) _i.focus({preventScroll:true}); }, 50);
+  document.getElementById('chatInput').focus();
   toast('↩️ '+author+'에게 답장');
 }
 
@@ -2779,7 +2743,7 @@ chatRef.on('value', snap=>{
   const dot = document.getElementById('dot');
   const liveText = document.getElementById('liveText');
   if(dot) dot.className='dot';
-  if(liveText) liveText.textContent='🔥 실시간 연결됨 - 최근 '+(window._chatLimit||80)+'개 보는 중 (전체 '+msgs.length+'개)';
+  if(liveText){ if(msgs.length>_chatVisibleCount) liveText.textContent='🔥 실시간 연결됨 - 최근 '+_chatVisibleCount+'개 보는 중 (전체 '+msgs.length+'개)'; else liveText.textContent='🔥 실시간 연결됨 - 메시지 '+msgs.length+'개'; }
   if(!window._cleanupDone){
     window._cleanupDone=true;
     setTimeout(()=>{ cleanupOldData(); generateDailyRoutines(); }, 3000);
@@ -2837,4 +2801,20 @@ document.addEventListener('click', function initAudio(){ requestNotifPermission(
 
 </script>
 
-<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script><script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body></html>
+<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script><style id="v1538-invisible">
+/* v1.5.39 invisible only - 색, 크기, 레이아웃 안 바꿈. 오른쪽 삐져나감만 막음 */
+.device{box-sizing:border-box !important;overflow:hidden !important;}
+.inner{box-sizing:border-box !important;overflow:hidden !important;}
+#view-chat .input-wrap{box-sizing:border-box !important;}
+#view-chat .input-row{box-sizing:border-box !important;max-width:100% !important;}
+#view-chat .input-row input{box-sizing:border-box !important;min-width:0 !important;}
+/* v1.5.39 invisible: 입력칸 잘림만 막음 - 색, 크기, 줄 수 그대로 */
+#view-chat .input-row{display:flex !important;flex-wrap:nowrap !important;gap:6px !important;align-items:center !important;width:100% !important;}
+#view-chat .input-row input{flex:1 1 auto !important;min-width:0 !important;max-width:none !important;}
+#view-chat .input-row button{flex-shrink:0 !important;min-width:56px !important;}
+@media (max-width:360px){
+  #view-chat .input-row button{min-width:50px !important;padding:10px 8px !important;}
+  #view-chat .input-row input{padding:10px 10px !important;}
+}
+</style>
+<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body></html>
