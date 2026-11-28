@@ -1,25 +1,4 @@
-<html lang="ko"><!-- FamChat Build: 2026.11.23 | v1.5.45 TURN | 정리본: 중복 폰트/아티팩트 스크립트 제거 + 워키토키 포함 --><head><style>
-@font-face {
-  font-family: "Optimistic";
-  font-style: normal;
-  font-weight: 400 600;
-  font-display: swap;
-  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Optimistic Mono";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
-}
-:where(html) {
-  font-family: "Optimistic", system-ui, sans-serif;
-}
-:where(code, pre, kbd, samp) {
-  font-family: "Optimistic Mono", ui-monospace, monospace;
-}
-</style><style>
+<html lang="ko"><!-- FamChat Build: 2026.11.23 | v1.5.32 TURN | 정리본: 중복 폰트/아티팩트 스크립트 제거 + 워키토키 포함 --><head><style>
 @font-face {
   font-family: "Optimistic";
   font-style: normal;
@@ -62,7 +41,7 @@
   font-family: "Optimistic Mono", ui-monospace, monospace;
 }
 
-/* ===== v1.5.45 Walkie Talkie ===== */
+/* ===== v1.5.32 Walkie Talkie ===== */
 .walkie-btn{ background:#FF5722; color:white; border:2px solid black; border-radius:20px; padding:6px 12px; font-size:11px; font-weight:900; cursor:pointer; margin-left:6px; }
 .walkie-btn.on{ background:#4CAF50; }
 .walkie-btn.speaking{ background:#FF0000; animation: walkiePulse 0.6s infinite; }
@@ -84,7 +63,7 @@
 </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>FamChat v1.5.45</title>
+<title>FamChat v1.5.32</title>
 <script>
 (function(){ try{ function applyTablet(){ if(window.innerWidth>=768){ document.body.classList.add('ipad-mode'); document.body.classList.remove('iphone-mode'); } } window.addEventListener('resize', applyTablet); document.addEventListener('DOMContentLoaded', applyTablet); applyTablet(); }catch(e){} })();
 </script>
@@ -100,7 +79,7 @@
 <script src="https://cdn.jsdelivr.net/npm/libsodium-wrappers@0.7.15/dist/modules/libsodium-wrappers.js"></script>
 <style>
 
-/* v1.5.45 flicker fix */
+/* v1.5.32 flicker fix */
 #chatList{ contain: layout; will-change: auto; }
 .kakao-row{ will-change: auto; transform: translateZ(0); }
 
@@ -133,7 +112,7 @@ input:focus, textarea:focus{ font-size: 16px !important; }
 /* ===== v1.3.15 KakaoTalk-like Chat UI ===== */
 #view-chat{background:#B2C7DA;border-radius:14px;}
 #chatList{background:transparent;padding:10px 8px;gap:10px;scroll-behavior:smooth;}
-.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.45 flicker fix */}
+.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.32 flicker fix */}
 .kakao-row.other{align-self:flex-start;}
 .kakao-row.mine{align-self:flex-end;}
 .kakao-profile{width:38px;height:38px;border-radius:15px;background:#fff;border:1.5px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;box-shadow:0 1px 2px rgba(0,0,0,0.06);}
@@ -234,7 +213,7 @@ body.ipad-mode .todo{padding:14px 16px;border-radius:16px;border-width:2.5px;gap
 body.ipad-mode .todo span{font-size:17px;font-weight:700;}
 body.ipad-mode #vapidInput{font-size:14px;padding:10px 12px;}
 
-/* ===== v1.5.45 iPad Mini Full-Screen Optimization ===== */
+/* ===== v1.5.32 iPad Mini Full-Screen Optimization ===== */
 /* 문제: 아이패드에서도 .device가 max-width:420px 폰 틀로 가운데만 보여서 양옆이 하얗게 빔 */
 /* 해결: 화면 너비 768px 이상이면 폰 틀 제거 + 화면 꽉 채우기 - 사용자 모드(엄마/아빠/해준) 상관없이 적용 */
 @media screen and (min-width: 768px) {
@@ -424,7 +403,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#FFF8F0;
 /* ===== v1.3.15 KakaoTalk-like Chat UI ===== */
 #view-chat{background:#B2C7DA;border-radius:14px;}
 #chatList{background:transparent;padding:10px 8px;gap:10px;scroll-behavior:smooth;}
-.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.45 flicker fix */}
+.kakao-row{display:flex;gap:8px;max-width:88%;position:relative;/* animation:fadeIn removed for v1.5.32 flicker fix */}
 .kakao-row.other{align-self:flex-start;}
 .kakao-row.mine{align-self:flex-end;}
 .kakao-profile{width:38px;height:38px;border-radius:15px;background:#fff;border:1.5px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;box-shadow:0 1px 2px rgba(0,0,0,0.06);}
@@ -525,7 +504,7 @@ body.ipad-mode .todo{padding:14px 16px;border-radius:16px;border-width:2.5px;gap
 body.ipad-mode .todo span{font-size:17px;font-weight:700;}
 body.ipad-mode #vapidInput{font-size:14px;padding:10px 12px;}
 
-/* ===== v1.5.45 iPad Mini Full-Screen Optimization ===== */
+/* ===== v1.5.32 iPad Mini Full-Screen Optimization ===== */
 /* 문제: 아이패드에서도 .device가 max-width:420px 폰 틀로 가운데만 보여서 양옆이 하얗게 빔 */
 /* 해결: 화면 너비 768px 이상이면 폰 틀 제거 + 화면 꽉 채우기 - 사용자 모드(엄마/아빠/해준) 상관없이 적용 */
 @media screen and (min-width: 768px) {
@@ -747,7 +726,7 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 .secret-input{width:100%;border:1.5px solid black;border-radius:8px;padding:7px 9px;font-size:11px;font-family:monospace;margin-top:4px;}
 .pat-card{background:#E3F2FD;border:2px solid #64B5F6;}
 
-/* v1.5.45 photo download */
+/* v1.5.32 photo download */
 #imgModal{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;flex-direction:column;z-index:9999;padding:20px;}
 #imgModal.show{display:flex;}
 #imgModalImg{max-width:90vw;max-height:70vh;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.5);}
@@ -758,7 +737,7 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 .kakao-bubble.has-image{position:relative;}
 .kakao-img-dl{position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.6);color:white;border:none;border-radius:50%;width:28px;height:28px;font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0.9;}
 
-/* ===== v1.5.45 Walkie Talkie ===== */
+/* ===== v1.5.32 Walkie Talkie ===== */
 .walkie-btn{ background:#FF5722; color:white; border:2px solid black; border-radius:20px; padding:6px 12px; font-size:11px; font-weight:900; cursor:pointer; margin-left:6px; }
 .walkie-btn.on{ background:#4CAF50; }
 .walkie-btn.speaking{ background:#FF0000; animation: walkiePulse 0.6s infinite; }
@@ -782,13 +761,13 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 </head>
 <body class="iphone-mode">
 <div class="header">
-<h1>전씨네 Family Chat</h1><span class="badge">v1.5.45 CLEAN</span>
+<h1>전씨네 Family Chat</h1><span class="badge">v1.5.32 CLEAN</span>
 </div>
 <div class="device">
 <div class="inner" id="inner">
 <div style="display:flex;align-items:center;gap:6px;"><div class="top" id="topBadge" onclick="goTab('set')" style="flex:1;">👨 아빠 모드 - 터치하면 설정</div>
 <button id="walkieTopBtn" class="walkie-btn" onclick="toggleWalkiePanel()">🎙️ 워키토키</button></div>
-<div id="walkiePanel"><div style="display:flex;justify-content:space-between;align-items:center;"><h3 style="margin:0;font-size:14px;">🎙️ 실시간 워키토키</h3><span id="walkieStatusDot" style="font-size:11px;">● 꺼짐</span></div><p style="font-size:10px;color:#666;margin:4px 0;">버튼 꽙 누르면 말해져요.</p><div id="walkieOnline" class="walkie-online"></div><div id="walkieStatus" class="walkie-status">아직 연결 안 됨</div><button id="walkieJoinBtn" class="btn" style="width:100%;background:black;color:white;margin-bottom:6px;" onclick="toggleWalkieJoin()">🎙️ 워키토키 켜기</button><button id="walkieDebugBtn" class="btn" style="width:100%;font-size:11px;padding:6px;background:white;color:#666;border:1px solid #ddd;margin-bottom:6px;" onclick="toggleWalkieDebug()">진단 보기</button><div id="walkieDebugWrap1" style="display:none"><div id="walkieConn" style="font-size:10px;text-align:center;color:#666;margin-bottom:6px;">연결 상태: 대기 중</div><div id="walkiePeerStatus" style="font-size:10px;text-align:center;color:#333;background:#FFF9C4;border:1px solid #FBC02D;border-radius:8px;padding:6px;margin-bottom:6px;">Peer: 없음 - 상대가 켜면 여기에 Peer 상태가 떠요</div><button class="btn" style="width:100%;font-size:11px;padding:8px;background:#1976D2;color:white;margin-bottom:6px;" onclick="reconnectWalkiePeers()">🔄 연결 다시 시도 (안 들리면 눌러보기)</button><button class="btn" style="width:100%;font-size:11px;padding:8px;background:#FF9800;color:white;margin-bottom:6px;" onclick="sendWalkiePing()">📡 신호 테스트 (엄마한테 ping 보내기)</button><button id="walkieSoundBtn" class="btn" style="width:100%;background:#FF9800;color:white;margin-bottom:8px;" onclick="unlockWalkieSound()">🔊 소리 켜기 (iPhone 필수 - 소리 안 들리면 눌러보세요)</button></div><div class="ptt-sticky"><button id="pttBtn" class="ptt-btn" disabled="">🎙️ 꾹 눌러서 말하기<br><span style="font-size:11px;font-weight:400;">(누르고 있는 동안만 들려요)</span></button></div><div id="walkieDebugWrap2" style="display:none"><div id="walkieMicLevel" style="height:8px;background:#ddd;border-radius:4px;overflow:hidden;margin-top:6px;"><div id="walkieMicBar" style="height:100%;width:0%;background:#4CAF50;transition:width 0.1s;"></div></div><div id="walkieMicText" style="font-size:10px;text-align:center;color:#666;margin:4px 0 2px;">마이크: 확인 안 함</div><div style="background:#E8F5E9;border:1px solid #4CAF50;border-radius:8px;padding:6px;margin-top:6px;"><div style="font-size:10px;font-weight:900;">🔊 상대방 소리 (받는 쪽)</div><div id="walkieRemoteLevel" style="height:8px;background:#ddd;border-radius:4px;overflow:hidden;margin:4px 0;"><div id="walkieRemoteBar" style="height:100%;width:0%;background:#FF5722;transition:width 0.1s;"></div></div><div id="walkieRemoteText" style="font-size:10px;text-align:center;color:#666;">받는 소리: 확인 안 함 - 상대가 말할 때 올라가야 함</div><button class="btn" style="width:100%;font-size:10px;padding:6px;background:#4CAF50;color:white;margin:4px 0 0;" onclick="forcePlayRemoteAudio()">🔊 상대 소리 강제 재생</button></div><div style="display:flex;gap:4px;margin:8px 0 0;"><button class="btn" style="flex:1;font-size:10px;padding:6px;background:white;margin:0;" onclick="testWalkieMic()">🎤 마이크 테스트</button><button class="btn" style="flex:1;font-size:10px;padding:6px;background:white;margin:0;" onclick="testWalkieSpeaker()">🔊 스피커 테스트</button><button class="btn" style="flex:1;font-size:10px;padding:6px;background:white;margin:0;" onclick="copyWalkieLog()">📋 로그 복사</button></div><div id="walkieDebug">[진단] 대기 중...</div></div><p style="font-size:9px;color:#666;text-align:center;margin-top:6px;">아이폰/아이패드 둘 다 앱 켜고 있어야 들려요 • 마이크 허용 필요</p><div id="walkieAudios" style="position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;"></div></div>
+<div id="walkiePanel"><div style="display:flex;justify-content:space-between;align-items:center;"><h3 style="margin:0;font-size:14px;">🎙️ 실시간 워키토키</h3><span id="walkieStatusDot" style="font-size:11px;">● 꺼짐</span></div><p style="font-size:10px;color:#666;margin:4px 0;">가족 4명 같이 듣는 무전기예요. 버튼 꾹 누르면 말해져요.</p><div id="walkieOnline" class="walkie-online"></div><div id="walkieStatus" class="walkie-status">아직 연결 안 됨</div><div id="walkieConn" style="font-size:10px;text-align:center;color:#666;margin-bottom:6px;">연결 상태: 대기 중</div><div id="walkiePeerStatus" style="font-size:10px;text-align:center;color:#333;background:#FFF9C4;border:1px solid #FBC02D;border-radius:8px;padding:6px;margin-bottom:6px;">Peer: 없음 - 상대가 켜면 여기에 Peer 상태가 떠요</div><button class="btn" style="width:100%;font-size:11px;padding:8px;background:#1976D2;color:white;margin-bottom:6px;" onclick="reconnectWalkiePeers()">🔄 연결 다시 시도 (안 들리면 눌러보기)</button><button class="btn" style="width:100%;font-size:11px;padding:8px;background:#FF9800;color:white;margin-bottom:6px;" onclick="sendWalkiePing()">📡 신호 테스트 (엄마한테 ping 보내기)</button><button id="walkieJoinBtn" class="btn" style="width:100%;background:black;color:white;margin-bottom:6px;" onclick="toggleWalkieJoin()">🎙️ 워키토키 켜기</button><button id="walkieSoundBtn" class="btn" style="width:100%;background:#FF9800;color:white;margin-bottom:8px;" onclick="unlockWalkieSound()">🔊 소리 켜기 (iPhone 필수 - 소리 안 들리면 눌러보세요)</button><div class="ptt-sticky"><button id="pttBtn" class="ptt-btn" disabled="">🎙️ 꾹 눌러서 말하기<br><span style="font-size:11px;font-weight:400;">(누르고 있는 동안만 들려요)</span></button><div id="walkieMicLevel" style="height:8px;background:#ddd;border-radius:4px;overflow:hidden;margin-top:6px;"><div id="walkieMicBar" style="height:100%;width:0%;background:#4CAF50;transition:width 0.1s;"></div></div><div id="walkieMicText" style="font-size:10px;text-align:center;color:#666;margin:4px 0 2px;">마이크: 확인 안 함</div></div><div style="background:#E8F5E9;border:1px solid #4CAF50;border-radius:8px;padding:6px;margin-top:6px;"><div style="font-size:10px;font-weight:900;">🔊 상대방 소리 (받는 쪽)</div><div id="walkieRemoteLevel" style="height:8px;background:#ddd;border-radius:4px;overflow:hidden;margin:4px 0;"><div id="walkieRemoteBar" style="height:100%;width:0%;background:#FF5722;transition:width 0.1s;"></div></div><div id="walkieRemoteText" style="font-size:10px;text-align:center;color:#666;">받는 소리: 확인 안 함 - 상대가 말할 때 올라가야 함</div><button class="btn" style="width:100%;font-size:10px;padding:6px;background:#4CAF50;color:white;margin:4px 0 0;" onclick="forcePlayRemoteAudio()">🔊 상대 소리 강제 재생</button></div><div style="display:flex;gap:4px;margin:8px 0 0;"><button class="btn" style="flex:1;font-size:10px;padding:6px;background:white;margin:0;" onclick="testWalkieMic()">🎤 마이크 테스트</button><button class="btn" style="flex:1;font-size:10px;padding:6px;background:white;margin:0;" onclick="testWalkieSpeaker()">🔊 스피커 테스트</button><button class="btn" style="flex:1;font-size:10px;padding:6px;background:white;margin:0;" onclick="copyWalkieLog()">📋 로그 복사</button></div><div id="walkieDebug">[진단] 대기 중...</div><p style="font-size:9px;color:#666;text-align:center;margin-top:6px;">아이폰/아이패드 둘 다 앱 켜고 있어야 들려요 • 마이크 허용 필요</p><div id="walkieAudios" style="position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;"></div></div>
 <div class="live" id="liveStatus"><div class="dot off" id="dot"></div><span id="liveText">Firebase 연결중...</span></div>
 <div class="tabs">
 <div class="tab on" id="tab-chat" onclick="goTab('chat')">💬 채팅</div>
@@ -848,7 +827,7 @@ body.ipad-mode .schedule-item{font-size:13px;padding:10px 6px;border-width:2.5px
 const firebaseConfig = {'apiKey': 'AIzaSyDKTiB6lqRDCHaM8vxWwbiX0K_nlb8_4jQ', 'authDomain': 'jeon-family-chat.firebaseapp.com', 'projectId': 'jeon-family-chat', 'storageBucket': 'jeon-family-chat.firebasestorage.app', 'messagingSenderId': '575056885546', 'appId': '1:575056885546:web:2fa1c64876773817906413', 'databaseURL': 'https://jeon-family-chat-default-rtdb.firebaseio.com'};
 
 
-/* ===== FamChat v1.5.45 CLEAN - 목차 =====
+/* ===== FamChat v1.5.32 CLEAN - 목차 =====
   1. Firebase 설정 / 전역 상태
   2. 유틸 (escapeHtml, toast, detectDevice)
   3. 채팅 (renderChat, sendMsg, 사진, 답장, 읽음)
@@ -863,17 +842,14 @@ let db, chatRef, todosRef, routinesRef, readsRef, noticesRef, storageRef;
 let cur = localStorage.getItem('curUser') || '아빠';
 const _validIdsInit = ['아빠','엄마','해준','해온'];
 if(!_validIdsInit.includes(cur)){ cur = '아빠'; localStorage.setItem('curUser', cur); }
-// v1.5.45 device lock
+// v1.5.32 device lock
 let lockedUser = localStorage.getItem('lockedUser') || '';
 if(lockedUser && _validIdsInit.includes(lockedUser)){ cur = lockedUser; }
 
 
 const modes = [{id:'아빠',icon:'👨'},{id:'엄마',icon:'👩'},{id:'해준',icon:'👦'},{id:'해온',icon:'👧'}];
-const FAMCHAT_BUILD = '2026.11.28.2465';
-const FAMCHAT_VERSION = 'v1.5.45';
-  // v1.5.45: 원본 7개 높이 충돌 정리 - 아래 잘림만. 레이아웃, 색, 크기 변경 없음.
-  // v1.5.45: 레이아웃 그대로, 내용만. 80개 최적화 + 더블탭 prompt 키보드 + 위로 스크롤 더 보기. 보이는 버튼, 색, 크기 변경 없음.
-  // v1.5.45: 속도 정리 + 워키토키 판넬 최소 정리
+const FAMCHAT_BUILD = '2026.10.26.2345';
+const FAMCHAT_VERSION = 'v1.5.32';
 let familyId = localStorage.getItem('familyId') || 'jeon-family';
 let data = {messages:[], todos:[], routines:[], reads:{}, notices:[], settings:{}};
 let replyTarget = null;
@@ -886,9 +862,7 @@ let lastMsgCount = 0;
 
 function playBeep(){
   try{
-    if(!window._beepCtx) window._beepCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const ctx = window._beepCtx;
-    if(ctx.state==='suspended') ctx.resume();
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.type = 'sine';
@@ -1030,7 +1004,7 @@ async function initFCM(){
     window._lastFCMError = null;
     messaging = firebase.messaging();
     
-    // v1.5.45: Try to register firebase-messaging-sw.js, if 404 then create blob SW
+    // v1.5.32: Try to register firebase-messaging-sw.js, if 404 then create blob SW
     if('serviceWorker' in navigator){
       try{
         let swUrl = 'firebase-messaging-sw.js';
@@ -1392,8 +1366,6 @@ async function cleanupOldData(){
 async function generateDailyRoutines(){
   if(!data.routines || data.routines.length===0) return;
   const today = getTodayStr();
-  if(window._routineDoneFor===today) return;
-  window._routineDoneFor = today;
   for(const routine of data.routines){
     if(routine.active===false) continue;
     const exists = data.todos.some(t=> t.routineId===routine._key && t.dueDate===today);
@@ -1615,7 +1587,7 @@ function goTab(name){
 }
 
 function renderTop(){
-  // v1.5.45 device lock enforcement
+  // v1.5.32 device lock enforcement
   const _locked = localStorage.getItem('lockedUser') || '';
   if(_locked && ['아빠','엄마','해준','해온'].includes(_locked)){
     cur = _locked;
@@ -1648,32 +1620,6 @@ function renderTop(){
   }
 }
 
-// v1.5.45 내용만 - 위로 스크롤하면 이전 80개 더 보기, 버튼 없음, 레이아웃 변경 없음
-(function(){
-  let _attached=false;
-  function attach(){
-    const el=document.getElementById('chatList');
-    if(!el || _attached) return;
-    _attached=true;
-    el.addEventListener('scroll', function(){
-      if(_chatLoadingMore) return;
-      if(el.scrollTop < 40 && _chatVisibleCount < data.messages.length){
-        _chatLoadingMore=true;
-        const _oldH = el.scrollHeight;
-        const _oldTop = el.scrollTop;
-        _chatVisibleCount = Math.min(_chatVisibleCount + 80, data.messages.length);
-        renderChat(true);
-        requestAnimationFrame(function(){
-          const _newH = el.scrollHeight;
-          el.scrollTop = _newH - _oldH + _oldTop;
-          _chatLoadingMore=false;
-        });
-      }
-    });
-  }
-  document.addEventListener('DOMContentLoaded', attach);
-  setTimeout(attach, 800);
-})();
 function updateReadStatus(force){
   if(!force && document.hidden) return;
   const viewChat = document.getElementById('view-chat');
@@ -1685,13 +1631,10 @@ function updateReadStatus(force){
   const sorted = data.messages.slice().sort((a,b)=> new Date(a.created_at)-new Date(b.created_at));
   const last = sorted[sorted.length-1];
   if(!last) return;
-  const lastKey = last._key || last.id;
-  if(window._lastSentReadId===lastKey) return;
-  window._lastSentReadId = lastKey;
   try{
     readsRef.child(cur).set({
       lastReadAt: new Date().toISOString(),
-      lastReadId: lastKey,
+      lastReadId: last._key || last.id,
       updated_at: new Date().toISOString()
     });
   }catch(e){ console.log('read update error', e); }
@@ -1700,10 +1643,7 @@ function updateReadStatus(force){
 
 function updateReadIconsOnly(){
   // 전체를 다시 그리지 않고 읽음 아이콘만 갱신 - 깜빡임 방지
-  const _allSorted=data.messages.slice().sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
-  const sorted=_allSorted.slice(-_chatVisibleCount);
-  const byKey = new Map(); data.messages.forEach(function(m){ if(m._key) byKey.set(m._key, m); if(m.id) byKey.set(m.id, m); });
-  const lastSentAtByAuthor = {}; data.messages.forEach(function(m){ const tt = new Date(m.created_at).getTime(); if(!lastSentAtByAuthor[m.author] || tt > lastSentAtByAuthor[m.author]) lastSentAtByAuthor[m.author] = tt; });
+  const sorted=data.messages.slice().sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
   const rows = document.querySelectorAll('#chatList .kakao-row');
   sorted.forEach((msg, idx)=>{
     const row = rows[idx];
@@ -1719,11 +1659,11 @@ function updateReadIconsOnly(){
       let hasRead = false;
       if(r && r.lastReadAt && new Date(r.lastReadAt) >= d) hasRead = true;
       if(!hasRead){
-        const sentAfter = lastSentAtByAuthor[m.id] > d.getTime();
+        const sentAfter = data.messages.some(mm => mm.author===m.id && new Date(mm.created_at) > d);
         if(sentAfter) hasRead = true;
       }
       if(!hasRead && r && r.lastReadId){
-        const lastReadMsg = byKey.get(r.lastReadId);
+        const lastReadMsg = data.messages.find(mm => mm._key===r.lastReadId || mm.id===r.lastReadId);
         if(lastReadMsg && new Date(lastReadMsg.created_at) >= d) hasRead = true;
       }
       if(hasRead) readers.push(m);
@@ -1737,15 +1677,11 @@ function updateReadIconsOnly(){
 
 let _lastChatKeys = '';
 let _renderChatDebounce = null;
-let _chatVisibleCount = 80;
-let _chatLoadingMore = false;
 function renderChat(force){
   const el=document.getElementById('chatList');
   if(!el) return;
   const sorted=data.messages.slice().sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
-  const byKey = new Map(); data.messages.forEach(function(m){ if(m._key) byKey.set(m._key, m); if(m.id) byKey.set(m.id, m); });
-  const lastSentAtByAuthor = {}; data.messages.forEach(function(m){ const tt = new Date(m.created_at).getTime(); if(!lastSentAtByAuthor[m.author] || tt > lastSentAtByAuthor[m.author]) lastSentAtByAuthor[m.author] = tt; });
-  const currentKeys = _chatVisibleCount + '|' + sorted.map(m=>m._key||m.id).join(',');
+  const currentKeys = sorted.map(m=>m._key||m.id).join(',');
   // 메시지 목록이 같고 force가 아니면, 읽음 아이콘만 업데이트 (깜빡임 방지)
   if(!force && currentKeys === _lastChatKeys && el.children.length>0){
     updateReadIconsOnly();
@@ -1780,11 +1716,11 @@ function renderChat(force){
         }
         // 보완: 이 메시지 이후에 m이 메시지를 보냈다면 100% 읽은 것
         if(!hasRead){
-          const sentAfter = lastSentAtByAuthor[m.id] > d.getTime();
+          const sentAfter = data.messages.some(mm => mm.author===m.id && new Date(mm.created_at) > d);
           if(sentAfter) hasRead = true;
         }
         if(!hasRead && r && r.lastReadId){
-          const lastReadMsg = byKey.get(r.lastReadId);
+          const lastReadMsg = data.messages.find(mm => mm._key===r.lastReadId || mm.id===r.lastReadId);
           if(lastReadMsg && new Date(lastReadMsg.created_at) >= d){
             hasRead = true;
           }
@@ -1797,7 +1733,7 @@ function renderChat(force){
 
     let quoteHtml = '';
     if(msg.replyTo){
-      const parent = byKey.get(msg.replyTo);
+      const parent = data.messages.find(m=> m._key===msg.replyTo || m.id===msg.replyTo);
       const parentAuthor = msg.replyAuthor || parent?.author || '알 수 없음';
       const parentContent = msg.replyContent || parent?.content || (parent?.type==='image' ? '📷 사진' : '');
       const safeParentContent = escapeHtml(parentContent).substring(0,50);
@@ -1997,7 +1933,7 @@ function renderSettings(){
   const validIds = ['아빠','엄마','해준','해온'];
   if(!validIds.includes(cur)){ cur='아빠'; localStorage.setItem('curUser', cur); }
   let html='';
-  // v1.5.45: 사용자 변경 + 기기 고정
+  // v1.5.32: 사용자 변경 + 기기 고정
   try{
     const curMode = modes.find(x=>x.id===cur) || modes[0];
     const locked = localStorage.getItem('lockedUser') || '';
@@ -2096,7 +2032,7 @@ function unlockDevice(){
 }
 
 
-// ===== v1.5.45 Walkie Talkie - WebRTC + Firebase RTDB signaling =====
+// ===== v1.5.32 Walkie Talkie - WebRTC + Firebase RTDB signaling =====
 let walkieJoined=false;
 let walkieLocalStream=null;
 let walkiePeers={};
@@ -2108,16 +2044,6 @@ let walkiePresenceListener=null;
 let walkieSignalListener=null;
 let walkieAudioCtx=null;
 
-function toggleWalkieDebug(){
-  const w1=document.getElementById('walkieDebugWrap1');
-  const w2=document.getElementById('walkieDebugWrap2');
-  const btn=document.getElementById('walkieDebugBtn');
-  const show = w1 && w1.style.display==='none';
-  if(w1) w1.style.display = show ? 'block' : 'none';
-  if(w2) w2.style.display = show ? 'block' : 'none';
-  if(btn) btn.textContent = show ? '진단 닫기' : '진단 보기';
-  if(show){ const el=document.getElementById('walkieDebug'); if(el) el.textContent = walkieLogs.join('\n'); }
-}
 function toggleWalkiePanel(){
   const p=document.getElementById('walkiePanel');
   if(!p) return;
@@ -2205,8 +2131,6 @@ function walkieLog(msg){
   const line = '['+t+'] '+msg;
   walkieLogs.push(line);
   if(walkieLogs.length>100) walkieLogs.shift();
-  const _wrap1=document.getElementById('walkieDebugWrap1');
-  if(_wrap1 && _wrap1.style.display==='none'){ console.log('[Walkie]', line); return; }
   const el=document.getElementById('walkieDebug');
   if(el){ el.textContent = walkieLogs.join('\n'); el.scrollTop = el.scrollHeight; }
   console.log('[Walkie]', line);
@@ -2214,7 +2138,7 @@ function walkieLog(msg){
 function testWalkieMic(){
   if(!walkieLocalStream){ walkieLog('❌ 마이크 테스트 실패: 로컬 스트림 없음 - 워키토키 켜기 먼저'); toast('워키토키 켜기 먼저 눌러주세요'); return; }
   const tracks=walkieLocalStream.getAudioTracks();
-  // v1.5.45 FIX: 테스트 동안만 마이크 강제 켜기 - 안 누르면 enabled=false라 0으로 나오는 버그 수정
+  // v1.5.32 FIX: 테스트 동안만 마이크 강제 켜기 - 안 누르면 enabled=false라 0으로 나오는 버그 수정
   const wasEnabled = tracks[0] ? tracks[0].enabled : false;
   if(tracks[0] && !wasEnabled){ tracks[0].enabled=true; walkieLog('🎤 테스트용으로 마이크 잠깐 켬 (끝나면 원래대로 복원) - 이제 말해보세요!'); }
   else { walkieLog('🎤 마이크 테스트 시작 - 지금 말해보세요!'); }
@@ -2360,7 +2284,7 @@ let walkiePendingIce = {}; // targetId -> [candidate,...] remote description 전
 function createPeerConnection(targetId, isInitiator){
   if(walkiePeers[targetId]) return walkiePeers[targetId];
   if(walkiePeers[targetId]) return walkiePeers[targetId];
-  // v1.5.45 TURN 추가: 테더링/셀룰러/다른 와이파이에서도 연결되게
+  // v1.5.32 TURN 추가: 테더링/셀룰러/다른 와이파이에서도 연결되게
   // STUN으로 직접 연결 시도 -> 안 되면 TURN으로 우회 (같은 와이파이는 그대로 직접 연결)
   const pc = new RTCPeerConnection({ iceServers:[
     { urls:'stun:stun.l.google.com:19302' },
@@ -2370,7 +2294,7 @@ function createPeerConnection(targetId, isInitiator){
     { urls:'turn:openrelay.metered.ca:80', username:'openrelayproject', credential:'openrelayproject' },
     { urls:'turn:openrelay.metered.ca:443', username:'openrelayproject', credential:'openrelayproject' },
     { urls:'turn:openrelay.metered.ca:443?transport=tcp', username:'openrelayproject', credential:'openrelayproject' },
-    // v1.5.45 예비 TURN - OpenRelay가 안 되면 여기로
+    // v1.5.32 예비 TURN - OpenRelay가 안 되면 여기로
     { urls:'turn:relay1.expressturn.com:3478', username:'ef5G6P2W5P4J7K3L', credential:'expressturn' },
     { urls:'turn:standard.relay.metered.ca:80', username:'e8a3c1b2d3e4f5a6b7c8d9e0', credential:'openrelayproject' }
   ], iceCandidatePoolSize: 10 });
@@ -2420,7 +2344,7 @@ function createPeerConnection(targetId, isInitiator){
       }).catch(e=>walkieLog('❌ Offer 생성 실패: '+e.message));
     };
     doOffer();
-    // v1.5.45: answer가 안 오면 5초마다 Offer 재전송 (신호 유실 대응)
+    // v1.5.32: answer가 안 오면 5초마다 Offer 재전송 (신호 유실 대응)
     pc._offerRetry = setInterval(()=>{
       if(!walkiePeers[targetId]){ clearInterval(pc._offerRetry); return; }
       if(pc.connectionState==='connected' || pc.connectionState==='completed'){ clearInterval(pc._offerRetry); return; }
@@ -2452,7 +2376,7 @@ async function handleWalkieSignal(sig){ walkieLog('📩 신호 수신: '+sig.typ
     if(pc.signalingState!=='stable') await pc.setRemoteDescription(new RTCSessionDescription(sig.sdp));
     if(walkiePendingIce[from]){ for(const c of walkiePendingIce[from]){ try{ await pc.addIceCandidate(new RTCIceCandidate(c)); }catch(e){} } walkiePendingIce[from]=[]; walkieLog('🧊 대기 ICE 처리 완료'); }
   } else if(sig.type==='ice' && sig.candidate){
-    // v1.5.45 FIX: remoteDescription 아직 없으면 ICE 버리지 말고 큐에 보관
+    // v1.5.32 FIX: remoteDescription 아직 없으면 ICE 버리지 말고 큐에 보관
     if(!pc.remoteDescription || !pc.remoteDescription.type){
       if(!walkiePendingIce[from]) walkiePendingIce[from]=[];
       walkiePendingIce[from].push(sig.candidate);
@@ -2719,24 +2643,27 @@ chatRef.on('value', snap=>{
   const dot = document.getElementById('dot');
   const liveText = document.getElementById('liveText');
   if(dot) dot.className='dot';
-  if(liveText){ if(msgs.length>_chatVisibleCount) liveText.textContent='🔥 실시간 연결됨 - 최근 '+_chatVisibleCount+'개 보는 중 (전체 '+msgs.length+'개)'; else liveText.textContent='🔥 실시간 연결됨 - 메시지 '+msgs.length+'개'; }
+  if(liveText) liveText.textContent='🔥 실시간 연결됨 - 메시지 '+msgs.length+'개';
   if(!window._cleanupDone){
     window._cleanupDone=true;
     setTimeout(()=>{ cleanupOldData(); generateDailyRoutines(); }, 3000);
+  } else {
+    generateDailyRoutines();
   }
 });
 
 todosRef.on('value', snap=>{
   const val=snap.val()||{};
   data.todos=Object.entries(val).map(([k,v])=>({_key:k, ...v}));
-  if(document.getElementById('view-todo') && document.getElementById('view-todo').style.display!=='none'){ renderTodos(); }
+  renderTodos();
+  generateDailyRoutines();
 });
 
 routinesRef.on('value', snap=>{
   const val=snap.val()||{};
   data.routines=Object.entries(val).map(([k,v])=>({_key:k, ...v}));
-  if(document.getElementById('view-todo') && document.getElementById('view-todo').style.display!=='none'){ renderTodos(); }
-  if(document.getElementById('view-set') && document.getElementById('view-set').style.display!=='none'){ renderSettings(); }
+  renderTodos();
+  renderSettings();
   generateDailyRoutines();
 });
 
@@ -2763,8 +2690,8 @@ settingsRef.on('value', snap=>{
 noticesRef.on('value', snap=>{
   const val=snap.val()||{};
   data.notices=Object.entries(val).map(([k,v])=>({_key:k, ...v}));
-  if(document.getElementById('view-notice') && document.getElementById('view-notice').style.display!=='none'){ renderNotices(); }
-  if(document.getElementById('view-set') && document.getElementById('view-set').style.display!=='none'){ renderSettings(); }
+  renderNotices();
+  renderSettings();
 });
 
 document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) updateReadStatus(); });
@@ -2777,49 +2704,4 @@ document.addEventListener('click', function initAudio(){ requestNotifPermission(
 
 </script>
 
-<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script><script id="v1544-content-only">
-function _promptFallback(){
-  try{
-    var txt = prompt('메시지를 입력하세요');
-    if(txt===null) return;
-    txt = txt.trim();
-    if(!txt) return;
-    var inp = document.getElementById('chatInput');
-    if(inp) inp.value = txt;
-    if(typeof sendMsg==='function') sendMsg();
-  }catch(e){}
-}
-(function(){
-  try{
-    var _lastTap = 0;
-    document.addEventListener('DOMContentLoaded', function(){
-      var inp = document.getElementById('chatInput');
-      if(!inp) return;
-      // 레이아웃 변경 없음 - 기존 입력칸을 두 번 눌르면 iOS 기본 입력창이 뜸 (키보드가 안 뜰 때만 사용)
-      inp.addEventListener('touchstart', function(){
-        var now = Date.now();
-        if(now - _lastTap < 350){ _promptFallback(); }
-        _lastTap = now;
-      }, {passive:true});
-    });
-  }catch(e){}
-})();
-</script>
-<style id="v1544-invisible">
-/* v1.5.45 내용만 - 색, 크기, 레이아웃 변경 없음. 오른쪽 잘림만 뒤에서 막음 */
-.device{box-sizing:border-box !important;overflow:hidden !important;}
-.inner{box-sizing:border-box !important;overflow:hidden !important;}
-#view-chat .input-row{box-sizing:border-box !important;max-width:100% !important;}
-#view-chat .input-row input{box-sizing:border-box !important;min-width:0 !important;}
-</style>
-<style id="v1545-fit">
-/* v1.5.45 내용만 - 원본에 있던 7개 높이 규칙 충돌 정리. 색, 크기, 여백 변경 없음. 아래 잘림만 잡음 */
-html, body{height:100% !important;overflow:hidden !important;box-sizing:border-box !important;}
-body{padding:0 !important;margin:0 !important;padding-top:max(0px, env(safe-area-inset-top)) !important;padding-bottom:max(0px, env(safe-area-inset-bottom)) !important;}
-.device{height:100dvh !important;height:100vh !important;height:-webkit-fill-available !important;max-height:100dvh !important;max-height:-webkit-fill-available !important;min-height:0 !important;display:flex !important;flex-direction:column !important;box-sizing:border-box !important;overflow:hidden !important;}
-.inner{flex:1 !important;min-height:0 !important;display:flex !important;flex-direction:column !important;box-sizing:border-box !important;overflow:hidden !important;}
-#view-chat{flex:1 !important;min-height:0 !important;display:flex !important;flex-direction:column !important;overflow:hidden !important;}
-#chatList{flex:1 !important;min-height:0 !important;overflow-y:auto !important;overflow-x:hidden !important;}
-#view-chat .input-wrap{flex-shrink:0 !important;flex-grow:0 !important;}
-</style>
 <script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body></html>
